@@ -34,13 +34,4 @@ user.deleteById = async (userId) => {
     return await User.findByIdAndDelete(userId);
 };
 
-user.changeManagerRoleById = async (userId) => {
-    const user = await User.findById(userId);
-    if (user) {
-        return await user.changeManagerRole();
-    } else {
-        generateError(userErrors.notExists, 404)
-    }
-};
-
 module.exports = user;

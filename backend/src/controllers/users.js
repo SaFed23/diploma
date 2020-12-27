@@ -29,10 +29,4 @@ userController.deleteById = async (ctx) => {
     ctx.status = 204;
 };
 
-userController.changeManagerRole = async (ctx) => {
-    const { userId } = ctx.params; 
-    ctx.body = await userReducer.changeManagerRoleById(userId);
-    ctx.status = 201;
-}
-
 module.exports = userController;
