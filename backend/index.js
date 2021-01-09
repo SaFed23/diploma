@@ -5,6 +5,7 @@ const router = require('./src/routes/router.js')
 const { ui } = require("swagger2-koa");
 
 const apiSpec = require('./apiSpec');
+const { DB_CONNECTION, DB_NAME } = require('./config.js');
 
 const app = new Koa();
 app.use(bodyParser());
@@ -14,7 +15,10 @@ app.use(ui(apiSpec, "/swagger"));
 /**
 * Connect to the database
 */
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
+.catch(err => {
+    app.emit('error', err, ctx);
+})
 
 //Errors generation
 
@@ -22,8 +26,6 @@ app.use(async (ctx, next) => {
     try {
         await next();
     } catch (err) {
-        ctx.status = err.status || 500;
-        ctx.body = err.message;
         ctx.app.emit('error', err, ctx);
     }
 })
@@ -50,6 +52,8 @@ app.use(async (ctx, next) => {
 app.use(router.routes());
 
 app.on('error', (err, ctx) => {
+    ctx.status = err.status || 500;
+    ctx.body = err.message;
     console.log(ctx.body);
 });
 

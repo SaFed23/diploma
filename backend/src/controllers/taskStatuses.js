@@ -1,32 +1,32 @@
-const taskStatusesReducer = require("../reducers/taskStatuses");
+const taskStatusReducer = require("../reducers/taskStatuses");
 
-const taskStatusesController = {};
+const taskStatusController = {};
 
-taskStatusesController.create = async (ctx) => {
-    ctx.body = await taskStatusesReducer.create(ctx.request.body);
+taskStatusController.create = async (ctx) => {
+    ctx.body = await taskStatusReducer.create(ctx.request.body);
     ctx.status = 201;
 };
 
-taskStatusesController.getAll = async (ctx) => {
-    ctx.body = await taskStatusesReducer.getAll();
+taskStatusController.getAll = async (ctx) => {
+    ctx.body = await taskStatusReducer.getAll();
     ctx.status = 200;
 };
 
-taskStatusesController.getById = async (ctx) => {
-    const { taskStatusesId } = ctx.params; 
-    ctx.body = await taskStatusesReducer.getById(taskStatusesId);
+taskStatusController.getById = async (ctx) => {
+    const { taskStatusId } = ctx.params; 
+    ctx.body = await taskStatusReducer.getById(taskStatusId);
     ctx.status = 200;
 };
 
-taskStatusesController.updateById = async (ctx) => {
-    ctx.body = await taskStatusesReducer.updateById(ctx.request.body);
+taskStatusController.updateById = async (ctx) => {
+    ctx.body = await taskStatusReducer.updateById(ctx.request.body);
     ctx.status = 201;
 };
 
-taskStatusesController.deleteById = async (ctx) => {
-    const { taskStatusesId } = ctx.params; 
-    ctx.body = await taskStatusesReducer.deleteById(taskStatusesId);
+taskStatusController.deleteById = async (ctx) => {
+    const { taskStatusId } = ctx.params; 
+    ctx.body = await taskStatusReducer.deleteById(taskStatusId);
     ctx.status = 204;
 };
 
-module.exports = taskStatusesController;
+module.exports = taskStatusController;
