@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Factor = require("../db/factors");
 const { factorErrors } = require('../errors');
 
-const factor = {};
+const factorReducer = {};
 
-factor.create = async (factor) => {
+factorReducer.create = async (factor) => {
     return await Factor.create(factor);
 };
 
-factor.getAll = async () => {
+factorReducer.getAll = async () => {
     return await Factor.find();
 };
 
-factor.getById = async (factorId) => {
+factorReducer.getById = async (factorId) => {
     const factor = await Factor.findById(factorId);
     if(factor) {
         return factor;
@@ -21,7 +21,7 @@ factor.getById = async (factorId) => {
     }
 };
 
-factor.updateById = async (factor) => {
+factorReducer.updateById = async (factor) => {
     const result = await Factor
         .findByIdAndUpdate(factor._id, factor, {
             new: true
@@ -33,8 +33,8 @@ factor.updateById = async (factor) => {
     }
 };
 
-factor.deleteById = async (factorId) => {
+factorReducer.deleteById = async (factorId) => {
     return await Factor.findByIdAndRemove(factorId);
 };
 
-module.exports = factor;
+module.exports = factorReducer;

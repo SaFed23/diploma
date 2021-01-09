@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Comment = require("../db/comments");
 const { commentErrors } = require('../errors');
 
-const comment = {};
+const commentReducer = {};
 
-comment.create = async (comment) => {
+commentReducer.create = async (comment) => {
     return await Comment.create(comment);
 };
 
-comment.getAll = async () => {
+commentReducer.getAll = async () => {
     return await Comment.find();
 };
 
-comment.getById = async (commentId) => {
+commentReducer.getById = async (commentId) => {
     const comment = await Comment.findById(commentId);
     if(comment) {
         return comment;
@@ -21,7 +21,7 @@ comment.getById = async (commentId) => {
     }
 };
 
-comment.updateById = async (comment) => {
+commentReducer.updateById = async (comment) => {
     const result = await Comment
         .findByIdAndUpdate(comment._id, comment, {
             new: true
@@ -33,8 +33,8 @@ comment.updateById = async (comment) => {
     }
 };
 
-comment.deleteById = async (commentId) => {
+commentReducer.deleteById = async (commentId) => {
     return await Comment.findByIdAndRemove(commentId);
 };
 
-module.exports = comment;
+module.exports = commentReducer;

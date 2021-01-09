@@ -2,17 +2,17 @@ const User = require("../db/users");
 const { generateError }  = require('../utils');
 const { userErrors } = require("../errors");
 
-const user = {};
+const userReducer = {};
 
-user.create = async (user) => {
+userReducer.create = async (user) => {
     return await User.create(user);
 };
 
-user.getAll = async () => {
+userReducer.getAll = async () => {
     return await User.find();
 };
 
-user.getById = async (userId) => {
+userReducer.getById = async (userId) => {
     const user = await User.findById(userId);
     if (user) {
         return user;
@@ -21,7 +21,7 @@ user.getById = async (userId) => {
     }
 };
 
-user.updateById = async (user) => {
+userReducer.updateById = async (user) => {
     const result = await User.findById(departmentId);
     if(result) {
         return result
@@ -30,8 +30,8 @@ user.updateById = async (user) => {
     }
 };
 
-user.deleteById = async (userId) => {
+userReducer.deleteById = async (userId) => {
     return await User.findByIdAndDelete(userId);
 };
 
-module.exports = user;
+module.exports = userReducer;

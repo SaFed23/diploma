@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Project = require("../db/projects");
 const { projectErrors } = require('../errors');
 
-const projects = {};
+const projectsReducer = {};
 
-projects.create = async (project) => {
+projectsReducer.create = async (project) => {
     return await Project.create(project);
 };
 
-projects.getAll = async () => {
+projectsReducer.getAll = async () => {
     return await Project.find();
 };
 
-projects.getById = async (projectId) => {
+projectsReducer.getById = async (projectId) => {
     const project = await Project.findById(projectId);
     if (project) {
         return project;
@@ -21,7 +21,7 @@ projects.getById = async (projectId) => {
     }
 };
 
-projects.updateById = async (project) => {
+projectsReducer.updateById = async (project) => {
     const result = await Project
         .findByIdAndUpdate(project._id, project, {
             new: true
@@ -34,8 +34,8 @@ projects.updateById = async (project) => {
     return 
 };
 
-projects.deleteById = async (projectId) => {
+projectsReducer.deleteById = async (projectId) => {
     return await Project.findByIdAndDelete(projectId);
 };
 
-module.exports = projects;
+module.exports = projectsReducer;

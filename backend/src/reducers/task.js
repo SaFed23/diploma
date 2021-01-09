@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Task = require("../db/tasks");
 const { taskErrors } = require('../errors');
 
-const task = {};
+const taskReducer = {};
 
-task.create = async (task) => {
+taskReducer.create = async (task) => {
     return await Task.create(task);
 };
 
-task.getAll = async () => {
+taskReducer.getAll = async () => {
     return await Task.find();
 };
 
-task.getById = async (taskId) => {
+taskReducer.getById = async (taskId) => {
     const task = await Task.findById(taskId);
     if(task) {
         return task;
@@ -21,7 +21,7 @@ task.getById = async (taskId) => {
     }
 };
 
-task.updateById = async (task) => {
+taskReducer.updateById = async (task) => {
     const result = await Task
         .findByIdAndUpdate(task._id, task, {
             new: true
@@ -33,8 +33,8 @@ task.updateById = async (task) => {
     }
 };
 
-task.deleteById = async (taskId) => {
+taskReducer.deleteById = async (taskId) => {
     return await Task.findByIdAndRemove(taskId);
 };
 
-module.exports = task;
+module.exports = taskReducer;

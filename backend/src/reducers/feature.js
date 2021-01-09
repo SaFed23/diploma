@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Feature = require("../db/features");
 const { featureErrors } = require('../errors');
 
-const feature = {};
+const featureReducer = {};
 
-feature.create = async (feature) => {
+featureReducer.create = async (feature) => {
     return await Feature.create(feature);
 };
 
-feature.getAll = async () => {
+featureReducer.getAll = async () => {
     return await Feature.find();
 };
 
-feature.getById = async (featureId) => {
+featureReducer.getById = async (featureId) => {
     const feature = await Feature.findById(featureId);
     if(feature) {
         return feature;
@@ -21,7 +21,7 @@ feature.getById = async (featureId) => {
     }
 };
 
-feature.updateById = async (feature) => {
+featureReducer.updateById = async (feature) => {
     const result = await Feature
         .findByIdAndUpdate(feature._id, feature, {
             new: true
@@ -33,8 +33,8 @@ feature.updateById = async (feature) => {
     }
 };
 
-feature.deleteById = async (featureId) => {
+featureReducer.deleteById = async (featureId) => {
     return await Feature.findByIdAndRemove(featureId);
 };
 
-module.exports = feature;
+module.exports = featureReducer;

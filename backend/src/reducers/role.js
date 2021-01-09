@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Role = require("../db/roles");
 const { roleErrors } = require('../errors');
 
-const role = {};
+const roleReducer = {};
 
-role.create = async (role) => {
+roleReducer.create = async (role) => {
     return await Role.create(role);
 };
 
-role.getAll = async () => {
+roleReducer.getAll = async () => {
     return await Role.find();
 };
 
-role.getById = async (roleId) => {
+roleReducer.getById = async (roleId) => {
     const role = await Role.findById(roleId);
     if(role) {
         return role;
@@ -21,7 +21,7 @@ role.getById = async (roleId) => {
     }
 };
 
-role.updateById = async (role) => {
+roleReducer.updateById = async (role) => {
     const result = await Role
         .findByIdAndUpdate(role._id, role, {
             new: true
@@ -33,8 +33,8 @@ role.updateById = async (role) => {
     }
 };
 
-role.deleteById = async (roleId) => {
+roleReducer.deleteById = async (roleId) => {
     return await Role.findByIdAndRemove(roleId);
 };
 
-module.exports = role;
+module.exports = roleReducer;

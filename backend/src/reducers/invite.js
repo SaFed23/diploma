@@ -2,17 +2,17 @@ const generateError = require('../utils');
 const Invite = require("../db/invites");
 const { inviteErrors } = require('../errors');
 
-const invite = {};
+const inviteReducer = {};
 
-invite.create = async (invite) => {
+inviteReducer.create = async (invite) => {
     return await Invite.create(invite);
 };
 
-invite.getAll = async () => {
+inviteReducer.getAll = async () => {
     return await Invite.find();
 };
 
-invite.getById = async (inviteId) => {
+inviteReducer.getById = async (inviteId) => {
     const invite = await Invite.findById(inviteId);
     if(invite) {
         return invite;
@@ -21,7 +21,7 @@ invite.getById = async (inviteId) => {
     }
 };
 
-invite.updateById = async (invite) => {
+inviteReducer.updateById = async (invite) => {
     const result = await Invite
         .findByIdAndUpdate(invite._id, invite, {
             new: true
@@ -33,8 +33,8 @@ invite.updateById = async (invite) => {
     }
 };
 
-invite.deleteById = async (inviteId) => {
+inviteReducer.deleteById = async (inviteId) => {
     return await Invite.findByIdAndRemove(inviteId);
 };
 
-module.exports = invite;
+module.exports = inviteReducer;
