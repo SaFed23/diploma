@@ -1,77 +1,69 @@
 module.exports.definitions = {
-    Project: {
+    Task: {
         type: "object",
-        description: "Project object",
-        required: ['id', 'title', 'description', 'startDate', 'endDate', 'ownerId'],
+        description: "Task object",
+        required: ['id', 'title', 'description', 'statusTaskId', 'featureId'],
         properties: {
             'id': {
                 type: 'string',
-                description: 'Id of the project',
+                description: 'Id of the task',
             },
             title: {
                 type: 'string',
-                description: 'Title of the project',
+                description: 'Title of the task',
             },
             description: {
                 type: 'string',
-                description: 'Description of the project',
+                description: 'Description of the task',
             },
-            startDate: {
+            statusTaskId: {
                 type: 'string',
-                description: 'Start date of the project',
+                description: 'Status task id of the task',
             },
-            endDate: {
+            featureId: {
                 type: 'string',
-                description: 'End date of the project',
-            },
-            ownerId: {
-                type: 'string',
-                description: 'Owner id of the project',
+                description: 'Feature id of the task',
             },
         }
     },
-    ProjectWithoutId: {
+    TaskWithoutId: {
         type: "object",
-        description: "Project object",
-        required: ['title', 'description', 'startDate', 'endDate', 'ownerId'],
+        description: "Task object",
+        required: ['title', 'description', 'statusTaskId', 'featureId'],
         properties: {
             title: {
                 type: 'string',
-                description: 'Title of the project',
+                description: 'Title of the task',
             },
             description: {
                 type: 'string',
-                description: 'Description of the project',
+                description: 'Description of the task',
             },
-            startDate: {
+            statusTaskId: {
                 type: 'string',
-                description: 'Start date of the project',
+                description: 'Status task id of the task',
             },
-            endDate: {
+            featureId: {
                 type: 'string',
-                description: 'End date of the project',
-            },
-            ownerId: {
-                type: 'string',
-                description: 'Owner id of the project',
+                description: 'Feature id of the task',
             },
         }
     }
 };
 
 module.exports.paths = {
-    "/projects": {
+    "/tasks": {
         get: {
-            summary: 'Get all projects',
-            description: 'Get all projects',
-            tags: ['Project'],
+            summary: 'Get all tasks',
+            description: 'Get all tasks',
+            tags: ['Task'],
             responses: {
 				200: {
-					description: 'Successful response. All projects are returned.',
+					description: 'Successful response. All tasks are returned.',
 					schema: {
 						type: 'array',
 						items: {
-                            $ref: '#/definitions/Project',
+                            $ref: '#/definitions/Task',
                         },
 					},
                 },
@@ -81,24 +73,24 @@ module.exports.paths = {
 			},
         },
         post: {
-            summary: 'Create project',
-            description: 'Create new project',
-            tags: ['Project'],
+            summary: 'Create task',
+            description: 'Create new task',
+            tags: ['Task'],
             parameters: [
 				{
                     name: 'name',
 					in: 'body',
 					required: true,
 					schema: {
-						$ref: '#/definitions/ProjectWithoutId',
+						$ref: '#/definitions/TaskWithoutId',
                     },
 				},
 			],
             responses: {
 				201: {
-					description: 'Successful response. Project is created',
+					description: 'Successful response. Task is created',
 					schema: {
-						$ref: '#/definitions/Project'
+						$ref: '#/definitions/Task'
 					},
                 },
                 500: {
@@ -107,24 +99,24 @@ module.exports.paths = {
 			},
         },
         put: {
-            summary: 'Update project',
-            description: 'Update project',
-            tags: ['Project'],
+            summary: 'Update task',
+            description: 'Update task',
+            tags: ['Task'],
             parameters: [
                 {
-                    name: 'Project',
+                    name: 'Task',
 					in: 'body',
 					required: true,
 					schema: {
-						$ref: '#/definitions/Project',
+						$ref: '#/definitions/Task',
                     },
 				},
 			],
             responses: {
 				201: {
-					description: 'Successful response. Project is updated',
+					description: 'Successful response. Task is updated',
 					schema: {
-						$ref: '#/definitions/Project'
+						$ref: '#/definitions/Task'
 					},
                 },
                 404: {
@@ -136,24 +128,24 @@ module.exports.paths = {
             },
         }
     },
-    "/projects/{projectId}": {
+    "/tasks/{taskId}": {
         get: {
-            summary: 'Get project by id',
-            description: 'Get project by id',
-            tags: ['Project'],
+            summary: 'Get task by id',
+            description: 'Get task by id',
+            tags: ['Task'],
             parameters: [
 				{
                     type: "string",
-                    name: 'projectId',
+                    name: 'taskId',
 					in: 'path',
 					required: true,
 				},
 			],
             responses: {
 				200: {
-					description: 'Successful response. Project is returned.',
+					description: 'Successful response. Task is returned.',
 					schema: {
-						$ref: '#/definitions/Project',
+						$ref: '#/definitions/Task',
 					},
                 },
                 404: {
@@ -165,20 +157,20 @@ module.exports.paths = {
 			},
         },
         delete: {
-            summary: 'Delete project by id',
-            description: 'Delete project by id',
-            tags: ['Project'],
+            summary: 'Delete task by id',
+            description: 'Delete task by id',
+            tags: ['Task'],
             parameters: [
 				{
                     type: 'string',
-                    name: 'projectId',
+                    name: 'taskId',
 					in: 'path',
 					required: true,
 				},
 			],
             responses: {
 				204: {
-					description: 'Successful response. Project is deleted.',
+					description: 'Successful response. Task is deleted.',
 					schema: {
 						$ref: '#/responses/NoContent',
 					},

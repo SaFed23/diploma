@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const {methods, statics} = require("./functions");
 
 const factorSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        default: v4
+    },
     title: {
         type: String,
         required: true,

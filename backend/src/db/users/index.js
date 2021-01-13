@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const {methods, statics} = require("./functions");
 
 const userSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        default: v4
+    },
     username: {
         type: String,
         required: true,

@@ -1,45 +1,45 @@
 module.exports.definitions = {
-    Competence: {
+    Role: {
         type: "object",
-        description: "Competencies object",
-        required: ['_id', 'name'],
+        description: "Roles object",
+        required: ['id', 'title'],
         properties: {
-            '_id': {
+            'id': {
                 type: 'string',
-                description: 'Id of the competence',
+                description: 'Id of the role',
             },
-            name: {
+            title: {
                 type: 'string',
-                description: 'Name of the competence',
+                description: 'Title of the role',
             }
         }
     },
-    CompetenceWithoutId: {
+    RoleWithoutId: {
         type: "object",
-        description: "Competence object",
-        required: ['name'],
+        description: "Role object",
+        required: ['title'],
         properties: {
-            name: {
+            title: {
                 type: 'string',
-                description: 'Name of the competence',
+                description: 'Description of the role',
             }
         }
     }
 };
 
 module.exports.paths = {
-    "/competencies": {
+    "/roles": {
         get: {
-            summary: 'Get all competencies',
-            description: 'Get all competencies',
-            tags: ['Competence'],
+            summary: 'Get all roles',
+            description: 'Get all roles',
+            tags: ['Role'],
             responses: {
 				200: {
-					description: 'Successful response. All competencies are returned.',
+					description: 'Successful response. All roles are returned.',
 					schema: {
 						type: 'array',
 						items: {
-                            $ref: '#/definitions/Competence',
+                            $ref: '#/definitions/Role',
                         },
 					},
                 },
@@ -49,24 +49,24 @@ module.exports.paths = {
 			},
         },
         post: {
-            summary: 'Create competence',
-            description: 'Create new competence',
-            tags: ['Competence'],
+            summary: 'Create role',
+            description: 'Create new role',
+            tags: ['Role'],
             parameters: [
 				{
                     name: 'name',
 					in: 'body',
 					required: true,
 					schema: {
-						$ref: '#/definitions/CompetenceWithoutId',
+						$ref: '#/definitions/RoleWithoutId',
                     },
 				},
 			],
             responses: {
 				201: {
-					description: 'Successful response. Competence is created',
+					description: 'Successful response. Role is created',
 					schema: {
-						$ref: '#/definitions/Competence'
+						$ref: '#/definitions/Role'
 					},
                 },
                 500: {
@@ -75,22 +75,22 @@ module.exports.paths = {
 			},
         },
         put: {
-            summary: 'Update competence',
-            description: 'Update competence',
-            tags: ['Competence'],
+            summary: 'Update role',
+            description: 'Update role',
+            tags: ['Role'],
             parameters: [{
-                name: 'Competence',
+                name: 'Role',
                 in: 'body',
                 required: true,
                 schema: {
-                    $ref: '#/definitions/Competence',
+                    $ref: '#/definitions/Role',
                 },
             }],
             responses: {
 				201: {
-					description: 'Successful response. Competence is updated',
+					description: 'Successful response. Role is updated',
 					schema: {
-						$ref: '#/definitions/Competence'
+						$ref: '#/definitions/Role'
 					},
                 },
                 404: {
@@ -102,24 +102,24 @@ module.exports.paths = {
             },
         }
     },
-    "/competencies/{competenceId}": {
+    "/roles/{roleId}": {
         get: {
-            summary: 'Get competence by id',
-            description: 'Get competence by id',
-            tags: ['Competence'],
+            summary: 'Get role by id',
+            description: 'Get role by id',
+            tags: ['Role'],
             parameters: [
 				{
                     type: 'string',
-                    name: 'competenceId',
+                    name: 'roleId',
 					in: 'path',
 					required: true,
 				},
 			],
             responses: {
 				200: {
-					description: 'Successful response. Competence is returned.',
+					description: 'Successful response. Role is returned.',
 					schema: {
-						$ref: '#/definitions/Competence',
+						$ref: '#/definitions/Role',
 					},
                 },
                 404: {
@@ -131,20 +131,20 @@ module.exports.paths = {
 			},
         },
         delete: {
-            summary: 'Delete competence by id',
-            description: 'Delete competence by id',
-            tags: ['Competence'],
+            summary: 'Delete role by id',
+            description: 'Delete role by id',
+            tags: ['Role'],
             parameters: [
 				{
                     type: 'string',
-                    name: 'competenceId',
+                    name: 'roleId',
 					in: 'path',
 					required: true,
 				},
 			],
             responses: {
 				204: {
-					description: 'Successful response. Competence is deleted.',
+					description: 'Successful response. Role is deleted.',
 					schema: {
 						$ref: '#/responses/NoContent',
 					},

@@ -1,45 +1,45 @@
 module.exports.definitions = {
-    Department: {
+    Factor: {
         type: "object",
-        description: "Department object",
-        required: ['_id', 'name'],
+        description: "Factors object",
+        required: ['id', 'title'],
         properties: {
-            '_id': {
+            'id': {
                 type: 'string',
-                description: 'Id of the department',
+                description: 'Id of the factor',
             },
-            name: {
+            title: {
                 type: 'string',
-                description: 'Name of the department',
+                description: 'Title of the factor',
             }
         }
     },
-    DepartmentWithoutId: {
+    FactorWithoutId: {
         type: "object",
-        description: "Department object",
-        required: ['name'],
+        description: "Factor object",
+        required: ['title'],
         properties: {
-            name: {
+            title: {
                 type: 'string',
-                description: 'Name of the department',
+                description: 'Description of the factor',
             }
         }
     }
 };
 
 module.exports.paths = {
-    "/departments": {
+    "/factors": {
         get: {
-            summary: 'Get all departments',
-            description: 'Get all departments',
-            tags: ['Department'],
+            summary: 'Get all factors',
+            description: 'Get all factors',
+            tags: ['Factor'],
             responses: {
 				200: {
-					description: 'Successful response. All departments are returned.',
+					description: 'Successful response. All factors are returned.',
 					schema: {
 						type: 'array',
 						items: {
-                            $ref: '#/definitions/Department',
+                            $ref: '#/definitions/Factor',
                         },
 					},
                 },
@@ -49,24 +49,24 @@ module.exports.paths = {
 			},
         },
         post: {
-            summary: 'Create department',
-            description: 'Create new department',
-            tags: ['Department'],
+            summary: 'Create factor',
+            description: 'Create new factor',
+            tags: ['Factor'],
             parameters: [
 				{
                     name: 'name',
 					in: 'body',
 					required: true,
 					schema: {
-						$ref: '#/definitions/DepartmentWithoutId',
+						$ref: '#/definitions/FactorWithoutId',
                     },
 				},
 			],
             responses: {
 				201: {
-					description: 'Successful response. Department is created',
+					description: 'Successful response. Factor is created',
 					schema: {
-						$ref: '#/definitions/Department'
+						$ref: '#/definitions/Factor'
 					},
                 },
                 500: {
@@ -75,22 +75,22 @@ module.exports.paths = {
 			},
         },
         put: {
-            summary: 'Update department',
-            description: 'Update department',
-            tags: ['Department'],
+            summary: 'Update factor',
+            description: 'Update factor',
+            tags: ['Factor'],
             parameters: [{
-                name: 'Department',
+                name: 'Factor',
                 in: 'body',
                 required: true,
                 schema: {
-                    $ref: '#/definitions/Department',
+                    $ref: '#/definitions/Factor',
                 },
             }],
             responses: {
 				201: {
-					description: 'Successful response. Department is updated',
+					description: 'Successful response. Factor is updated',
 					schema: {
-						$ref: '#/definitions/Department'
+						$ref: '#/definitions/Factor'
 					},
                 },
                 404: {
@@ -102,24 +102,24 @@ module.exports.paths = {
             },
         }
     },
-    "/departments/{departmentId}": {
+    "/factors/{factorId}": {
         get: {
-            summary: 'Get department by id',
-            description: 'Get department by id',
-            tags: ['Department'],
+            summary: 'Get factor by id',
+            description: 'Get factor by id',
+            tags: ['Factor'],
             parameters: [
 				{
                     type: 'string',
-                    name: 'departmentId',
+                    name: 'factorId',
 					in: 'path',
 					required: true,
 				},
 			],
             responses: {
 				200: {
-					description: 'Successful response. Department is returned.',
+					description: 'Successful response. Factor is returned.',
 					schema: {
-						$ref: '#/definitions/Department',
+						$ref: '#/definitions/Factor',
 					},
                 },
                 404: {
@@ -131,20 +131,20 @@ module.exports.paths = {
 			},
         },
         delete: {
-            summary: 'Delete department by id',
-            description: 'Delete department by id',
-            tags: ['Department'],
+            summary: 'Delete factor by id',
+            description: 'Delete factor by id',
+            tags: ['Factor'],
             parameters: [
 				{
                     type: 'string',
-                    name: 'departmentId',
+                    name: 'factorId',
 					in: 'path',
 					required: true,
 				},
 			],
             responses: {
 				204: {
-					description: 'Successful response. Department is deleted.',
+					description: 'Successful response. Factor is deleted.',
 					schema: {
 						$ref: '#/responses/NoContent',
 					},

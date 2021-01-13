@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const {methods, statics} = require("./functions");
 
 const reportSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        default: v4
+    },
     date: {
         type: Date,
         required: true,
