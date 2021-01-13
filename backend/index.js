@@ -5,7 +5,7 @@ const router = require('./src/routes/router.js')
 const { ui } = require("swagger2-koa");
 
 const apiSpec = require('./apiSpec');
-const { DB_CONNECTION, DB_NAME } = require('./config.js');
+const { DB_CONNECTION, DB_NAME, PORT } = require('./config.js');
 
 const app = new Koa();
 app.use(bodyParser());
@@ -57,4 +57,4 @@ app.on('error', (err, ctx) => {
     console.log(ctx.body);
 });
 
-app.listen(2000);
+app.listen(PORT);

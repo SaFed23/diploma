@@ -1,4 +1,4 @@
-const taskStatusReducer = require("../reducers/taskStatuses");
+const taskStatusReducer = require("../reducers/taskStatus");
 
 const taskStatusController = {};
 

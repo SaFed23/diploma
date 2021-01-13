@@ -1,5 +1,5 @@
 const generateError = require('../utils');
-const Location = require("../db/locations ");
+const Location = require("../db/locations");
 const { locationErrors } = require('../errors');
 
 const locationReducer = {};

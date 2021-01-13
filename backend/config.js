@@ -1,4 +1,4 @@
-const PORT = 2000;
+const PORT = 3000;
 
 const DB_CONNECTION = 'mongodb://localhost:27017';
 
