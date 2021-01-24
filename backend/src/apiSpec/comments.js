@@ -2,7 +2,7 @@ module.exports.definitions = {
     Comment: {
         type: "object",
         description: "Comments object",
-        required: ['id', 'description', 'data', 'userId', 'taskId'],
+        required: ['id', 'description', 'date', 'userId', 'taskId'],
         properties: {
             'id': {
                 type: 'string',
@@ -11,6 +11,10 @@ module.exports.definitions = {
             description: {
                 type: 'string',
                 description: 'Description of the comment',
+            },
+            date: {
+                type: 'date',
+                description: 'Date of the comment',
             },
             userId: {
                 type: 'string',
@@ -25,11 +29,15 @@ module.exports.definitions = {
     CommentWithoutId: {
         type: "object",
         description: "Comment object",
-        required: ['description', 'data', 'userId', 'taskId'],
+        required: ['description', 'date', 'userId', 'taskId'],
         properties: {
             description: {
                 type: 'string',
                 description: 'Description of the comment',
+            },
+            date: {
+                type: 'date',
+                description: 'Date of the comment',
             },
             userId: {
                 type: 'string',

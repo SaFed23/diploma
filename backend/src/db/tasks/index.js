@@ -12,10 +12,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
     },
     description: String,
-    statusTaskId: {
-        type: String,
-        required: true,
-    },
+    taskStatusId: String,
     featureId: {
         type: String,
         required: true,

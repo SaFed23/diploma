@@ -4,6 +4,8 @@ const DB_CONNECTION = 'mongodb://localhost:27017';
 
 const DB_NAME = 'diploma';
 
+const SALT = '123salt321'
+
 const ROUTES = {
   comments: "/comments",
   factors: "/factors",
@@ -38,4 +40,5 @@ module.exports = {
   DB_NAME,
   ROUTES,
   NAMES,
+  SALT,
 }

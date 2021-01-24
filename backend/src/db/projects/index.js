@@ -23,7 +23,11 @@ const ptojectSchema = new mongoose.Schema({
     ownerId: {
         type: String,
         required: true,
-    }
+    },
+    userIds: {
+        type: Array,
+        required: true,
+    },
 }, {
     versionKey: false
 });

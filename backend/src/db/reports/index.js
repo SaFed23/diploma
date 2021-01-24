@@ -20,18 +20,9 @@ const reportSchema = new mongoose.Schema({
         required: true,
     },
     comment: String,
-    projectId: {
-        type: String,
-        required: true,
-    },
-    taskId: {
-        type: String,
-        required: true,
-    },
-    featureId: {
-        type: String,
-        required: true,
-    },
+    projectId: String,
+    taskId: String,
+    featureId: String,
     userId: {
         type: String,
         required: true,

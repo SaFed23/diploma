@@ -24,13 +24,6 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Location id of the user',
             },
-            projectIds: {
-                type: 'array',
-                description: 'Project ids of the user',
-                items: {
-                    type: "string"
-                }
-            },
         }
     },
     UserWithoutId: {
@@ -53,13 +46,6 @@ module.exports.definitions = {
             locationId: {
                 type: 'string',
                 description: 'Location id of the user',
-            },
-            projectIds: {
-                type: 'array',
-                description: 'Project ids of the user',
-                items: {
-                    type: "string"
-                }
             },
         }
     },

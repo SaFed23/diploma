@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "fillDb": "node ./src/fillDb",
     "release": "npm run clean && npm run build && npm run serve"
   },
   "author": "Fedoruk A. A.",

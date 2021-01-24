@@ -12,15 +12,10 @@ app.use(bodyParser());
 
 app.use(ui(apiSpec, "/swagger"));
 
-/**
-* Connect to the database
-*/
 mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
 .catch(err => {
     app.emit('error', err, ctx);
-})
-
-//Errors generation
+});
 
 app.use(async (ctx, next) => {
     try {
@@ -30,15 +25,11 @@ app.use(async (ctx, next) => {
     }
 })
 
-// logger
-
 app.use(async (ctx, next) => {
     await next();
     const rt = ctx.response.get('X-Response-Time');
     console.log(`${ctx.method} ${ctx.url} - ${rt}`);
 });
-
-// x-response-time
 
 app.use(async (ctx, next) => {
     const start = Date.now();
@@ -46,8 +37,6 @@ app.use(async (ctx, next) => {
     const ms = Date.now() - start;
     ctx.set('X-Response-Time', `${ms}ms`);
 });
-
-// response
 
 app.use(router.routes());
 

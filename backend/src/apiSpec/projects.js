@@ -28,6 +28,13 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Owner id of the project',
             },
+            userIds: {
+                type: 'array',
+                description: 'User ids of the project',
+                item: {
+                    type: 'string',
+                }
+            },
         }
     },
     ProjectWithoutId: {
@@ -54,6 +61,13 @@ module.exports.definitions = {
             ownerId: {
                 type: 'string',
                 description: 'Owner id of the project',
+            },
+            userIds: {
+                type: 'array',
+                description: 'User ids of the project',
+                item: {
+                    type: 'string',
+                }
             },
         }
     }

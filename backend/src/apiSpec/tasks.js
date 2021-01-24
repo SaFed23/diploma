@@ -2,7 +2,7 @@ module.exports.definitions = {
     Task: {
         type: "object",
         description: "Task object",
-        required: ['id', 'title', 'description', 'statusTaskId', 'featureId'],
+        required: ['id', 'title', 'description', 'taskStatusId', 'featureId'],
         properties: {
             'id': {
                 type: 'string',
@@ -16,7 +16,7 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Description of the task',
             },
-            statusTaskId: {
+            taskStatusId: {
                 type: 'string',
                 description: 'Status task id of the task',
             },
@@ -29,7 +29,7 @@ module.exports.definitions = {
     TaskWithoutId: {
         type: "object",
         description: "Task object",
-        required: ['title', 'description', 'statusTaskId', 'featureId'],
+        required: ['title', 'description', 'taskStatusId', 'featureId'],
         properties: {
             title: {
                 type: 'string',
@@ -39,7 +39,7 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Description of the task',
             },
-            statusTaskId: {
+            taskStatusId: {
                 type: 'string',
                 description: 'Status task id of the task',
             },

@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     locationId: String,
-    projectIds: Array,
 }, {
     versionKey: false
 });
