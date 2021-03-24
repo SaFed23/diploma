@@ -1,5 +1,6 @@
 const  { DB_CONNECTION, DB_NAME, SALT }  = require('../../config');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 const Comment = require("../db/comments");
 const Factor = require("../db/factors");
 const Feature = require("../db/features");
@@ -48,26 +49,30 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
     const location2 = await Location.create({title: "Minsk"});
     const location3 = await Location.create({title: "Moscow"});
 
+    const salt = crypto.randomBytes(128).toString('base64');
     const user1 = await User.create({
       username: "admin", 
-      passwordHash: Buffer.from("admin" + SALT).toString("base64"),
+      passwordHash: crypto.pbkdf2Sync('admin', salt, 1, 128, 'sha1'),
       email: "admin@tut.by",
       roleId: role1._id,
       locationId: location1._id,
+      salt,
     });
     const user2 = await User.create({
       username: "user", 
-      passwordHash: Buffer.from("user" + SALT).toString("base64"),
+      passwordHash: crypto.pbkdf2Sync('user', salt, 1, 128, 'sha1'),
       email: "user@tut.by",
       roleId: role2._id,
       locationId: location2._id,
+      salt,
     });
     const user3 = await User.create({
       username: "manager", 
-      passwordHash: Buffer.from("manager" + SALT).toString("base64"),
+      passwordHash: crypto.pbkdf2Sync('manager', salt, 1, 128, 'sha1'),
       email: "manager@tut.by",
       roleId: role3._id,
       locationId: location3._id,
+      salt,
     });
 
     const project1 = await Project.create({
