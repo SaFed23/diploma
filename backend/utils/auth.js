@@ -14,7 +14,6 @@ const LOCAL_STRATEGY = new LocalStrategy({
       if (err) {
         return done(err);
       }
-
       if (!user || !user.checkPassword(password)) {
         return done(null, false, {message: 'User not found'});
       }
@@ -24,7 +23,7 @@ const LOCAL_STRATEGY = new LocalStrategy({
 );
 
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwt"),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: SALT
 }
 

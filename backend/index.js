@@ -47,31 +47,27 @@ app.use(async (ctx, next) => {
 });
 
 router.post('/login', async (ctx, next) => {
-    await passport.authenticate('local', function (err, user) {
-        if (user == false) {
-          ctx.body = "Login failed";
-        } else {
-          //--payload - информация которую мы храним в токене и можем из него получать
-          const payload = {
-            id: user.id,
-            displayName: user.displayName,
-            email: user.email
-          };
-          const token = jwt.sign(payload, SALT); //здесь создается JWT
-          
-          ctx.body = {user: user.displayName, token: 'JWT ' + token};
-        }
-      })(ctx, next);  
+  await passport.authenticate('local', function (err, user) {
+      if (user == false) {
+        ctx.body = "Login failed";
+      } else {
+        const payload = {
+          id: user.id,
+        };
+        const token = jwt.sign(payload, SALT);
+        
+        ctx.body = {user: user.username, token: token};
+      }
+    })(ctx, next);  
 });
 
-router.get('/custom', async(ctx, next) => {
-  
-    await passport.authenticate('jwt', function (err, user) {
+app.use(async(ctx, next) => {
+    await passport.authenticate('jwt', async function (err, user) {
       if (user) {
-        ctx.body = "hello " + user.displayName;
+        console.log("hello " + user.username);
+        await next()
       } else {
-        ctx.body = "No such user";
-        console.log("err", err)
+        ctx.app.emit('No such user', err, ctx);
       }
     } )(ctx, next)  
   });

@@ -44,7 +44,6 @@ userSchema.virtual('password')
             this.passwordHash = undefined;
         }
     })
-
     .get(function () {
         return this._plainPassword;
     });
