@@ -65,6 +65,14 @@ module.exports.paths = {
             summary: 'Get all invites',
             description: 'Get all invites',
             tags: ['Invite'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All invites are returned.',
@@ -75,6 +83,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -85,6 +96,12 @@ module.exports.paths = {
             description: 'Create new invite',
             tags: ['Invite'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -101,6 +118,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Invite'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -110,14 +130,22 @@ module.exports.paths = {
             summary: 'Update invite',
             description: 'Update invite',
             tags: ['Invite'],
-            parameters: [{
-                name: 'Invite',
-                in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/Invite',
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
                 },
-            }],
+                {
+                    name: 'Invite',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Invite',
+                    },
+                }
+            ],
             responses: {
 				201: {
 					description: 'Successful response. Invite is updated',
@@ -125,6 +153,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Invite'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -140,6 +171,12 @@ module.exports.paths = {
             description: 'Get invite by id',
             tags: ['Invite'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'inviteId',
@@ -154,6 +191,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Invite',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -167,6 +207,12 @@ module.exports.paths = {
             description: 'Delete invite by id',
             tags: ['Invite'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'inviteId',
@@ -181,6 +227,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

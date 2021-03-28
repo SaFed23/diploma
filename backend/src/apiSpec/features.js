@@ -49,6 +49,14 @@ module.exports.paths = {
             summary: 'Get all features',
             description: 'Get all features',
             tags: ['Feature'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All features are returned.',
@@ -59,6 +67,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -69,6 +80,12 @@ module.exports.paths = {
             description: 'Create new feature',
             tags: ['Feature'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -85,6 +102,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Feature'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -94,14 +114,22 @@ module.exports.paths = {
             summary: 'Update feature',
             description: 'Update feature',
             tags: ['Feature'],
-            parameters: [{
-                name: 'Feature',
-                in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/Feature',
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
                 },
-            }],
+                {
+                    name: 'Feature',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Feature',
+                    },
+                }
+            ],
             responses: {
 				201: {
 					description: 'Successful response. Feature is updated',
@@ -109,6 +137,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Feature'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -124,6 +155,12 @@ module.exports.paths = {
             description: 'Get feature by id',
             tags: ['Feature'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'featureId',
@@ -138,6 +175,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Feature',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -151,6 +191,12 @@ module.exports.paths = {
             description: 'Delete feature by id',
             tags: ['Feature'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'featureId',
@@ -165,6 +211,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

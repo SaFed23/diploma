@@ -29,11 +29,15 @@ module.exports.definitions = {
     UserWithoutId: {
         type: "object",
         description: "User object",
-        required: ['username', 'departmentId', 'email', 'roleId'],
+        required: ['username', 'departmentId', 'email', 'roleId', 'password'],
         properties: {
             username: {
                 type: 'string',
                 description: 'Username of the user',
+            },
+            password: {
+                type: 'string',
+                description: 'Password of the user',
             },
             email: {
                 type: 'string',
@@ -57,6 +61,14 @@ module.exports.paths = {
             summary: 'Get all users',
             description: 'Get all users',
             tags: ['User'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All users are returned.',
@@ -67,6 +79,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -77,6 +92,12 @@ module.exports.paths = {
             description: 'Create new user',
             tags: ['User'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -93,6 +114,9 @@ module.exports.paths = {
 						$ref: '#/definitions/User'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -103,6 +127,12 @@ module.exports.paths = {
             description: 'Change user',
             tags: ['User'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'User',
 					in: 'body',
@@ -119,6 +149,9 @@ module.exports.paths = {
 						$ref: '#/definitions/User',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -134,10 +167,16 @@ module.exports.paths = {
             description: 'Get user by id',
             tags: ['User'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: "string",
-                    name: 'userId',
-					in: 'path',
+                    name: "userId",
+					in: "path",
 					required: true,
 				},
 			],
@@ -148,6 +187,9 @@ module.exports.paths = {
 						$ref: '#/definitions/User',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -161,6 +203,12 @@ module.exports.paths = {
             description: 'Delete user by id',
             tags: ['User'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'userId',
@@ -175,6 +223,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

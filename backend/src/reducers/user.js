@@ -1,5 +1,5 @@
 const User = require("../db/users");
-const { generateError }  = require('../utils');
+const generateError = require('../utils');
 const { userErrors } = require("../errors");
 
 const userReducer = {};

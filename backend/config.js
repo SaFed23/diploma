@@ -21,6 +21,7 @@ const ROUTES = {
 };
 
 const NAMES = {
+  auth: "auth",
   comments: "comments",
   factors: "factors",
   features: "features",

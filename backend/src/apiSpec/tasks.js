@@ -57,6 +57,14 @@ module.exports.paths = {
             summary: 'Get all tasks',
             description: 'Get all tasks',
             tags: ['Task'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All tasks are returned.',
@@ -77,6 +85,12 @@ module.exports.paths = {
             description: 'Create new task',
             tags: ['Task'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -103,6 +117,12 @@ module.exports.paths = {
             description: 'Update task',
             tags: ['Task'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
                 {
                     name: 'Task',
 					in: 'body',
@@ -134,6 +154,12 @@ module.exports.paths = {
             description: 'Get task by id',
             tags: ['Task'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: "string",
                     name: 'taskId',
@@ -161,6 +187,12 @@ module.exports.paths = {
             description: 'Delete task by id',
             tags: ['Task'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'taskId',

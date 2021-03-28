@@ -33,6 +33,14 @@ module.exports.paths = {
             summary: 'Get all roles',
             description: 'Get all roles',
             tags: ['Role'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All roles are returned.',
@@ -43,6 +51,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -53,6 +64,12 @@ module.exports.paths = {
             description: 'Create new role',
             tags: ['Role'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -69,6 +86,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Role'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -78,14 +98,22 @@ module.exports.paths = {
             summary: 'Update role',
             description: 'Update role',
             tags: ['Role'],
-            parameters: [{
-                name: 'Role',
-                in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/Role',
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
                 },
-            }],
+                {
+                    name: 'Role',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Role',
+                    },
+                }
+            ],
             responses: {
 				201: {
 					description: 'Successful response. Role is updated',
@@ -93,6 +121,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Role'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -108,6 +139,12 @@ module.exports.paths = {
             description: 'Get role by id',
             tags: ['Role'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'roleId',
@@ -122,6 +159,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Role',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -135,6 +175,12 @@ module.exports.paths = {
             description: 'Delete role by id',
             tags: ['Role'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'roleId',
@@ -149,6 +195,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

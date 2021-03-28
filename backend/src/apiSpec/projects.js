@@ -79,6 +79,14 @@ module.exports.paths = {
             summary: 'Get all projects',
             description: 'Get all projects',
             tags: ['Project'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All projects are returned.',
@@ -89,6 +97,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -99,6 +110,12 @@ module.exports.paths = {
             description: 'Create new project',
             tags: ['Project'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -115,6 +132,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Project'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -125,6 +145,12 @@ module.exports.paths = {
             description: 'Update project',
             tags: ['Project'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
                 {
                     name: 'Project',
 					in: 'body',
@@ -141,6 +167,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Project'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -156,6 +185,12 @@ module.exports.paths = {
             description: 'Get project by id',
             tags: ['Project'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: "string",
                     name: 'projectId',
@@ -170,6 +205,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Project',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -183,6 +221,12 @@ module.exports.paths = {
             description: 'Delete project by id',
             tags: ['Project'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'projectId',
@@ -197,6 +241,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

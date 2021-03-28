@@ -33,6 +33,14 @@ module.exports.paths = {
             summary: 'Get all factors',
             description: 'Get all factors',
             tags: ['Factor'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All factors are returned.',
@@ -43,6 +51,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -53,6 +64,12 @@ module.exports.paths = {
             description: 'Create new factor',
             tags: ['Factor'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -69,6 +86,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Factor'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -78,14 +98,22 @@ module.exports.paths = {
             summary: 'Update factor',
             description: 'Update factor',
             tags: ['Factor'],
-            parameters: [{
-                name: 'Factor',
-                in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/Factor',
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
                 },
-            }],
+                {
+                    name: 'Factor',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Factor',
+                    },
+                }
+            ],
             responses: {
 				201: {
 					description: 'Successful response. Factor is updated',
@@ -93,6 +121,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Factor'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -108,6 +139,12 @@ module.exports.paths = {
             description: 'Get factor by id',
             tags: ['Factor'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'factorId',
@@ -122,6 +159,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Factor',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -135,6 +175,12 @@ module.exports.paths = {
             description: 'Delete factor by id',
             tags: ['Factor'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'factorId',
@@ -149,6 +195,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

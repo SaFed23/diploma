@@ -9,6 +9,7 @@ const { ui } = require("swagger2-koa");
 const apiSpec = require('./apiSpec');
 const { DB_CONNECTION, DB_NAME, PORT, SALT } = require('./config.js');
 const { LOCAL_STRATEGY, JWT_STRATEGY } = require('./utils/auth.js');
+const authRouter = require('./src/routes/authRouter.js');
 
 const app = new Koa();
 app.use(bodyParser());
@@ -46,31 +47,21 @@ app.use(async (ctx, next) => {
     ctx.set('X-Response-Time', `${ms}ms`);
 });
 
-router.post('/login', async (ctx, next) => {
-  await passport.authenticate('local', function (err, user) {
-      if (user == false) {
-        ctx.body = "Login failed";
-      } else {
-        const payload = {
-          id: user.id,
-        };
-        const token = jwt.sign(payload, SALT);
-        
-        ctx.body = {user: user.username, token: token};
-      }
-    })(ctx, next);  
-});
+// auth
+app.use(authRouter.routes());
 
 app.use(async(ctx, next) => {
-    await passport.authenticate('jwt', async function (err, user) {
-      if (user) {
-        console.log("hello " + user.username);
-        await next()
-      } else {
-        ctx.app.emit('No such user', err, ctx);
-      }
-    } )(ctx, next)  
-  });
+  await passport.authenticate('jwt', async function (err, user) {
+    if (user) {
+      await next();
+    } else {
+      const error = new Error('No such user')
+      error.status = 401;
+      console.log(err);
+      ctx.app.emit('error', error, ctx);
+    }
+  })(ctx, next);
+});
 
 app.use(router.routes());
 

@@ -34,6 +34,13 @@ const apiSpec = {
 		NoContent: {
 			description: 'Success no content response',
 		},
+		// Error 401
+		UnauthorizedError: {
+			description: 'Unauthorized client',
+			schema: {
+				$ref: '#/definitions/Error',
+			},
+		},
 		// Error 404
 		NotFoundError: {
 			description: 'Not found error',

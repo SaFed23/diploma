@@ -33,6 +33,14 @@ module.exports.paths = {
             summary: 'Get all locations',
             description: 'Get all locations',
             tags: ['Location'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All locations are returned.',
@@ -43,6 +51,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -53,6 +64,12 @@ module.exports.paths = {
             description: 'Create new location',
             tags: ['Location'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -69,6 +86,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Location'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -78,14 +98,22 @@ module.exports.paths = {
             summary: 'Update location',
             description: 'Update location',
             tags: ['Location'],
-            parameters: [{
-                name: 'Location',
-                in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/Location',
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
                 },
-            }],
+                {
+                    name: 'Location',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Location',
+                    },
+                }
+            ],
             responses: {
 				201: {
 					description: 'Successful response. Location is updated',
@@ -93,6 +121,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Location'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -108,6 +139,12 @@ module.exports.paths = {
             description: 'Get location by id',
             tags: ['Location'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'locationId',
@@ -122,6 +159,9 @@ module.exports.paths = {
 						$ref: '#/definitions/Location',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -135,6 +175,12 @@ module.exports.paths = {
             description: 'Delete location by id',
             tags: ['Location'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'locationId',
@@ -149,6 +195,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},

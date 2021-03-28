@@ -41,6 +41,14 @@ module.exports.paths = {
             summary: 'Get all taskStatuses',
             description: 'Get all taskStatuses',
             tags: ['TaskStatus'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+            ],
             responses: {
 				200: {
 					description: 'Successful response. All taskStatuses are returned.',
@@ -51,6 +59,9 @@ module.exports.paths = {
                         },
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -61,6 +72,12 @@ module.exports.paths = {
             description: 'Create new taskStatus',
             tags: ['TaskStatus'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     name: 'name',
 					in: 'body',
@@ -77,6 +94,9 @@ module.exports.paths = {
 						$ref: '#/definitions/TaskStatus'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 500: {
 					$ref: '#/responses/UnknownServerError',
 				},
@@ -86,14 +106,22 @@ module.exports.paths = {
             summary: 'Update taskStatus',
             description: 'Update taskStatus',
             tags: ['TaskStatus'],
-            parameters: [{
-                name: 'TaskStatus',
-                in: 'body',
-                required: true,
-                schema: {
-                    $ref: '#/definitions/TaskStatus',
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
                 },
-            }],
+                {
+                    name: 'TaskStatus',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/TaskStatus',
+                    },
+                }
+            ],
             responses: {
 				201: {
 					description: 'Successful response. TaskStatus is updated',
@@ -101,6 +129,9 @@ module.exports.paths = {
 						$ref: '#/definitions/TaskStatus'
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -116,6 +147,12 @@ module.exports.paths = {
             description: 'Get taskStatus by id',
             tags: ['TaskStatus'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'taskStatusId',
@@ -130,6 +167,9 @@ module.exports.paths = {
 						$ref: '#/definitions/TaskStatus',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
@@ -143,6 +183,12 @@ module.exports.paths = {
             description: 'Delete taskStatus by id',
             tags: ['TaskStatus'],
             parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
 				{
                     type: 'string',
                     name: 'taskStatusId',
@@ -157,6 +203,9 @@ module.exports.paths = {
 						$ref: '#/responses/NoContent',
 					},
                 },
+                401: {
+					$ref: '#/responses/UnauthorizedError',
+				},
                 404: {
 					$ref: '#/responses/NotFoundError',
 				},
