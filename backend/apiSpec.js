@@ -23,11 +23,11 @@ Object.keys(apiSpecPathsAndDefinitions).forEach(item => {
 const apiSpec = {
 	swagger: '2.0',
 	info: {
-		title: 'Cofe3.0',
+		title: 'Diploma',
 		description: 'Description',
 		version: '1.0.0',
-    },
-    schemes: ['http', 'https'],
+	},
+	schemes: ['http', 'https'],
 	basePath: '/',
 	responses: {
 		// 204 No Content
@@ -56,7 +56,7 @@ const apiSpec = {
 			},
 		},
 	},
-    paths,
+	paths,
 	definitions,
 }
 
