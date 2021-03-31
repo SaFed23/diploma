@@ -16,13 +16,11 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Email of the user',
             },
-            roleId: {
-                type: 'string',
-                description: 'Role id of the user',
+            role: {
+                $ref: '#/definitions/Role',
             },
-            locationId: {
-                type: 'string',
-                description: 'Location id of the user',
+            location: {
+                $ref: '#/definitions/Location',
             },
         }
     },
@@ -70,22 +68,22 @@ module.exports.paths = {
                 },
             ],
             responses: {
-				200: {
-					description: 'Successful response. All users are returned.',
-					schema: {
-						type: 'array',
-						items: {
+                200: {
+                    description: 'Successful response. All users are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
                             $ref: '#/definitions/User',
                         },
-					},
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         post: {
             summary: 'Create user',
@@ -98,29 +96,29 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'name',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/UserWithoutId',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/UserWithoutId',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. User is created',
-					schema: {
-						$ref: '#/definitions/User'
-					},
+                201: {
+                    description: 'Successful response. User is created',
+                    schema: {
+                        $ref: '#/definitions/User'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         put: {
             summary: 'Change user',
@@ -133,32 +131,32 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'User',
-					in: 'body',
+                    in: 'body',
                     required: true,
                     schema: {
-						$ref: '#/definitions/User'
-					},
+                        $ref: '#/definitions/User'
+                    },
                 },
-			],
+            ],
             responses: {
-				201: {
-					description: 'Successful response. User was changed',
-					schema: {
-						$ref: '#/definitions/User',
-					},
+                201: {
+                    description: 'Successful response. User was changed',
+                    schema: {
+                        $ref: '#/definitions/User',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
     "/users/{userId}": {
@@ -173,30 +171,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: "string",
                     name: "userId",
-					in: "path",
-					required: true,
-				},
-			],
+                    in: "path",
+                    required: true,
+                },
+            ],
             responses: {
-				200: {
-					description: 'Successful response. User is returned.',
-					schema: {
-						$ref: '#/definitions/User',
-					},
+                200: {
+                    description: 'Successful response. User is returned.',
+                    schema: {
+                        $ref: '#/definitions/User',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         delete: {
             summary: 'Delete user by id',
@@ -209,30 +207,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'userId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				204: {
-					description: 'Successful response. User is deleted.',
-					schema: {
-						$ref: '#/responses/NoContent',
-					},
+                204: {
+                    description: 'Successful response. User is deleted.',
+                    schema: {
+                        $ref: '#/responses/NoContent',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
 }

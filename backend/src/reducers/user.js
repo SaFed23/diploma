@@ -1,30 +1,35 @@
 const User = require("../db/users");
 const generateError = require('../utils');
 const { userErrors } = require("../errors");
+const { getInfoForArray } = require('../../utils/helper');
 
 const userReducer = {};
 
 userReducer.create = async (user) => {
-    return await User.create(user);
+    const newUser = await User.create(user)
+    return newUser.getInfo();
 };
 
 userReducer.getAll = async () => {
-    return await User.find();
+    return getInfoForArray(await User.find());
 };
 
 userReducer.getById = async (userId) => {
     const user = await User.findById(userId);
     if (user) {
-        return user;
+        return user.getInfo();
     } else {
         generateError(userErrors.notExists, 404)
     }
 };
 
 userReducer.updateById = async (user) => {
-    const result = await User.findById(departmentId);
-    if(result) {
-        return result
+    const result = await User
+        .findByIdAndUpdate(user.id, user, {
+            new: true
+        });
+    if (result) {
+        return result.getInfo();
     } else {
         generateError(userErrors.notExists, 404);
     }

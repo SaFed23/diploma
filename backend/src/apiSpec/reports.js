@@ -24,29 +24,23 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Comment of the report',
             },
-            projectId: {
-                type: 'string',
-                description: 'Project id of the report',
+            project: {
+                $ref: '#/definitions/Project',
             },
-            taskId: {
-                type: 'string',
-                description: 'Task id of the report',
+            task: {
+                $ref: '#/definitions/Task',
             },
-            featureId: {
-                type: 'string',
-                description: 'Feature id of the report',
+            feature: {
+                $ref: '#/definitions/Feature',
             },
-            userId: {
-                type: 'string',
-                description: 'User id of the report',
+            user: {
+                $ref: '#/definitions/User',
             },
-            factorId: {
-                type: 'string',
-                description: 'Factor id of the report',
+            factor: {
+                $ref: '#/definitions/Factor',
             },
-            locationId: {
-                type: 'string',
-                description: 'Location id of the report',
+            location: {
+                $ref: '#/definitions/Location',
             },
         }
     },
@@ -114,22 +108,22 @@ module.exports.paths = {
                 },
             ],
             responses: {
-				200: {
-					description: 'Successful response. All reports are returned.',
-					schema: {
-						type: 'array',
-						items: {
+                200: {
+                    description: 'Successful response. All reports are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
                             $ref: '#/definitions/Report',
                         },
-					},
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         post: {
             summary: 'Create report',
@@ -142,29 +136,29 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'name',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/ReportWithoutId',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/ReportWithoutId',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Report is created',
-					schema: {
-						$ref: '#/definitions/Report'
-					},
+                201: {
+                    description: 'Successful response. Report is created',
+                    schema: {
+                        $ref: '#/definitions/Report'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         put: {
             summary: 'Update report',
@@ -187,21 +181,21 @@ module.exports.paths = {
                 }
             ],
             responses: {
-				201: {
-					description: 'Successful response. Report is updated',
-					schema: {
-						$ref: '#/definitions/Report'
-					},
+                201: {
+                    description: 'Successful response. Report is updated',
+                    schema: {
+                        $ref: '#/definitions/Report'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
+                    $ref: '#/responses/UnknownServerError',
+                },
             },
         }
     },
@@ -217,30 +211,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'reportId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				200: {
-					description: 'Successful response. Report is returned.',
-					schema: {
-						$ref: '#/definitions/Report',
-					},
+                200: {
+                    description: 'Successful response. Report is returned.',
+                    schema: {
+                        $ref: '#/definitions/Report',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         delete: {
             summary: 'Delete report by id',
@@ -253,30 +247,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'reportId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				204: {
-					description: 'Successful response. Report is deleted.',
-					schema: {
-						$ref: '#/responses/NoContent',
-					},
+                204: {
+                    description: 'Successful response. Report is deleted.',
+                    schema: {
+                        $ref: '#/responses/NoContent',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
 }

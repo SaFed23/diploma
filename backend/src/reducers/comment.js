@@ -1,21 +1,23 @@
 const generateError = require('../utils');
 const Comment = require("../db/comments");
 const { commentErrors } = require('../errors');
+const { getInfoForArray } = require('../../utils/helper');
 
 const commentReducer = {};
 
 commentReducer.create = async (comment) => {
-    return await Comment.create(comment);
+    const newComment = await Comment.create(comment);
+    return newComment.getInfo();
 };
 
 commentReducer.getAll = async () => {
-    return await Comment.find();
+    return getInfoForArray(await Comment.find());
 };
 
 commentReducer.getById = async (commentId) => {
     const comment = await Comment.findById(commentId);
-    if(comment) {
-        return comment;
+    if (comment) {
+        return comment.getInfo();
     } else {
         generateError(commentErrors.notExists, 404);
     }
@@ -23,9 +25,10 @@ commentReducer.getById = async (commentId) => {
 
 commentReducer.updateById = async (comment) => {
     const result = await Comment
-        .findByIdAndUpdate(comment._id, comment, {
+        .findByIdAndUpdate(comment.id, comment, {
             new: true
-        });
+        })
+        .getInfo();
     if (result) {
         return result;
     } else {

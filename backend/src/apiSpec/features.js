@@ -16,9 +16,8 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Description of the feature',
             },
-            projectId: {
-                type: 'string',
-                description: 'Project id of the feature',
+            project: {
+                $ref: '#/definitions/Project',
             },
         }
     },
@@ -58,22 +57,22 @@ module.exports.paths = {
                 },
             ],
             responses: {
-				200: {
-					description: 'Successful response. All features are returned.',
-					schema: {
-						type: 'array',
-						items: {
+                200: {
+                    description: 'Successful response. All features are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
                             $ref: '#/definitions/Feature',
                         },
-					},
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         post: {
             summary: 'Create feature',
@@ -86,29 +85,29 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'name',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/FeatureWithoutId',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/FeatureWithoutId',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Feature is created',
-					schema: {
-						$ref: '#/definitions/Feature'
-					},
+                201: {
+                    description: 'Successful response. Feature is created',
+                    schema: {
+                        $ref: '#/definitions/Feature'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         put: {
             summary: 'Update feature',
@@ -131,21 +130,21 @@ module.exports.paths = {
                 }
             ],
             responses: {
-				201: {
-					description: 'Successful response. Feature is updated',
-					schema: {
-						$ref: '#/definitions/Feature'
-					},
+                201: {
+                    description: 'Successful response. Feature is updated',
+                    schema: {
+                        $ref: '#/definitions/Feature'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
+                    $ref: '#/responses/UnknownServerError',
+                },
             },
         }
     },
@@ -161,30 +160,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'featureId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				200: {
-					description: 'Successful response. Feature is returned.',
-					schema: {
-						$ref: '#/definitions/Feature',
-					},
+                200: {
+                    description: 'Successful response. Feature is returned.',
+                    schema: {
+                        $ref: '#/definitions/Feature',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         delete: {
             summary: 'Delete feature by id',
@@ -197,30 +196,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'featureId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				204: {
-					description: 'Successful response. Feature is deleted.',
-					schema: {
-						$ref: '#/responses/NoContent',
-					},
+                204: {
+                    description: 'Successful response. Feature is deleted.',
+                    schema: {
+                        $ref: '#/responses/NoContent',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
 }

@@ -24,15 +24,13 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'End date of the project',
             },
-            ownerId: {
-                type: 'string',
-                description: 'Owner id of the project',
+            owner: {
+                $ref: '#/definitions/User',
             },
-            userIds: {
+            users: {
                 type: 'array',
-                description: 'User ids of the project',
-                item: {
-                    type: 'string',
+                items: {
+                    $ref: '#/definitions/User',
                 }
             },
         }
@@ -88,22 +86,22 @@ module.exports.paths = {
                 },
             ],
             responses: {
-				200: {
-					description: 'Successful response. All projects are returned.',
-					schema: {
-						type: 'array',
-						items: {
+                200: {
+                    description: 'Successful response. All projects are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
                             $ref: '#/definitions/Project',
                         },
-					},
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         post: {
             summary: 'Create project',
@@ -116,29 +114,29 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'name',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/ProjectWithoutId',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/ProjectWithoutId',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Project is created',
-					schema: {
-						$ref: '#/definitions/Project'
-					},
+                201: {
+                    description: 'Successful response. Project is created',
+                    schema: {
+                        $ref: '#/definitions/Project'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         put: {
             summary: 'Update project',
@@ -153,29 +151,29 @@ module.exports.paths = {
                 },
                 {
                     name: 'Project',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/Project',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Project',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Project is updated',
-					schema: {
-						$ref: '#/definitions/Project'
-					},
+                201: {
+                    description: 'Successful response. Project is updated',
+                    schema: {
+                        $ref: '#/definitions/Project'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
+                    $ref: '#/responses/UnknownServerError',
+                },
             },
         }
     },
@@ -191,30 +189,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: "string",
                     name: 'projectId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				200: {
-					description: 'Successful response. Project is returned.',
-					schema: {
-						$ref: '#/definitions/Project',
-					},
+                200: {
+                    description: 'Successful response. Project is returned.',
+                    schema: {
+                        $ref: '#/definitions/Project',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         delete: {
             summary: 'Delete project by id',
@@ -227,30 +225,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'projectId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				204: {
-					description: 'Successful response. Project is deleted.',
-					schema: {
-						$ref: '#/responses/NoContent',
-					},
+                204: {
+                    description: 'Successful response. Project is deleted.',
+                    schema: {
+                        $ref: '#/responses/NoContent',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
 }

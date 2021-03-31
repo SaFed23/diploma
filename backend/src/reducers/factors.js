@@ -14,7 +14,7 @@ factorReducer.getAll = async () => {
 
 factorReducer.getById = async (factorId) => {
     const factor = await Factor.findById(factorId);
-    if(factor) {
+    if (factor) {
         return factor;
     } else {
         generateError(factorErrors.notExists, 404);
@@ -23,7 +23,7 @@ factorReducer.getById = async (factorId) => {
 
 factorReducer.updateById = async (factor) => {
     const result = await Factor
-        .findByIdAndUpdate(factor._id, factor, {
+        .findByIdAndUpdate(factor.id, factor, {
             new: true
         });
     if (result) {

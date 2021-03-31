@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { v4 } = require("uuid");
 const crypto = require('crypto');
-const {methods, statics} = require("./functions");
+const { methods, statics } = require("./functions");
 
 const userSchema = new mongoose.Schema({
     _id: {
@@ -30,8 +30,8 @@ const userSchema = new mongoose.Schema({
     versionKey: false
 });
 
-userSchema.methods = {...methods};
-userSchema.statics = {...statics};
+userSchema.methods = { ...methods };
+userSchema.statics = { ...statics };
 
 userSchema.virtual('password')
     .set(function (password) {

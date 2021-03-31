@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { v4 } = require("uuid");
-const {methods, statics} = require("./functions");
+const { methods, statics } = require("./functions");
 
 const reportSchema = new mongoose.Schema({
     _id: {
@@ -13,14 +13,17 @@ const reportSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: true,  
+        required: true,
     },
     hours: {
         type: Number,
         required: true,
     },
     comment: String,
-    projectId: String,
+    projectId: {
+        type: String,
+        required: true,
+    },
     taskId: String,
     featureId: String,
     userId: {
@@ -39,8 +42,8 @@ const reportSchema = new mongoose.Schema({
     versionKey: false
 });
 
-reportSchema.methods = {...methods};
-reportSchema.statics = {...statics};
+reportSchema.methods = { ...methods };
+reportSchema.statics = { ...statics };
 
 const Report = mongoose.model("Report", reportSchema);
 

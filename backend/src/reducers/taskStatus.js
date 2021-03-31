@@ -14,7 +14,7 @@ taskStatusReducer.getAll = async () => {
 
 taskStatusReducer.getById = async (taskStatusId) => {
     const taskStatus = await TaskStatus.findById(taskStatusId);
-    if(taskStatus) {
+    if (taskStatus) {
         return taskStatus;
     } else {
         generateError(taskStatusErrors.notExists, 404);
@@ -23,7 +23,7 @@ taskStatusReducer.getById = async (taskStatusId) => {
 
 taskStatusReducer.updateById = async (taskStatus) => {
     const result = await TaskStatus
-        .findByIdAndUpdate(taskStatus._id, taskStatus, {
+        .findByIdAndUpdate(taskStatus.id, taskStatus, {
             new: true
         });
     if (result) {

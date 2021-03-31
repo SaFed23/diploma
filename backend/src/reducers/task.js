@@ -1,21 +1,23 @@
 const generateError = require('../utils');
 const Task = require("../db/tasks");
 const { taskErrors } = require('../errors');
+const { getInfoForArray } = require('../../utils/helper');
 
 const taskReducer = {};
 
 taskReducer.create = async (task) => {
-    return await Task.create(task);
+    const newTask = await Task.create(task);
+    return newTask.getInfo();
 };
 
 taskReducer.getAll = async () => {
-    return await Task.find();
+    return getInfoForArray(await Task.find());
 };
 
 taskReducer.getById = async (taskId) => {
     const task = await Task.findById(taskId);
-    if(task) {
-        return task;
+    if (task) {
+        return task.getInfo();
     } else {
         generateError(taskErrors.notExists, 404);
     }
@@ -23,11 +25,11 @@ taskReducer.getById = async (taskId) => {
 
 taskReducer.updateById = async (task) => {
     const result = await Task
-        .findByIdAndUpdate(task._id, task, {
+        .findByIdAndUpdate(task.id, task, {
             new: true
         });
     if (result) {
-        return result;
+        return result.getInfo();
     } else {
         generateError(taskErrors.notExists, 404);
     }

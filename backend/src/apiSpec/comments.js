@@ -16,14 +16,12 @@ module.exports.definitions = {
                 type: 'date',
                 description: 'Date of the comment',
             },
-            userId: {
-                type: 'string',
-                description: 'User id of the comment',
+            user: {
+                $ref: '#/definitions/User',
             },
-            taskId: {
-                type: 'string',
-                description: 'Task id of the comment',
-            }, 
+            task: {
+                $ref: '#/definitions/Task',
+            },
         }
     },
     CommentWithoutId: {
@@ -66,22 +64,22 @@ module.exports.paths = {
                 },
             ],
             responses: {
-				200: {
-					description: 'Successful response. All comments are returned.',
-					schema: {
-						type: 'array',
-						items: {
+                200: {
+                    description: 'Successful response. All comments are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
                             $ref: '#/definitions/Comment',
                         },
-					},
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         post: {
             summary: 'Create comment',
@@ -94,29 +92,29 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'name',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/CommentWithoutId',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/CommentWithoutId',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Comment is created',
-					schema: {
-						$ref: '#/definitions/Comment'
-					},
+                201: {
+                    description: 'Successful response. Comment is created',
+                    schema: {
+                        $ref: '#/definitions/Comment'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         put: {
             summary: 'Update comment',
@@ -139,21 +137,21 @@ module.exports.paths = {
                 }
             ],
             responses: {
-				201: {
-					description: 'Successful response. Comment is updated',
-					schema: {
-						$ref: '#/definitions/Comment'
-					},
+                201: {
+                    description: 'Successful response. Comment is updated',
+                    schema: {
+                        $ref: '#/definitions/Comment'
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
+                    $ref: '#/responses/UnknownServerError',
+                },
             },
         }
     },
@@ -169,30 +167,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'commentId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				200: {
-					description: 'Successful response. Comment is returned.',
-					schema: {
-						$ref: '#/definitions/Comment',
-					},
+                200: {
+                    description: 'Successful response. Comment is returned.',
+                    schema: {
+                        $ref: '#/definitions/Comment',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         delete: {
             summary: 'Delete comment by id',
@@ -205,30 +203,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'commentId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				204: {
-					description: 'Successful response. Comment is deleted.',
-					schema: {
-						$ref: '#/responses/NoContent',
-					},
+                204: {
+                    description: 'Successful response. Comment is deleted.',
+                    schema: {
+                        $ref: '#/responses/NoContent',
+                    },
                 },
                 401: {
-					$ref: '#/responses/UnauthorizedError',
-				},
+                    $ref: '#/responses/UnauthorizedError',
+                },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
 }

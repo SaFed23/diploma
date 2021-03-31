@@ -1,21 +1,23 @@
 const generateError = require('../utils');
 const Report = require("../db/reports");
 const { reportErrors } = require('../errors');
+const { getInfoForArray } = require('../../utils/helper');
 
 const reportReducer = {};
 
 reportReducer.create = async (report) => {
-    return await Report.create(report);
+    const newReport = await Report.create(report);
+    return newReport.getInfo();
 };
 
 reportReducer.getAll = async () => {
-    return await Report.find();
+    return getInfoForArray(await Report.find());
 };
 
 reportReducer.getById = async (reportId) => {
     const report = await Report.findById(reportId);
-    if(report) {
-        return report;
+    if (report) {
+        return report.getInfo();
     } else {
         generateError(reportErrors.notExists, 404);
     }
@@ -23,9 +25,10 @@ reportReducer.getById = async (reportId) => {
 
 reportReducer.updateById = async (report) => {
     const result = await Report
-        .findByIdAndUpdate(report._id, report, {
+        .findByIdAndUpdate(report.id, report, {
             new: true
-        });
+        })
+        .getInfo();
     if (result) {
         return result;
     } else {

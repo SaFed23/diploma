@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { v4 } = require("uuid");
-const {methods, statics} = require("./functions");
+const { methods, statics } = require("./functions");
 
 const roleSchema = new mongoose.Schema({
     _id: {
@@ -15,8 +15,8 @@ const roleSchema = new mongoose.Schema({
     versionKey: false
 });
 
-roleSchema.methods = {...methods};
-roleSchema.statics = {...statics};
+roleSchema.methods = { ...methods };
+roleSchema.statics = { ...statics };
 
 const Role = mongoose.model("Role", roleSchema);
 

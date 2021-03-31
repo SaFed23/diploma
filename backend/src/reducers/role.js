@@ -14,7 +14,7 @@ roleReducer.getAll = async () => {
 
 roleReducer.getById = async (roleId) => {
     const role = await Role.findById(roleId);
-    if(role) {
+    if (role) {
         return role;
     } else {
         generateError(roleErrors.notExists, 404);
@@ -23,7 +23,7 @@ roleReducer.getById = async (roleId) => {
 
 roleReducer.updateById = async (role) => {
     const result = await Role
-        .findByIdAndUpdate(role._id, role, {
+        .findByIdAndUpdate(role.id, role, {
             new: true
         });
     if (result) {

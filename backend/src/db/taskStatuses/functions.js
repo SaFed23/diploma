@@ -9,4 +9,12 @@ methods.toJSON = function () {
   return obj;
 };
 
-module.exports = {methods, statics};
+methods.getInfo = async function () {
+  const obj = this.toObject();
+  obj.id = obj._id;
+  delete obj._id;
+
+  return obj;
+};
+
+module.exports = { methods, statics };

@@ -16,13 +16,11 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Description of the task',
             },
-            taskStatusId: {
-                type: 'string',
-                description: 'Status task id of the task',
+            taskStatus: {
+                $ref: '#/definitions/TaskStatus',
             },
-            featureId: {
-                type: 'string',
-                description: 'Feature id of the task',
+            feature: {
+                $ref: '#/definitions/Feature',
             },
         }
     },
@@ -66,19 +64,22 @@ module.exports.paths = {
                 },
             ],
             responses: {
-				200: {
-					description: 'Successful response. All tasks are returned.',
-					schema: {
-						type: 'array',
-						items: {
+                200: {
+                    description: 'Successful response. All tasks are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
                             $ref: '#/definitions/Task',
                         },
-					},
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
                 },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         post: {
             summary: 'Create task',
@@ -91,26 +92,29 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     name: 'name',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/TaskWithoutId',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/TaskWithoutId',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Task is created',
-					schema: {
-						$ref: '#/definitions/Task'
-					},
+                201: {
+                    description: 'Successful response. Task is created',
+                    schema: {
+                        $ref: '#/definitions/Task'
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
                 },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         put: {
             summary: 'Update task',
@@ -125,26 +129,29 @@ module.exports.paths = {
                 },
                 {
                     name: 'Task',
-					in: 'body',
-					required: true,
-					schema: {
-						$ref: '#/definitions/Task',
+                    in: 'body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/Task',
                     },
-				},
-			],
+                },
+            ],
             responses: {
-				201: {
-					description: 'Successful response. Task is updated',
-					schema: {
-						$ref: '#/definitions/Task'
-					},
+                201: {
+                    description: 'Successful response. Task is updated',
+                    schema: {
+                        $ref: '#/definitions/Task'
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
                 },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
+                    $ref: '#/responses/UnknownServerError',
+                },
             },
         }
     },
@@ -160,27 +167,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: "string",
                     name: 'taskId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				200: {
-					description: 'Successful response. Task is returned.',
-					schema: {
-						$ref: '#/definitions/Task',
-					},
+                200: {
+                    description: 'Successful response. Task is returned.',
+                    schema: {
+                        $ref: '#/definitions/Task',
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
                 },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
         delete: {
             summary: 'Delete task by id',
@@ -193,27 +203,30 @@ module.exports.paths = {
                     in: "header",
                     required: true,
                 },
-				{
+                {
                     type: 'string',
                     name: 'taskId',
-					in: 'path',
-					required: true,
-				},
-			],
+                    in: 'path',
+                    required: true,
+                },
+            ],
             responses: {
-				204: {
-					description: 'Successful response. Task is deleted.',
-					schema: {
-						$ref: '#/responses/NoContent',
-					},
+                204: {
+                    description: 'Successful response. Task is deleted.',
+                    schema: {
+                        $ref: '#/responses/NoContent',
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
                 },
                 404: {
-					$ref: '#/responses/NotFoundError',
-				},
+                    $ref: '#/responses/NotFoundError',
+                },
                 500: {
-					$ref: '#/responses/UnknownServerError',
-				},
-			},
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
         },
     },
 }

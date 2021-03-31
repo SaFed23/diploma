@@ -1,4 +1,4 @@
-const  { DB_CONNECTION, DB_NAME, SALT }  = require('../../config');
+const { DB_CONNECTION, DB_NAME, SALT } = require('../../config');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const Comment = require("../db/comments");
@@ -14,7 +14,7 @@ const TaskStatus = require("../db/taskStatuses");
 const User = require("../db/users");
 
 mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
-.catch(e => console.log(e));
+  .catch(e => console.log(e));
 
 (async () => {
   try {
@@ -32,26 +32,26 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
     await User.deleteMany();
 
     // Fill data
-    const factor1 = await Factor.create({title: "Standart"});
-    const factor2 = await Factor.create({title: "Day off"});
-    const factor3 = await Factor.create({title: "Illness"});
+    const factor1 = await Factor.create({ title: "Standart" });
+    const factor2 = await Factor.create({ title: "Day off" });
+    const factor3 = await Factor.create({ title: "Illness" });
 
-    const role1 = await Role.create({title: "admin"});
-    const role2 = await Role.create({title: "user"});
-    const role3 = await Role.create({title: "manager"});
+    const role1 = await Role.create({ title: "admin" });
+    const role2 = await Role.create({ title: "user" });
+    const role3 = await Role.create({ title: "manager" });
 
-    const taskStatuses1 = await TaskStatus.create({title: "To do", color: "red"});
-    const taskStatuses2 = await TaskStatus.create({title: "In progress", color: "green"});
-    const taskStatuses3 = await TaskStatus.create({title: "Review", color: "yellow"});
-    const taskStatuses4 = await TaskStatus.create({title: "Done", color: "blue"});
+    const taskStatuses1 = await TaskStatus.create({ title: "To do", color: "red" });
+    const taskStatuses2 = await TaskStatus.create({ title: "In progress", color: "green" });
+    const taskStatuses3 = await TaskStatus.create({ title: "Review", color: "yellow" });
+    const taskStatuses4 = await TaskStatus.create({ title: "Done", color: "blue" });
 
-    const location1 = await Location.create({title: "Brest"});
-    const location2 = await Location.create({title: "Minsk"});
-    const location3 = await Location.create({title: "Moscow"});
+    const location1 = await Location.create({ title: "Brest" });
+    const location2 = await Location.create({ title: "Minsk" });
+    const location3 = await Location.create({ title: "Moscow" });
 
     const salt = crypto.randomBytes(128).toString('base64');
     const user1 = await User.create({
-      username: "admin", 
+      username: "admin",
       passwordHash: crypto.pbkdf2Sync('admin', salt, 1, 128, 'sha1'),
       email: "admin@tut.by",
       roleId: role1._id,
@@ -59,7 +59,7 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
       salt,
     });
     const user2 = await User.create({
-      username: "user", 
+      username: "user",
       passwordHash: crypto.pbkdf2Sync('user', salt, 1, 128, 'sha1'),
       email: "user@tut.by",
       roleId: role2._id,
@@ -67,7 +67,7 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
       salt,
     });
     const user3 = await User.create({
-      username: "manager", 
+      username: "manager",
       passwordHash: crypto.pbkdf2Sync('manager', salt, 1, 128, 'sha1'),
       email: "manager@tut.by",
       roleId: role3._id,
@@ -217,9 +217,10 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
       date: new Date("2021-01-01"),
       status: "REGISTERED",
       hours: 0,
-      userId: user2._id,
+      userId: user3._id,
       factorId: factor2._id,
       locationId: location3._id,
+      projectId: project2._id,
     });
   } catch (e) {
     console.log(e);

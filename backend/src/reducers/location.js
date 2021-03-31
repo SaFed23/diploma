@@ -14,7 +14,7 @@ locationReducer.getAll = async () => {
 
 locationReducer.getById = async (locationId) => {
     const location = await Location.findById(locationId);
-    if(location) {
+    if (location) {
         return location;
     } else {
         generateError(locationErrors.notExists, 404);
@@ -23,7 +23,7 @@ locationReducer.getById = async (locationId) => {
 
 locationReducer.updateById = async (location) => {
     const result = await Location
-        .findByIdAndUpdate(location._id, location, {
+        .findByIdAndUpdate(location.id, location, {
             new: true
         });
     if (result) {
