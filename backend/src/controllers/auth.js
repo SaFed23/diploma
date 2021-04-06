@@ -5,7 +5,7 @@ const { SALT } = require('../../config');
 const authController = {};
 
 authController.login = async (ctx, next) => {
-  await passport.authenticate('local', function (err, user) {
+  await passport.authenticate('local', async function (err, user) {
     if (user == false) {
       ctx.body = "Login failed";
     } else {
@@ -13,11 +13,21 @@ authController.login = async (ctx, next) => {
         id: user.id,
       };
       const token = jwt.sign(payload, SALT);
-      
-      ctx.body = {userId: user.id, token: token};
+      const userData = await user.getInfo();
+
+      ctx.body = {
+        user: {
+          id: userData.id,
+          username: userData.username,
+          email: userData.email,
+          role: userData.role,
+          location: userData.location,
+        },
+        token: token
+      };
       ctx.status = 201;
     }
-  })(ctx, next); 
+  })(ctx, next);
 }
 
 module.exports = authController;

@@ -5,8 +5,8 @@ module.exports.definitions = {
     required: ['username', 'password'],
     properties: {
       username: {
-          type: 'string',
-          description: 'Username of the user',
+        type: 'string',
+        description: 'Username of the user',
       },
       password: {
         type: 'string',
@@ -39,14 +39,13 @@ module.exports.paths = {
             type: 'object',
             description: 'Token of user',
             properties: {
-              id: {
-                type: 'string',
-                description: 'Id of the user',
+              user: {
+                $ref: '#/definitions/User',
               },
               token: {
                 type: 'string',
                 description: 'Token of the user',
-            },
+              },
             }
           },
         },

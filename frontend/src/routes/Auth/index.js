@@ -1,19 +1,30 @@
 import React from "react";
 import { Controller, useForm } from 'react-hook-form';
+import { Redirect } from "react-router";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
-
+import { useDispatch } from "react-redux";
 import { defaultValues, validationSchema } from './auth.form';
+import { getUserToken, useUserToken } from "../../store";
+import { useSnackbar } from "notistack";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const token = useUserToken();
   const { handleSubmit, formState: { errors }, control } = useForm({
     defaultValues,
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = (authData) => {
-    console.log(authData);
+    dispatch(getUserToken(authData));
+    enqueueSnackbar("Ooops", { variant: "error" });
   };
+
+  if (token) {
+    return <Redirect to="/" />
+  }
 
   return (
     <Grid

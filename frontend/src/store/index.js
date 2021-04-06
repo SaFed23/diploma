@@ -1,3 +1,3 @@
 export { default } from './store';
 
-export * from './auth';
+export * from './user';
