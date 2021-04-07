@@ -7,7 +7,7 @@ export const selectUserToken = createSelector(
   selectUserState,
   (state) => state.token,
 );
-export const selectUserLoading = createSelector(
+export const selectUserLanguage = createSelector(
   selectUserState,
-  (state) => state.loading,
+  (state) => state.language,
 );

@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { SnackbarProvider } from 'notistack';
 import './index.css';
 import App from './App';
 import './i18n';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <SnackbarProvider maxSnack={5}>
-    <App />
-  </SnackbarProvider>,
+  <App />,
   document.getElementById('root')
 );
 

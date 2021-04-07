@@ -5,12 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { defaultValues, validationSchema } from './auth.form';
-import { getUserToken, useUserToken } from "../../store";
+import { userAuth, useUserToken } from "../../store";
 import { useSnackbar } from "notistack";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
   const token = useUserToken();
   const { handleSubmit, formState: { errors }, control } = useForm({
     defaultValues,
@@ -18,8 +18,7 @@ const Login = () => {
   });
 
   const onSubmit = (authData) => {
-    dispatch(getUserToken(authData));
-    enqueueSnackbar("Ooops", { variant: "error" });
+    dispatch(userAuth(authData, enqueueSnackbar));
   };
 
   if (token) {

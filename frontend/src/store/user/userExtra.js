@@ -3,27 +3,25 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userLogin } from '../../service/user';
 
 // extra actions
-export const getUserToken = createAsyncThunk('user/getToken', async (user, thunkAPI) => {
-  const { data, status } = await userLogin(user);
-  return { data, status }
-});
+export const getUserToken = createAsyncThunk('user/getToken',
+  async ({ user, notification }) => {
+    const { data, status } = await userLogin(user);
+    if (status === 201) {
+      notification("Login success", { variant: "success" });
+      return data;
+    }
+    notification("Login fail", { variant: "error" });
+    return null
+  });
 
 // extra reducer
 export default {
-  [getUserToken.pending]: (state) => {
-    state.loading = true;
-  },
   [getUserToken.fulfilled]: (state, action) => {
-    const { data, status } = action.payload;
-    if (status === 201) {
+    const data = action.payload;
+    if (data) {
       state.user = data.user;
       state.token = data.token;
       state.loading = false;
-    } else {
-      state.loading = false;
     }
-  },
-  [getUserToken.rejected]: (state) => {
-    state.loading = false;
   },
 };

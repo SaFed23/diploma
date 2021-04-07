@@ -1,8 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 export const initialState = {
   user: {},
+  language: "en",
   token: "",
-  loading: false,
 };
 
 export default {
@@ -15,6 +15,10 @@ export default {
 
   setUserToken: (state, action) => {
     state.token = action.payload.token;
+  },
+
+  setUserLanguage: (state, action) => {
+    state.language = action.payload;
   },
 
   clearUserData: (state) => {
