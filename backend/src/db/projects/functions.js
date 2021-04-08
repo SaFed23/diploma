@@ -26,6 +26,16 @@ methods.getInfo = async function () {
   delete obj.userIds;
 
   return obj;
+};
+
+statics.findUserProjects = async function (userId) {
+  const user = await User.findById(userId);
+  if (user) {
+    const projects = await this.find();
+    return projects.filter(project => project.userIds.includes(userId));
+  }
+
+  return null;
 }
 
 module.exports = { methods, statics };

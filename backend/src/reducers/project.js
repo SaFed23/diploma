@@ -1,6 +1,6 @@
 const generateError = require('../utils');
 const Project = require("../db/projects");
-const { projectErrors } = require('../errors');
+const { projectErrors, userErrors } = require('../errors');
 const { getInfoForArray } = require('../../utils/helper');
 
 const projectsReducer = {};
@@ -22,6 +22,15 @@ projectsReducer.getById = async (projectId) => {
         generateError(projectErrors.notExists, 404);
     }
 };
+
+projectsReducer.getUserProjects = async (userId) => {
+    const projects = await Project.findUserProjects(userId);
+    if (projects) {
+        return getInfoForArray(projects);
+    } else {
+        generateError(userErrors.notExists, 404);
+    }
+}
 
 projectsReducer.updateById = async (project) => {
     const result = await Project

@@ -55,6 +55,7 @@ routerV3.delete(NAMES.locations, `${ROUTES.locations}/:locationId`, locationCont
 routerV3.post(NAMES.projects, ROUTES.projects, projectController.create);
 routerV3.get(NAMES.projects, ROUTES.projects, projectController.getAll);
 routerV3.get(NAMES.projects, `${ROUTES.projects}/:projectId`, projectController.getById);
+routerV3.get(NAMES.projects, `${ROUTES.projects}/user/:userId`, projectController.getUserProjects);
 routerV3.put(NAMES.projects, ROUTES.projects, projectController.updateById);
 routerV3.delete(NAMES.projects, `${ROUTES.projects}/:projectId`, projectController.deleteById);
 

@@ -251,4 +251,42 @@ module.exports.paths = {
             },
         },
     },
+    "/projects/user/{userId}": {
+        get: {
+            summary: 'Get user projects by userId',
+            description: 'Get user projects by userId',
+            tags: ['Project'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+                {
+                    type: "string",
+                    name: 'userId',
+                    in: 'path',
+                    required: true,
+                },
+            ],
+            responses: {
+                200: {
+                    description: 'Successful response. Project is returned.',
+                    schema: {
+                        $ref: '#/definitions/Project',
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
+                },
+                404: {
+                    $ref: '#/responses/NotFoundError',
+                },
+                500: {
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
+        },
+    },
 }

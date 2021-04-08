@@ -18,11 +18,13 @@ import {
   CssBaseline,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import { Menu as MenuIcon, AccountCircle, ChevronLeft, ChevronRight, Inbox, Mail } from '@material-ui/icons';
+import { Menu as MenuIcon, AccountCircle, ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { userAction, useUserData, useUserLanguage } from '../../store';
 import { useStyles } from './style';
+import { listConfig } from './configOfList';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const classes = useStyles();
@@ -140,23 +142,22 @@ export default function Header() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {listConfig.map(elem => (
+            <Link
+              key={elem.label}
+              style={{ textDecoration: "none", color: "black" }}
+              to={elem.path}>
+              <ListItem
+                button
+                selected={window.location.pathname === elem.path}
+              >
+                <ListItemIcon>{elem.icon}</ListItemIcon>
+                <ListItemText primary={t(elem.label)} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
-    </div>
+    </div >
   );
 }

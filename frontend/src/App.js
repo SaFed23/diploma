@@ -4,10 +4,10 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { SnackbarProvider } from 'notistack';
 import BaseComponent from "./components/BaseComponent";
 import Login from "./routes/Auth"
-import Main from "./routes/Main";
 import store from "./store";
 import { IconButton } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import { routes } from "./routes.config";
 
 function App() {
   const notistackRef = createRef();
@@ -30,7 +30,16 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<div>Loading...</div>}>
             <Route path="/login" component={() => <Login />} />
-            <Route exact path="/" component={() => <BaseComponent component={<Main />} />} />
+            {routes.map((route, index) => {
+              return (
+                <Route
+                  key={index}
+                  exact={route.exact}
+                  path={route.path}
+                  component={() => <BaseComponent component={route.component} />}
+                />
+              )
+            })}
           </Suspense>
         </BrowserRouter>
       </SnackbarProvider>

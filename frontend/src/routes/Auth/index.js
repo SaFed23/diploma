@@ -22,7 +22,7 @@ const Login = () => {
   };
 
   if (token) {
-    return <Redirect to="/" />
+    return <Redirect to="/my-projects" />
   }
 
   return (

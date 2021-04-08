@@ -1,5 +1,7 @@
 {
+  "logout": "Logout",
+  "my_projects": "My projects",
+  "my_reports": "My reports",
   "profile": "Profile",
-  "settings": "Settings",
-  "logout": "Logout"
+  "settings": "Settings"
 }

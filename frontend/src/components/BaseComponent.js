@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    width: '100vw',
+    padding: theme.spacing(2),
   },
   toolbar: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
 }));

@@ -13,10 +13,16 @@ projectController.getAll = async (ctx) => {
 };
 
 projectController.getById = async (ctx) => {
-    const { projectId } = ctx.params; 
+    const { projectId } = ctx.params;
     ctx.body = await projectReducer.getById(projectId);
     ctx.status = 200;
 };
+
+projectController.getUserProjects = async (ctx) => {
+    const { userId } = ctx.params;
+    ctx.body = await projectReducer.getUserProjects(userId);
+    ctx.status = 200;
+}
 
 projectController.updateById = async (ctx) => {
     ctx.body = await projectReducer.updateById(ctx.request.body);
@@ -24,7 +30,7 @@ projectController.updateById = async (ctx) => {
 };
 
 projectController.deleteById = async (ctx) => {
-    const { projectId } = ctx.params; 
+    const { projectId } = ctx.params;
     ctx.body = await projectReducer.deleteById(projectId);
     ctx.status = 204;
 };

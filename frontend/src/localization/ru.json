@@ -1,5 +1,7 @@
 {
+  "logout": "Выйти",
+  "my_projects": "Мои проекты",
+  "my_reports": "Мои отчеты",
   "profile": "Профиль",
-  "settings": "Настройки",
-  "logout": "Выйти"
+  "settings": "Настройки"
 }
