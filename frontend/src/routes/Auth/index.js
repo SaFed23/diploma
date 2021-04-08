@@ -10,7 +10,7 @@ import { useSnackbar } from "notistack";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
   const token = useUserToken();
   const { handleSubmit, formState: { errors }, control } = useForm({
     defaultValues,

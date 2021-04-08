@@ -8,6 +8,7 @@ export const getUserToken = createAsyncThunk('user/getToken',
     const { data, status } = await userLogin(user);
     if (status === 201) {
       notification("Login success", { variant: "success" });
+      localStorage.setItem('token', `bearer ${data.token}`);
       return data;
     }
     notification("Login fail", { variant: "error" });

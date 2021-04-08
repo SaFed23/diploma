@@ -13,9 +13,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
   content: {
-    flexGrow: 1,
-    width: '100vw',
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(12),
   },
   toolbar: {
     display: 'flex',
@@ -38,7 +37,7 @@ function BaseComponent({
   }
 
   return (
-    <div className={classes.root}>
+    <div>
       <Header />
       <div>
         <Backdrop className={classes.backdrop} open={loading}>

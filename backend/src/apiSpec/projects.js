@@ -272,9 +272,12 @@ module.exports.paths = {
             ],
             responses: {
                 200: {
-                    description: 'Successful response. Project is returned.',
+                    description: 'Successful response. Projects are returned.',
                     schema: {
-                        $ref: '#/definitions/Project',
+                        type: 'array',
+                        items: {
+                            $ref: '#/definitions/Project',
+                        },
                     },
                 },
                 401: {
