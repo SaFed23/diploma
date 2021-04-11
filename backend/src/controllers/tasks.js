@@ -13,8 +13,14 @@ taskController.getAll = async (ctx) => {
 };
 
 taskController.getById = async (ctx) => {
-    const { taskId } = ctx.params; 
+    const { taskId } = ctx.params;
     ctx.body = await taskReducer.getById(taskId);
+    ctx.status = 200;
+};
+
+taskController.getByFeatureId = async (ctx) => {
+    const { featureId } = ctx.params;
+    ctx.body = await taskReducer.getByFeatureId(featureId);
     ctx.status = 200;
 };
 
@@ -24,7 +30,7 @@ taskController.updateById = async (ctx) => {
 };
 
 taskController.deleteById = async (ctx) => {
-    const { taskId } = ctx.params; 
+    const { taskId } = ctx.params;
     ctx.body = await taskReducer.deleteById(taskId);
     ctx.status = 204;
 };

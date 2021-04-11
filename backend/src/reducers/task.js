@@ -1,6 +1,6 @@
 const generateError = require('../utils');
 const Task = require("../db/tasks");
-const { taskErrors } = require('../errors');
+const { taskErrors, featureErrors } = require('../errors');
 const { getInfoForArray } = require('../../utils/helper');
 
 const taskReducer = {};
@@ -20,6 +20,15 @@ taskReducer.getById = async (taskId) => {
         return task.getInfo();
     } else {
         generateError(taskErrors.notExists, 404);
+    }
+};
+
+taskReducer.getByFeatureId = async (featureId) => {
+    const tasks = await Task.getByFeatureId(featureId);
+    if (tasks) {
+        return getInfoForArray(tasks);
+    } else {
+        generateError(featureErrors.notExists, 404);
     }
 };
 

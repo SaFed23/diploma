@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
-import { List, ListItem, Collapse, ListItemText, Divider, IconButton } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  Collapse,
+  ListItemText,
+  Divider,
+  IconButton,
+  Grid,
+  Typography
+} from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+const classes = {
+  addInfo: {
+    fontSize: 14,
+  }
+}
 
 function ProjectsList({
   data
 }) {
   const [open, setOpen] = useState('');
+  const { t } = useTranslation();
 
   const handleOpen = (id) => {
     if (id === open) {
@@ -26,8 +43,8 @@ function ProjectsList({
             <ListItem>
               <ListItemText>
                 <Link
-                  to={`/my-project/${val.id}`}
-                  style={{ color: "black" }}
+                  to={`/my-projects/${val.id}`}
+                  style={{ color: "black", fontWeight: "bold", fontSize: 18 }}
                 >
                   {val.title}
                 </Link>
@@ -39,13 +56,23 @@ function ProjectsList({
               </IconButton>
             </ListItem>
             <Collapse in={open === val.id} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button>
-                  <ListItemText primary={val.description} />
-                  <ListItemText primary={val.owner.username} />
-                  <ListItemText primary={val.users.length} />
-                </ListItem>
-              </List>
+              <Grid container style={{ paddingLeft: 20, paddingTop: 10 }}>
+                <Grid item xs={2}>
+                  <Typography style={classes.addInfo}>
+                    {t('owner')}: {val.owner.username}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography style={classes.addInfo}>
+                    {t('users_count')}: {val.users.length}
+                  </Typography>
+                </Grid>
+                <Grid item xs={7}>
+                  <Typography style={classes.addInfo}>
+                    {t('description')}: {val.description}
+                  </Typography>
+                </Grid>
+              </Grid>
             </Collapse>
             <Divider />
           </div>

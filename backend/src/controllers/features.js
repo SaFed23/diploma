@@ -13,10 +13,17 @@ featureController.getAll = async (ctx) => {
 };
 
 featureController.getById = async (ctx) => {
-    const { featureId } = ctx.params; 
+    const { featureId } = ctx.params;
     ctx.body = await featureReducer.getById(featureId);
     ctx.status = 200;
 };
+
+featureController.getByProjectId = async (ctx) => {
+    const { projectId } = ctx.params;
+    ctx.body = await featureReducer.getByProjectId(projectId);
+    ctx.status = 200;
+};
+
 
 featureController.updateById = async (ctx) => {
     ctx.body = await featureReducer.updateById(ctx.request.body);
@@ -24,7 +31,7 @@ featureController.updateById = async (ctx) => {
 };
 
 featureController.deleteById = async (ctx) => {
-    const { featureId } = ctx.params; 
+    const { featureId } = ctx.params;
     ctx.body = await featureReducer.deleteById(featureId);
     ctx.status = 204;
 };

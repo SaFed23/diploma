@@ -26,5 +26,15 @@ methods.getInfo = async function () {
   return obj;
 }
 
+statics.getByFeatureId = async function (featureId) {
+  const feature = await Feature.findById(featureId);
+  if (feature) {
+    const tasks = await this.find({ featureId });
+    return tasks;
+  }
+
+  return null;
+}
+
 
 module.exports = { methods, statics };

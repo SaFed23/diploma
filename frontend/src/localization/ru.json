@@ -1,8 +1,12 @@
 {
+  "description": "Описание",
+  "feature": "Особенность",
   "logout": "Выйти",
   "my_projects": "Мои проекты",
   "my_reports": "Мои отчеты",
+  "owner": "Владелец",
   "profile": "Профиль",
   "projects": "Проекты",
-  "settings": "Настройки"
+  "settings": "Настройки",
+  "users_count": "Количество пользователей"
 }

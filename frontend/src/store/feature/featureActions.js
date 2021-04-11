@@ -1,11 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-import { getUserToken } from './userExtra';
+import { getFeaturesByProjectId } from './featureExtra';
 import loadingSlice from '../loading/loadingSlice'
 
 const { startLoading, finishLoading } = loadingSlice.actions;
 
-export const userAuth = (user, notification) => async (dispatch) => {
+export const featuresByProjectId = (projectId, notification) => async (dispatch) => {
   dispatch(startLoading());
-  await dispatch(getUserToken({ user, notification }));
+  await dispatch(getFeaturesByProjectId({ projectId, notification }));
   dispatch(finishLoading());
 };

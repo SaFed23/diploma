@@ -1,8 +1,12 @@
 {
+  "description": "Description",
+  "feature": "Feature",
   "logout": "Logout",
   "my_projects": "My projects",
   "my_reports": "My reports",
+  "owner": "Owner",
   "profile": "Profile",
   "projects": "Projects",
-  "settings": "Settings"
+  "settings": "Settings",
+  "users_count": "Users count"
 }

@@ -4,11 +4,11 @@ export const initialState = {
 };
 
 export default {
-  setProjectData: (state, action) => {
+  setTaskData: (state, action) => {
     state.data = action.payload;
   },
 
-  clearProjectData: (state) => {
+  clearTaskData: (state) => {
     state.data = initialState.data;
   },
 };

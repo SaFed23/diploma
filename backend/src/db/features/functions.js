@@ -22,4 +22,14 @@ methods.getInfo = async function () {
   return obj;
 }
 
+statics.getByProjectId = async function (projectId) {
+  const project = await Project.findById(projectId);
+  if (project) {
+    const features = await this.find({ projectId });
+    return features;
+  }
+
+  return null;
+}
+
 module.exports = { methods, statics };

@@ -229,4 +229,45 @@ module.exports.paths = {
             },
         },
     },
+    "/tasks/feature/{featureId}": {
+        get: {
+            summary: 'Get feature tasks by featureId',
+            description: 'Get feature tasks by featureId',
+            tags: ['Task'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+                {
+                    type: "string",
+                    name: 'featureId',
+                    in: 'path',
+                    required: true,
+                },
+            ],
+            responses: {
+                200: {
+                    description: 'Successful response. Tasks are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
+                            $ref: '#/definitions/Task',
+                        },
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
+                },
+                404: {
+                    $ref: '#/responses/NotFoundError',
+                },
+                500: {
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
+        },
+    },
 }

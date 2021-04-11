@@ -34,6 +34,7 @@ routerV3.delete(NAMES.factors, `${ROUTES.factors}/:factorId`, factorController.d
 routerV3.post(NAMES.features, ROUTES.features, featureController.create);
 routerV3.get(NAMES.features, ROUTES.features, featureController.getAll);
 routerV3.get(NAMES.features, `${ROUTES.features}/:featureId`, featureController.getById);
+routerV3.get(NAMES.features, `${ROUTES.features}/project/:projectId`, featureController.getByProjectId);
 routerV3.put(NAMES.features, ROUTES.features, featureController.updateById);
 routerV3.delete(NAMES.features, `${ROUTES.features}/:featureId`, featureController.deleteById);
 
@@ -77,6 +78,7 @@ routerV3.delete(NAMES.roles, `${ROUTES.roles}/:roleId`, roleController.deleteByI
 routerV3.post(NAMES.tasks, ROUTES.tasks, taskController.create);
 routerV3.get(NAMES.tasks, ROUTES.tasks, taskController.getAll);
 routerV3.get(NAMES.tasks, `${ROUTES.tasks}/:taskId`, taskController.getById);
+routerV3.get(NAMES.tasks, `${ROUTES.tasks}/feature/:featureId`, taskController.getByFeatureId)
 routerV3.put(NAMES.tasks, ROUTES.tasks, taskController.updateById);
 routerV3.delete(NAMES.tasks, `${ROUTES.tasks}/:taskId`, taskController.deleteById);
 

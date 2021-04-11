@@ -1,12 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as service from '../../service/project';
+import * as service from '../../service/taskStatuses';
 
 // extra actions
-export const getUserProjects = createAsyncThunk('project/getUserProjects',
-  async ({ userId, notification }) => {
+export const getTaskStatuses = createAsyncThunk('taskStatus/getTaskStatuses',
+  async ({ notification }) => {
     try {
-      const { data, status } = await service.getUserProjects(userId);
+      const { data, status } = await service.getTaskStatuses();
       if (status === 200) {
         return data;
       }
@@ -18,7 +18,7 @@ export const getUserProjects = createAsyncThunk('project/getUserProjects',
 
 // extra reducer
 export default {
-  [getUserProjects.fulfilled]: (state, action) => {
+  [getTaskStatuses.fulfilled]: (state, action) => {
     const data = action.payload;
     if (data) {
       state.data = data;

@@ -1,6 +1,6 @@
 const generateError = require('../utils');
 const Feature = require("../db/features");
-const { featureErrors } = require('../errors');
+const { featureErrors, projectErrors } = require('../errors');
 const { getInfoForArray } = require('../../utils/helper');
 
 const featureReducer = {};
@@ -20,6 +20,15 @@ featureReducer.getById = async (featureId) => {
         return feature.getInfo();
     } else {
         generateError(featureErrors.notExists, 404);
+    }
+};
+
+featureReducer.getByProjectId = async (projectId) => {
+    const features = await Feature.getByProjectId(projectId);
+    if (features) {
+        return getInfoForArray(features);
+    } else {
+        generateError(projectErrors.notExists, 404);
     }
 };
 

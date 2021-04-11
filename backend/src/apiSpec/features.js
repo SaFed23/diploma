@@ -222,4 +222,45 @@ module.exports.paths = {
             },
         },
     },
+    "/features/project/{projectId}": {
+        get: {
+            summary: 'Get project features by projectId',
+            description: 'Get project features by projectId',
+            tags: ['Feature'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+                {
+                    type: "string",
+                    name: 'projectId',
+                    in: 'path',
+                    required: true,
+                },
+            ],
+            responses: {
+                200: {
+                    description: 'Successful response. Features are returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
+                            $ref: '#/definitions/Feature',
+                        },
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
+                },
+                404: {
+                    $ref: '#/responses/NotFoundError',
+                },
+                500: {
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
+        },
+    },
 }
