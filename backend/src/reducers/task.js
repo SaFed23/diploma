@@ -26,7 +26,7 @@ taskReducer.getById = async (taskId) => {
 taskReducer.getByFeatureId = async (featureId) => {
     const tasks = await Task.getByFeatureId(featureId);
     if (tasks) {
-        return getInfoForArray(tasks);
+        return tasks;
     } else {
         generateError(featureErrors.notExists, 404);
     }

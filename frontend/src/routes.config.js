@@ -12,4 +12,14 @@ export const routes = [
     component: <ProjectTasks />,
     exact: false
   },
+  {
+    path: '/my-reports/',
+    component: () => "reports",
+    exact: false
+  },
+  {
+    path: '/task/:taskId',
+    component: () => "task",
+    exact: false
+  },
 ]

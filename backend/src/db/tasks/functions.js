@@ -29,8 +29,15 @@ methods.getInfo = async function () {
 statics.getByFeatureId = async function (featureId) {
   const feature = await Feature.findById(featureId);
   if (feature) {
-    const tasks = await this.find({ featureId });
-    return tasks;
+    const taskStatuses = await TaskStatus.find();
+    // const tasks = await this.find({ featureId });
+    const groupTask = [];
+    for (const taskStatus of taskStatuses) {
+      const obj = { ...taskStatus.toJSON() };
+      obj.tasks = await this.find({ taskStatusId: taskStatus.id, featureId });
+      groupTask.push(obj);
+    }
+    return groupTask;
   }
 
   return null;

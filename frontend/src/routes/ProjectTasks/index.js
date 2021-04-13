@@ -3,11 +3,10 @@ import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import { featuresByProjectId, useFeatureData } from '../../store/feature';
-import { tasksByFeatureId, useTaskData } from '../../store/task';
+import { featuresByProjectId, useFeatureData } from '../../store';
+import { tasksByFeatureId, useTaskData } from '../../store';
 import FeatureSelect from './FeatureSelect';
 import TaskCard from './TaskCards';
-import { fetchTaskStatuses, useTaskStatusData } from '../../store/taskStatus';
 
 function ProjectTasks() {
   const projectId = window.location.pathname.split('/')[2];
@@ -16,12 +15,10 @@ function ProjectTasks() {
   const { enqueueSnackbar } = useSnackbar();
   const features = useFeatureData();
   const tasks = useTaskData();
-  const taskStatuses = useTaskStatusData();
   const [currentFeature, setCurrentFeature] = useState({});
 
   useEffect(() => {
     dispatch(featuresByProjectId(projectId, enqueueSnackbar));
-    dispatch(fetchTaskStatuses(enqueueSnackbar))
   }, [dispatch, enqueueSnackbar, projectId]);
 
   useEffect(() => {
@@ -45,7 +42,6 @@ function ProjectTasks() {
       />
       <TaskCard
         tasks={tasks}
-        taskStatuses={taskStatuses}
       />
     </>
   )

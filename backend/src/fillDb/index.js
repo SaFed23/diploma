@@ -131,6 +131,7 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
     const task1 = await Task.create({
       title: "Create db",
       description: "We need db for project",
+      taskStatusId: taskStatuses1._id,
       featureId: feature1._id,
     });
     const task2 = await Task.create({
@@ -146,11 +147,13 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
     });
     const task4 = await Task.create({
       title: "Test logic",
+      taskStatusId: taskStatuses2._id,
       featureId: feature2._id,
     });
     const task5 = await Task.create({
       title: "Delete not used code",
       description: "Project has many not used part of code",
+      taskStatusId: taskStatuses3._id,
       featureId: feature3._id,
     });
     const task6 = await Task.create({
