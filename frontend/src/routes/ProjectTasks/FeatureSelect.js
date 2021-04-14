@@ -1,25 +1,27 @@
 import { Grid, IconButton } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Select from '../../components/common/Select';
-import { roles } from '../../constants';
 import { useUserData } from '../../store';
+import SettingsDialog from './Dialogs/Settings';
 
 function FeatureSelect({
   values,
   setCurrentValue,
-  currentValue
+  currentValue,
+  currentProject
 }) {
   const { t } = useTranslation();
   const user = useUserData();
+  const [open, setOpen] = useState(false);
 
   const handleChange = (event) => {
     setCurrentValue(values.find(val => val.id === event.target.value))
   };
 
   const generateSelect = () => {
-    if (user.role.title !== roles.ADMIN) {
+    if (user.id !== currentProject?.owner.id) {
       return (
         <Grid>
           <Select
@@ -44,7 +46,7 @@ function FeatureSelect({
             />
           </Grid>
           <Grid item xs={1} style={{ textAlign: 'right' }}>
-            <IconButton>
+            <IconButton onClick={() => setOpen(true)}>
               <Settings />
             </IconButton>
           </Grid>
@@ -53,7 +55,16 @@ function FeatureSelect({
     }
   };
 
-  return generateSelect();
+  return (
+    <>
+      {generateSelect()}
+      <SettingsDialog
+        open={open}
+        setOpen={setOpen}
+        currentProject={currentProject}
+      />
+    </>
+  );
 };
 
 export default FeatureSelect

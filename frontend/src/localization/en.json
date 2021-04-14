@@ -1,5 +1,10 @@
 {
+  "create": "Create",
+  "create_new_feature_for": "Create new feature for",
+  "delete": "Delete",
+  "delete_feature": "Delete feature",
   "description": "Description",
+  "exit": "Exit",
   "feature": "Feature",
   "logout": "Logout",
   "my_projects": "My projects",
@@ -8,6 +13,10 @@
   "owner": "Owner",
   "profile": "Profile",
   "projects": "Projects",
+  "required_field": "Required field",
   "settings": "Settings",
+  "title": "Title",
+  "update": "Update",
+  "update_feature": "Update feature",
   "users_count": "Users count"
 }

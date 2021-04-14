@@ -2,7 +2,7 @@ module.exports.definitions = {
     Task: {
         type: "object",
         description: "Task object",
-        required: ['id', 'title', 'description', 'taskStatusId', 'featureId'],
+        required: ['id', 'title', 'description', 'taskStatusId', 'featureId', 'users'],
         properties: {
             'id': {
                 type: 'string',
@@ -22,12 +22,18 @@ module.exports.definitions = {
             feature: {
                 $ref: '#/definitions/Feature',
             },
+            users: {
+                type: 'array',
+                items: {
+                    $ref: '#/definitions/User',
+                },
+            }
         }
     },
     TaskWithoutId: {
         type: "object",
         description: "Task object",
-        required: ['title', 'description', 'taskStatusId', 'featureId'],
+        required: ['title', 'description', 'taskStatusId', 'featureId', 'userIds'],
         properties: {
             title: {
                 type: 'string',
@@ -45,8 +51,67 @@ module.exports.definitions = {
                 type: 'string',
                 description: 'Feature id of the task',
             },
+            userIds: {
+                type: 'array',
+                items: {
+                    type: "string"
+                },
+            }
         }
-    }
+    },
+    TaskCard: {
+        type: "object",
+        description: "Task object for card",
+        required: ['id', 'title', 'color', 'tasks'],
+        properties: {
+            id: {
+                type: 'string',
+                description: 'Id of the task status',
+            },
+            title: {
+                type: 'string',
+                description: 'Title of the task status',
+            },
+            color: {
+                type: 'string',
+                description: 'Description of the task status',
+            },
+            tasks: {
+                type: 'array',
+                items: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: 'Id of the task',
+                        },
+                        title: {
+                            type: 'string',
+                            description: 'Title of the task',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Description of the task',
+                        },
+                        taskStatusId: {
+                            type: 'string',
+                            description: 'Status task id of the task',
+                        },
+                        featureId: {
+                            type: 'string',
+                            description: 'Feature id of the task',
+                        },
+                        userIds: {
+                            type: 'array',
+                            items: {
+                                type: "string"
+                            },
+                        }
+                    }
+                },
+            },
+        }
+    },
 };
 
 module.exports.paths = {
@@ -254,7 +319,7 @@ module.exports.paths = {
                     schema: {
                         type: 'array',
                         items: {
-                            $ref: '#/definitions/Task',
+                            $ref: '#/definitions/TaskCard',
                         },
                     },
                 },

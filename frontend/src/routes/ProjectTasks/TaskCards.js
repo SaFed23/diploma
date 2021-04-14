@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -22,8 +22,6 @@ function TaskCard({
 }) {
   const { t } = useTranslation();
   const user = useUserData();
-  const [current, setCurrent] = useState('');
-  console.log(current)
 
   const handleDrag = (id, { x, y }) => {
     const taskCards = JSON.parse(localStorage.getItem(`taskCards_${user.id}`)) || {};
@@ -63,21 +61,18 @@ function TaskCard({
   return (
     <Grid container spacing={3} style={{ marginTop: 20 }}>
       {tasks.map(taskStatus => {
-        console.log(JSON.parse(localStorage.getItem(`taskCards_${user.id}`))?.[taskStatus.id])
         return (
           <Draggable
             key={taskStatus.id}
-            style={{ zIndex: taskStatus.id === current ? 9999 : 1 }}
             defaultPosition={JSON.parse(localStorage.getItem(`taskCards_${user.id}`))?.[taskStatus.id]}
             onDrag={(event, coord) => handleDrag(taskStatus.id, coord)}
-            onStart={() => setCurrent(taskStatus.id)}
           >
             <Grid item xs={3}>
               <Card style={{ maxHeight: '50vh', overflow: 'auto' }}>
                 <ListSubheader>
                   <Grid container justify="space-between">
                     <Grid item>
-                      <Typography variant="h6">{taskStatus.title}</Typography>
+                      <Typography variant="p">{taskStatus.title} ({taskStatus.tasks.length})</Typography>
                     </Grid>
                     <Grid
                       item
@@ -87,11 +82,6 @@ function TaskCard({
                   </Grid>
                   <Divider />
                 </ListSubheader>
-                <Typography
-                  variant="h6"
-                  style={{ background: taskStatus.color, textAlign: "center" }}
-                >
-                </Typography>
                 <CardContent>
                   <List>
                     {generateCard(taskStatus.tasks)}

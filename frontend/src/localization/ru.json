@@ -1,5 +1,10 @@
 {
+  "create": "Создать",
+  "create_new_feature_for": "Создать новую особенность для",
+  "delete": "Удалить",
+  "delete_feature": "Удалить особенность",
   "description": "Описание",
+  "exit": "Выход",
   "feature": "Особенность",
   "logout": "Выйти",
   "my_projects": "Мои проекты",
@@ -8,6 +13,10 @@
   "owner": "Владелец",
   "profile": "Профиль",
   "projects": "Проекты",
+  "required_field": "Обязательное поле",
   "settings": "Настройки",
+  "title": "Наименование",
+  "update": "Обновить",
+  "update_feature": "Обновление особенности",
   "users_count": "Количество пользователей"
 }

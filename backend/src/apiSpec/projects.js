@@ -62,8 +62,7 @@ module.exports.definitions = {
             },
             userIds: {
                 type: 'array',
-                description: 'User ids of the project',
-                item: {
+                items: {
                     type: 'string',
                 }
             },

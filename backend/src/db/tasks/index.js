@@ -20,6 +20,7 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userIds: Array,
 }, {
     versionKey: false
 });

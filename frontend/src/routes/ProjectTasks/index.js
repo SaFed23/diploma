@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import { featuresByProjectId, useFeatureData } from '../../store';
+import { featuresByProjectId, useFeatureData, useProjectData } from '../../store';
 import { tasksByFeatureId, useTaskData } from '../../store';
 import FeatureSelect from './FeatureSelect';
 import TaskCard from './TaskCards';
 
 function ProjectTasks() {
   const projectId = window.location.pathname.split('/')[2];
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const features = useFeatureData();
   const tasks = useTaskData();
+  const projects = useProjectData();
   const [currentFeature, setCurrentFeature] = useState({});
 
   useEffect(() => {
@@ -31,14 +30,13 @@ function ProjectTasks() {
     }
   }, [currentFeature, dispatch, enqueueSnackbar]);
 
-  console.log(currentFeature);
-
   return (
     <>
       <FeatureSelect
         values={features}
         currentValue={currentFeature}
         setCurrentValue={setCurrentFeature}
+        currentProject={projects.find(p => p.id === projectId)}
       />
       <TaskCard
         tasks={tasks}

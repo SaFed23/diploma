@@ -1,5 +1,6 @@
 const Feature = require('../features');
 const TaskStatus = require('../taskStatuses');
+const User = require('../users');
 
 const methods = {};
 const statics = {};
@@ -19,9 +20,15 @@ methods.getInfo = async function () {
   const taskStatus = obj.taskStatusId ? await TaskStatus.findById(obj.taskStatusId) : undefined;
   obj.feature = await feature.getInfo();
   obj.taskStatus = taskStatus && await taskStatus?.getInfo();
+  obj.users = [];
+  for (const id of obj.userIds) {
+    const user = await User.findById(id);
+    obj.users.push(await user.getInfo());
+  }
   delete obj._id;
   delete obj.featureId;
   delete obj.taskStatusId;
+  delete obj.userIds;
 
   return obj;
 }
