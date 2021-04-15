@@ -47,6 +47,7 @@ export default function Header() {
 
   const handleChange = (event) => {
     dispatch(userAction.setUserLanguage(event.target.value));
+    localStorage.setItem('lng', event.target.value)
     i18n.changeLanguage(event.target.value)
   };
 

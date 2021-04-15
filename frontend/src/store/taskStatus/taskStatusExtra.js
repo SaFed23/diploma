@@ -1,17 +1,21 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as service from '../../service/taskStatuses';
+import { snackbarAction } from '../snackbar';
 
 // extra actions
 export const getTaskStatuses = createAsyncThunk('taskStatus/getTaskStatuses',
-  async ({ notification }) => {
+  async (_, { dispatch }) => {
     try {
       const { data, status } = await service.getTaskStatuses();
       if (status === 200) {
         return data;
       }
     } catch (e) {
-      notification(e.message, { variant: "error" });
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
     }
     return null
   });

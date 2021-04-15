@@ -6,11 +6,9 @@ import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { defaultValues, validationSchema } from './auth.form';
 import { userAuth, useUserToken } from "../../store";
-import { useSnackbar } from "notistack";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
   const token = useUserToken();
   const { handleSubmit, formState: { errors }, control } = useForm({
     defaultValues,
@@ -18,7 +16,7 @@ const Login = () => {
   });
 
   const onSubmit = (authData) => {
-    dispatch(userAuth(authData, enqueueSnackbar));
+    dispatch(userAuth(authData));
   };
 
   if (token) {

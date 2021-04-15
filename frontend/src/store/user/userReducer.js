@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 export const initialState = {
   user: {},
-  language: "en",
+  language: localStorage.getItem('lng') || "en",
   token: "",
 };
 

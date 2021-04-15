@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: theme.spacing(3),
     paddingLeft: theme.spacing(12),
+    overflow: "hidden",
+    width: '100vw',
+    height: '100vh'
   },
   toolbar: {
     display: 'flex',

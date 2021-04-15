@@ -4,59 +4,23 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  TextField,
   DialogActions,
   Button,
   Tabs,
   Tab,
 } from '@material-ui/core';
 import { Edit, Add, Delete } from "@material-ui/icons";
-import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
-const Form = (defaultValues, submit) => {
-  const { t } = useTranslation();
-  const schema = {
-    title: yup.string().required(t("required_field"))
-  }
-  const { handleSubmit, formState: { errors }, control } = useForm({
-    defaultValues,
-    resolver: yupResolver({
-      resolver: schema,
-    }),
-  });
-
-  return (
-    <>
-      <form onSubmit={handleSubmit(submit)}>
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => <TextField fullWidth
-            label={t("title")}
-            variant="outlined"
-            margin="normal"
-            autoFocus
-            error={!!errors.username}
-            helperText={errors.username?.message}
-            {...field}
-          />}
-        />
-        <Button fullWidth variant="contained" color="primary">
-          {t("create")}
-        </Button>
-      </form>
-    </>
-  )
-}
+import CreateForm from './CreateForm';
+import UpdateForm from './UpdateForm';
+import DeleteForm from './DeleteForm';
 
 
 function SettingsDialog({
   open,
   setOpen,
   currentProject,
+  features,
 }) {
   const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
@@ -72,6 +36,7 @@ function SettingsDialog({
   const createFeature = () => {
     const defaultValues = {
       title: "",
+      description: "",
     };
 
     return (
@@ -79,27 +44,23 @@ function SettingsDialog({
         <DialogContentText>
           {t("create_new_feature_for")} {currentProject.title}
         </DialogContentText>
-        <Form
+        <CreateForm
           defaultValues={defaultValues}
-          handleSubmit={(value) => console.log(value)}
+          submit={(value) => console.log(value)}
         />
       </>
     )
   };
 
   const updateFeature = () => {
-    const defaultValues = {
-      title: "",
-    };
-
     return (
       <>
         <DialogContentText>
-          {t("update_feature")}
+          {t("choose_feature")}
         </DialogContentText>
-        <Form
-          defaultValues={defaultValues}
-          handleSubmit={(value) => console.log(value)}
+        <UpdateForm
+          submit={(value) => console.log(value)}
+          features={features}
         />
       </>
     )
@@ -109,8 +70,11 @@ function SettingsDialog({
     return (
       <>
         <DialogContentText>
-          {t("delete_feature")}
+          {t("choose_feature")}
         </DialogContentText>
+        <DeleteForm
+          features={features}
+        />
       </>
     )
   };

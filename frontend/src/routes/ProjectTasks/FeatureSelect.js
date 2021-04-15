@@ -1,4 +1,4 @@
-import { Grid, IconButton } from '@material-ui/core';
+import { Divider, Grid, IconButton, Typography } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -58,10 +58,16 @@ function FeatureSelect({
   return (
     <>
       {generateSelect()}
+      {currentValue?.description && (
+        <Typography variant="caption" color="textSecondary">
+          {t('description')}: {currentValue.description}
+        </Typography>
+      )}
       <SettingsDialog
         open={open}
         setOpen={setOpen}
         currentProject={currentProject}
+        features={values}
       />
     </>
   );

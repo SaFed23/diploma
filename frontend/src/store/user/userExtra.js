@@ -1,17 +1,24 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userLogin } from '../../service/user';
+import { snackbarAction } from '../snackbar';
 
 // extra actions
 export const getUserToken = createAsyncThunk('user/getToken',
-  async ({ user, notification }) => {
+  async (user, { dispatch }) => {
     const { data, status } = await userLogin(user);
     if (status === 201) {
-      notification("Login success", { variant: "success" });
+      dispatch(snackbarAction.addNotification({
+        message: "login_success",
+        variant: "success"
+      }));
       localStorage.setItem('token', `bearer ${data.token}`);
       return data;
     }
-    notification("Login fail", { variant: "error" });
+    dispatch(snackbarAction.addNotification({
+      message: "login_fail",
+      variant: "error"
+    }));
     return null
   });
 

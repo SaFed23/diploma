@@ -6,7 +6,8 @@ function SelectComponent({
   currentValue,
   onChange,
   title,
-  fullWidth
+  fullWidth,
+  margin = "none"
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ function SelectComponent({
           id="demo-simple-select"
           value={currentValue}
           onChange={onChange}
+          margin={margin}
         >
           <MenuItem value={''} disabled>-</MenuItem>
           {values.map(val => (

@@ -1,23 +1,21 @@
+import React, { useEffect } from 'react';
 import { Divider, Grid, IconButton, Typography } from '@material-ui/core';
 import { AddBox } from '@material-ui/icons';
-import { useSnackbar } from 'notistack';
-import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useProjectData, userProjects, useUserData } from '../../store';
+import { useProjectData, fetchUserProjects, useUserData } from '../../store';
 import ProjectsList from './ProjectsList';
 
 const MyProjects = () => {
   const { t } = useTranslation();
-  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const user = useUserData();
   const projects = useProjectData();
 
   console.log(user);
   useEffect(() => {
-    dispatch(userProjects(user.id, enqueueSnackbar))
-  }, [dispatch, user.id, enqueueSnackbar]);
+    dispatch(fetchUserProjects(user.id))
+  }, [dispatch, user.id]);
 
   return (
     <>

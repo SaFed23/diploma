@@ -8,6 +8,7 @@ import store from "./store";
 import { IconButton } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { routes } from "./routes.config";
+import Notifier from "./Notifier";
 
 function App() {
   const notistackRef = createRef();
@@ -27,6 +28,7 @@ function App() {
           </IconButton>
         )}
       >
+        <Notifier />
         <BrowserRouter>
           <Suspense fallback={<div>Loading...</div>}>
             <Route path="/login" component={() => <Login />} />

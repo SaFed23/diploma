@@ -4,8 +4,8 @@ import loadingSlice from '../loading/loadingSlice'
 
 const { startLoading, finishLoading } = loadingSlice.actions;
 
-export const userAuth = (user, notification) => async (dispatch) => {
+export const userAuth = (user) => async (dispatch) => {
   dispatch(startLoading());
-  await dispatch(getUserToken({ user, notification }));
+  await dispatch(getUserToken(user));
   dispatch(finishLoading());
 };

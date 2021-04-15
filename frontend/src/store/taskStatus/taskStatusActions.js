@@ -4,8 +4,8 @@ import loadingSlice from '../loading/loadingSlice'
 
 const { startLoading, finishLoading } = loadingSlice.actions;
 
-export const fetchTaskStatuses = (notification) => async (dispatch) => {
+export const fetchTaskStatuses = () => async (dispatch) => {
   dispatch(startLoading());
-  await dispatch(getTaskStatuses({ notification }));
+  await dispatch(getTaskStatuses());
   dispatch(finishLoading());
 };

@@ -72,7 +72,7 @@ function TaskCard({
                 <ListSubheader>
                   <Grid container justify="space-between">
                     <Grid item>
-                      <Typography variant="p">{taskStatus.title} ({taskStatus.tasks.length})</Typography>
+                      <Typography variant="inherit">{taskStatus.title} ({taskStatus.tasks.length})</Typography>
                     </Grid>
                     <Grid
                       item

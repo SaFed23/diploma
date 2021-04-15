@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 
-import { featuresByProjectId, useFeatureData, useProjectData } from '../../store';
-import { tasksByFeatureId, useTaskData } from '../../store';
+import { fetchFeaturesByProjectId, useFeatureData, useProjectData } from '../../store';
+import { fetchTasksByFeatureId, useTaskData } from '../../store';
 import FeatureSelect from './FeatureSelect';
 import TaskCard from './TaskCards';
 
 function ProjectTasks() {
   const projectId = window.location.pathname.split('/')[2];
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
   const features = useFeatureData();
   const tasks = useTaskData();
   const projects = useProjectData();
   const [currentFeature, setCurrentFeature] = useState({});
 
   useEffect(() => {
-    dispatch(featuresByProjectId(projectId, enqueueSnackbar));
-  }, [dispatch, enqueueSnackbar, projectId]);
+    dispatch(fetchFeaturesByProjectId(projectId));
+  }, [dispatch, projectId]);
 
   useEffect(() => {
     setCurrentFeature(features?.[0]);
@@ -26,9 +24,9 @@ function ProjectTasks() {
 
   useEffect(() => {
     if (currentFeature?.id) {
-      dispatch(tasksByFeatureId(currentFeature.id, enqueueSnackbar));
+      dispatch(fetchTasksByFeatureId(currentFeature.id));
     }
-  }, [currentFeature, dispatch, enqueueSnackbar]);
+  }, [currentFeature, dispatch]);
 
   return (
     <>

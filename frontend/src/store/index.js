@@ -5,3 +5,4 @@ export * from './user';
 export * from './project';
 export * from './feature';
 export * from './task';
+export * from './snackbar';
