@@ -13,7 +13,7 @@ export const getUserProjects = createAsyncThunk('project/getUserProjects',
       }
     } catch (e) {
       dispatch(snackbarAction.addNotification({
-        message: "login_fail",
+        message: "error",
         variant: "error"
       }));
     }

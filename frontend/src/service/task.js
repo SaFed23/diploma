@@ -5,3 +5,7 @@ import { AUTH } from "./config";
 export const getTasksByFeatureId = (featureId) => {
   return axios.get(`${API_ROUTES.TASK}/feature/${featureId}`, AUTH);
 }
+
+export const getTaskById = (taskId) => {
+  return axios.get(`${API_ROUTES.TASK}/${taskId}`, AUTH);
+}

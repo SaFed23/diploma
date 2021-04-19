@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import { fetchFeaturesByProjectId, useFeatureData, useProjectData } from '../../store';
-import { fetchTasksByFeatureId, useTaskData } from '../../store';
+import {
+  setProjectIdAndFetch,
+  useFeatureData,
+  useProjectData,
+  taskAction,
+  featureAction
+} from '../../store';
+import { setFeatureIdAndFetch, useAllTasks } from '../../store';
 import FeatureSelect from './FeatureSelect';
 import TaskCard from './TaskCards';
 
@@ -10,12 +15,16 @@ function ProjectTasks() {
   const projectId = window.location.pathname.split('/')[2];
   const dispatch = useDispatch();
   const features = useFeatureData();
-  const tasks = useTaskData();
+  const tasks = useAllTasks();
   const projects = useProjectData();
   const [currentFeature, setCurrentFeature] = useState({});
 
   useEffect(() => {
-    dispatch(fetchFeaturesByProjectId(projectId));
+    dispatch(setProjectIdAndFetch(projectId));
+
+    return () => {
+      dispatch(featureAction.clearFeatureData());
+    }
   }, [dispatch, projectId]);
 
   useEffect(() => {
@@ -24,7 +33,11 @@ function ProjectTasks() {
 
   useEffect(() => {
     if (currentFeature?.id) {
-      dispatch(fetchTasksByFeatureId(currentFeature.id));
+      dispatch(setFeatureIdAndFetch(currentFeature.id));
+    }
+
+    return () => {
+      dispatch(taskAction.clearAllTasks());
     }
   }, [currentFeature, dispatch]);
 

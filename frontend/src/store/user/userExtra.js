@@ -15,10 +15,6 @@ export const getUserToken = createAsyncThunk('user/getToken',
       localStorage.setItem('token', `bearer ${data.token}`);
       return data;
     }
-    dispatch(snackbarAction.addNotification({
-      message: "login_fail",
-      variant: "error"
-    }));
     return null
   });
 

@@ -5,7 +5,8 @@ import { snackbarAction } from '../snackbar';
 
 // extra actions
 export const getFeaturesByProjectId = createAsyncThunk('feature/getFeaturesByProjectId',
-  async (projectId, { dispatch }) => {
+  async (_, { dispatch, getState }) => {
+    const { projectId } = getState().feature;
     try {
       const { data, status } = await service.getFeaturesByProjectId(projectId);
       if (status === 200) {
@@ -13,7 +14,7 @@ export const getFeaturesByProjectId = createAsyncThunk('feature/getFeaturesByPro
       }
     } catch (e) {
       dispatch(snackbarAction.addNotification({
-        message: "login_fail",
+        message: "error",
         variant: "error"
       }));
     }
@@ -29,13 +30,45 @@ export const createFeature = createAsyncThunk('feature/createFeature',
       }
     } catch (e) {
       dispatch(snackbarAction.addNotification({
-        message: "login_fail",
+        message: "error",
         variant: "error"
       }));
     }
     return null
   });
 
+
+export const updateFeature = createAsyncThunk('feature/updateFeature',
+  async (feature, { dispatch }) => {
+    try {
+      const { data, status } = await service.updateFeature(feature);
+      if (status === 200) {
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
+export const deleteFeature = createAsyncThunk('feature/deleteFeature',
+  async (featureId, { dispatch }) => {
+    try {
+      const { data, status } = await service.deleteFeature(featureId);
+      if (status === 200) {
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
 
 // extra reducer
 export default {

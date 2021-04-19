@@ -1,6 +1,11 @@
 import featureSlice from './featureSlice';
 
-export { getFeaturesByProjectId } from './featureExtra';
+export {
+  getFeaturesByProjectId,
+  createFeature,
+  updateFeature,
+  deleteFeature
+} from './featureExtra';
 
 export const featureAction = featureSlice.actions;
 

@@ -1,6 +1,6 @@
 import taskSlice from './taskSlice';
 
-export { getTasksByFeatureId } from './taskExtra';
+export { getTasksByFeatureId, getTaskById } from './taskExtra';
 
 export const taskAction = taskSlice.actions;
 

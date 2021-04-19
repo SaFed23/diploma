@@ -24,6 +24,7 @@ function DeleteForm({
         variant="contained"
         color="secondary"
         style={{ marginTop: 10 }}
+        onClick={() => submit(currentFeature)}
       >
         {t("delete")}
       </Button>

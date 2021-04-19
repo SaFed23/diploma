@@ -5,7 +5,8 @@ import { snackbarAction } from '../snackbar';
 
 // extra actions
 export const getTasksByFeatureId = createAsyncThunk('task/getTasksByFeatureId',
-  async (featureId, { dispatch }) => {
+  async (_, { dispatch, getState }) => {
+    const { featureId } = getState().task;
     try {
       const { data, status } = await service.getTasksByFeatureId(featureId);
       if (status === 200) {
@@ -13,7 +14,23 @@ export const getTasksByFeatureId = createAsyncThunk('task/getTasksByFeatureId',
       }
     } catch (e) {
       dispatch(snackbarAction.addNotification({
-        message: "login_fail",
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
+export const getTaskById = createAsyncThunk('task/getTaskById',
+  async (taskId, { dispatch }) => {
+    try {
+      const { data, status } = await service.getTaskById(taskId);
+      if (status === 200) {
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
         variant: "error"
       }));
     }
@@ -25,7 +42,14 @@ export default {
   [getTasksByFeatureId.fulfilled]: (state, action) => {
     const data = action.payload;
     if (data) {
-      state.data = data;
+      state.all = data;
+    }
+  },
+
+  [getTaskById.fulfilled]: (state, action) => {
+    const data = action.payload;
+    if (data) {
+      state.current = data;
     }
   },
 };

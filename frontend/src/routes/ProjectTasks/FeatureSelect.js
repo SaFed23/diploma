@@ -1,6 +1,6 @@
-import { Divider, Grid, IconButton, Typography } from '@material-ui/core';
-import { Settings } from '@material-ui/icons';
 import React, { useState } from 'react';
+import { Grid, IconButton, Typography } from '@material-ui/core';
+import { Settings } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import Select from '../../components/common/Select';
 import { useUserData } from '../../store';

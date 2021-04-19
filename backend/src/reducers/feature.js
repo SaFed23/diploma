@@ -36,10 +36,9 @@ featureReducer.updateById = async (feature) => {
     const result = await Feature
         .findByIdAndUpdate(feature.id, feature, {
             new: true
-        })
-        .getInfo();
+        });
     if (result) {
-        return result;
+        return result.getInfo();
     } else {
         generateError(featureErrors.notExists, 404);
     }

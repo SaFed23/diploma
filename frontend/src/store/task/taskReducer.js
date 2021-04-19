@@ -1,14 +1,33 @@
 /* eslint-disable import/no-anonymous-default-export */
 export const initialState = {
-  data: [],
+  all: [],
+  current: {},
+  featureId: '',
 };
 
 export default {
   setTaskData: (state, action) => {
-    state.data = action.payload;
+    state.all = action.payload;
+  },
+
+  setCurrentTask: (state, action) => {
+    state.current = { ...action.payload };
+  },
+
+  setFeatureId: (state, action) => {
+    state.featureId = action.payload;
   },
 
   clearTaskData: (state) => {
-    state.data = initialState.data;
+    state.all = initialState.all;
+    state.current = initialState.current;
   },
+
+  clearAllTasks: (state) => {
+    state.all = initialState.all;
+  },
+
+  clearCurrentTask: (state) => {
+    state.current = initialState.current;
+  }
 };

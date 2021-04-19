@@ -1,3 +1,4 @@
+import CurrentTask from "./routes/CurrentTask";
 import MyProjects from "./routes/MyProjects";
 import ProjectTasks from "./routes/ProjectTasks";
 
@@ -19,7 +20,7 @@ export const routes = [
   },
   {
     path: '/task/:taskId',
-    component: () => "task",
+    component: <CurrentTask />,
     exact: false
   },
 ]

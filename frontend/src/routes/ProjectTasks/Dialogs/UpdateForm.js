@@ -28,11 +28,12 @@ function UpdateForm({
 
   const chooseFeature = ({ target }) => {
     const feature = features.find(f => f.id === target.value);
-    console.log(feature)
     setFeature(feature.id);
     setDefaultValues({
+      id: feature.id,
       title: feature.title,
-      description: feature.description || ""
+      description: feature.description || "",
+      projectId: feature.project.id,
     });
   };
 
@@ -74,7 +75,7 @@ function UpdateForm({
             {...field}
           />}
         />
-        <Button fullWidth variant="contained" color="primary">
+        <Button fullWidth type="submit" variant="contained" color="primary">
           {t("update")}
         </Button>
       </form>}

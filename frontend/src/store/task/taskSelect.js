@@ -2,4 +2,5 @@ import { createSelector } from '@reduxjs/toolkit';
 
 export const selectTaskState = (state) => state.task;
 
-export const selectTaskData = createSelector(selectTaskState, (state) => state.data);
+export const selectAllTasks = createSelector(selectTaskState, (state) => state.all);
+export const selectCurrentTask = createSelector(selectTaskState, (state) => state.current);

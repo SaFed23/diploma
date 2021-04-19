@@ -12,7 +12,6 @@ const MyProjects = () => {
   const user = useUserData();
   const projects = useProjectData();
 
-  console.log(user);
   useEffect(() => {
     dispatch(fetchUserProjects(user.id))
   }, [dispatch, user.id]);

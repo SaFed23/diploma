@@ -28,9 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BaseComponent({
-  component
-}) {
+function BaseComponent({ component }) {
   const classes = useStyles();
   const token = useUserToken();
   const loading = useLoadingState();

@@ -14,6 +14,8 @@ import { useTranslation } from 'react-i18next';
 import CreateForm from './CreateForm';
 import UpdateForm from './UpdateForm';
 import DeleteForm from './DeleteForm';
+import { createFeatureAndFetch, deleteFeatureAndFetch, updateFeatureAndFetch } from '../../../store';
+import { useDispatch } from 'react-redux';
 
 
 function SettingsDialog({
@@ -22,21 +24,39 @@ function SettingsDialog({
   currentProject,
   features,
 }) {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
 
   const handleClose = () => {
     setOpen(false);
+    setCurrent(0);
   };
 
   const handleChange = (event, newValue) => {
     setCurrent(newValue);
   };
 
+  const handleCreateNewFeature = (value) => {
+    dispatch(createFeatureAndFetch(value));
+    handleClose();
+  };
+
+  const handleUpdateFeature = (value) => {
+    dispatch(updateFeatureAndFetch(value));
+    handleClose();
+  };
+
+  const handleDeleteFeature = (value) => {
+    dispatch(deleteFeatureAndFetch(value));
+    handleClose();
+  }
+
   const createFeature = () => {
     const defaultValues = {
       title: "",
       description: "",
+      projectId: currentProject.id
     };
 
     return (
@@ -46,7 +66,7 @@ function SettingsDialog({
         </DialogContentText>
         <CreateForm
           defaultValues={defaultValues}
-          submit={(value) => console.log(value)}
+          submit={handleCreateNewFeature}
         />
       </>
     )
@@ -59,7 +79,7 @@ function SettingsDialog({
           {t("choose_feature")}
         </DialogContentText>
         <UpdateForm
-          submit={(value) => console.log(value)}
+          submit={handleUpdateFeature}
           features={features}
         />
       </>
@@ -74,6 +94,7 @@ function SettingsDialog({
         </DialogContentText>
         <DeleteForm
           features={features}
+          submit={handleDeleteFeature}
         />
       </>
     )
