@@ -1,16 +1,18 @@
 import React from "react";
-import { Controller, useForm } from 'react-hook-form';
+import useForm from '../../hooks/useForm';
 import { Redirect } from "react-router";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { defaultValues, validationSchema } from './auth.form';
 import { userAuth, useUserToken } from "../../store";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const token = useUserToken();
-  const { handleSubmit, formState: { errors }, control } = useForm({
+  const { handleSubmit, formState: { errors }, muiRegister } = useForm({
     defaultValues,
     resolver: yupResolver(validationSchema),
   });
@@ -34,32 +36,24 @@ const Login = () => {
     >
       <Typography variant="h5">My work</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="username"
-          control={control}
-          render={({ field }) => <TextField fullWidth
-            label="Username"
-            variant="outlined"
-            margin="normal"
-            autoFocus
-            error={!!errors.username}
-            helperText={errors.username?.message}
-            {...field}
-          />}
+        <TextField fullWidth
+          label={t("username")}
+          variant="outlined"
+          margin="normal"
+          autoFocus
+          error={!!errors.username}
+          helperText={errors.username?.message}
+          {...muiRegister('username')}
         />
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => <TextField
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            label="Password"
-            type="password"
-            error={!!errors.password}
-            helperText={errors.password?.message}
-            {...field}
-          />}
+        <TextField
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          label={t("password")}
+          type="password"
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...muiRegister('password')}
         />
         <Button
           type="submit"

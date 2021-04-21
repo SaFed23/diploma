@@ -4,3 +4,4 @@ import * as selects from './projectSelect';
 
 export const useProjectState = () => useSelector(selects.selectProjectState);
 export const useProjectData = () => useSelector(selects.selectProjectData);
+export const useCurrentProject = () => useSelector(selects.selectCurrentProject);

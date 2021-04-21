@@ -1,31 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   setProjectIdAndFetch,
   useFeatureData,
-  useProjectData,
   taskAction,
-  featureAction
+  featureAction,
+  projectAction,
+  useProjectState
 } from '../../store';
 import { setFeatureIdAndFetch, useAllTasks } from '../../store';
 import FeatureSelect from './FeatureSelect';
 import TaskCard from './TaskCards';
+import AddTaskDialog from './Dialogs/AddTask';
 
 function ProjectTasks() {
   const projectId = window.location.pathname.split('/')[2];
   const dispatch = useDispatch();
   const features = useFeatureData();
   const tasks = useAllTasks();
-  const projects = useProjectData();
+  const projectState = useProjectState();
   const [currentFeature, setCurrentFeature] = useState({});
+  const [openAddTask, setOpenAddTask] = useState(null);
 
   useEffect(() => {
     dispatch(setProjectIdAndFetch(projectId));
+    dispatch(projectAction.setCurrentProject(projectState.data.find(p => p.id === projectId)))
 
     return () => {
       dispatch(featureAction.clearFeatureData());
     }
-  }, [dispatch, projectId]);
+  }, []);
 
   useEffect(() => {
     setCurrentFeature(features?.[0]);
@@ -39,7 +44,13 @@ function ProjectTasks() {
     return () => {
       dispatch(taskAction.clearAllTasks());
     }
-  }, [currentFeature, dispatch]);
+  }, [currentFeature]);
+
+  const handleCreateTask = (value) => {
+    value.featureId = currentFeature.id;
+    value.taskStatusId = openAddTask.id;
+    console.log(value);
+  };
 
   return (
     <>
@@ -47,10 +58,16 @@ function ProjectTasks() {
         values={features}
         currentValue={currentFeature}
         setCurrentValue={setCurrentFeature}
-        currentProject={projects.find(p => p.id === projectId)}
+        currentProject={projectState.current}
       />
       <TaskCard
         tasks={tasks}
+        onAdd={setOpenAddTask}
+      />
+      <AddTaskDialog
+        open={openAddTask}
+        handleClose={() => setOpenAddTask(null)}
+        submit={handleCreateTask}
       />
     </>
   )

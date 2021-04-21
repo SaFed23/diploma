@@ -1,9 +1,9 @@
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { TextField, Button } from '@material-ui/core';
+import useForm from '../../../hooks/useForm';
 
 function CreateForm({
   defaultValues,
@@ -15,7 +15,7 @@ function CreateForm({
     title: yup.string().required(t("required_field")),
     description: yup.string()
   });
-  const { handleSubmit, formState: { errors }, control } = useForm({
+  const { handleSubmit, formState: { errors }, muiRegister } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
@@ -23,33 +23,25 @@ function CreateForm({
   return (
     <>
       <form onSubmit={handleSubmit(submit)}>
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => <TextField
-            fullWidth
-            label={t("title")}
-            variant="outlined"
-            margin="normal"
-            autoFocus
-            error={!!errors.title}
-            helperText={errors.title?.message}
-            {...field}
-          />}
+        <TextField
+          fullWidth
+          label={t("title")}
+          variant="outlined"
+          margin="normal"
+          autoFocus
+          error={!!errors.title}
+          helperText={errors.title?.message}
+          {...muiRegister("title")}
         />
-        <Controller
-          name="description"
-          control={control}
-          render={({ field }) => <TextField
-            fullWidth
-            multiline
-            label={t("description")}
-            variant="outlined"
-            margin="normal"
-            error={!!errors.description}
-            helperText={errors.description?.message}
-            {...field}
-          />}
+        <TextField
+          fullWidth
+          multiline
+          label={t("description")}
+          variant="outlined"
+          margin="normal"
+          error={!!errors.description}
+          helperText={errors.description?.message}
+          {...muiRegister("description")}
         />
         <Button type="submit" fullWidth variant="contained" color="primary">
           {t("create")}

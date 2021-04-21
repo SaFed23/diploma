@@ -1,6 +1,6 @@
 import React, { Suspense, createRef } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { SnackbarProvider } from 'notistack';
 import BaseComponent from "./components/BaseComponent";
 import Login from "./routes/Auth"
@@ -30,19 +30,22 @@ function App() {
       >
         <Notifier />
         <BrowserRouter>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Route path="/login" component={() => <Login />} />
-            {routes.map((route, index) => {
-              return (
-                <Route
-                  key={index}
-                  exact={route.exact}
-                  path={route.path}
-                  component={() => <BaseComponent component={route.component} />}
-                />
-              )
-            })}
-          </Suspense>
+          <Switch>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Route path="/login" component={() => <Login />} />
+              {routes.map((route, index) => {
+                return (
+                  <Route
+                    key={index}
+                    exact={route.exact}
+                    path={route.path}
+                    component={() => <BaseComponent component={route.component} />}
+                  />
+                )
+              })}
+              <Redirect from="*" to="/login" />
+            </Suspense>
+          </Switch>
         </BrowserRouter>
       </SnackbarProvider>
     </Provider >

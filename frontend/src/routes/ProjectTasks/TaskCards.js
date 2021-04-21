@@ -9,16 +9,18 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Typography
+  Typography,
+  IconButton
 } from '@material-ui/core';
 import Draggable from 'react-draggable';
-import { VisibilityOff } from '@material-ui/icons';
+import { VisibilityOff, AddCircle } from '@material-ui/icons';
 import { useUserData } from '../../store';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 function TaskCard({
   tasks,
+  onAdd,
 }) {
   const { t } = useTranslation();
   const user = useUserData();
@@ -71,14 +73,18 @@ function TaskCard({
               <Card style={{ maxHeight: '50vh', overflow: 'auto' }}>
                 <ListSubheader>
                   <Grid container justify="space-between">
-                    <Grid item>
+                    <Grid item xs={9}>
                       <Typography variant="inherit">{taskStatus.title} ({taskStatus.tasks.length})</Typography>
                     </Grid>
                     <Grid
                       item
-                      xs={5}
-                      style={{ background: taskStatus.color || 'grey', borderRadius: 40, margin: 10 }}
-                    />
+                      xs={3}
+                      style={{ textAlign: "right" }}
+                    >
+                      <IconButton onClick={() => onAdd(taskStatus)}>
+                        <AddCircle style={{ color: taskStatus.color }} fontSize="medium" />
+                      </IconButton>
+                    </Grid>
                   </Grid>
                   <Divider />
                 </ListSubheader>

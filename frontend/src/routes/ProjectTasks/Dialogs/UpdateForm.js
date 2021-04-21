@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { TextField, Button } from '@material-ui/core';
 import SelectComponent from '../../../components/common/Select';
+import useForm from '../../../hooks/useForm';
+import CreateForm from './CreateForm';
 
 function UpdateForm({
   submit,
@@ -17,7 +17,7 @@ function UpdateForm({
     title: yup.string(),
     description: yup.string(),
   });
-  const { handleSubmit, formState: { errors }, control, reset } = useForm({
+  const { reset } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
@@ -46,39 +46,12 @@ function UpdateForm({
         title={t("feature")}
         values={features}
       />
-      {currentFeature && <form onSubmit={handleSubmit(submit)}>
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => <TextField fullWidth
-            label={t("title")}
-            variant="outlined"
-            margin="normal"
-            autoFocus
-            error={!!errors.username}
-            helperText={errors.username?.message}
-            {...field}
-          />}
+      {currentFeature
+        && <CreateForm
+          defaultValues={defaultValues}
+          submit={submit}
         />
-        <Controller
-          name="description"
-          control={control}
-          render={({ field }) => <TextField
-            fullWidth
-            multiline
-            label={t("description")}
-            variant="outlined"
-            margin="normal"
-            autoFocus
-            error={!!errors.description}
-            helperText={errors.description?.message}
-            {...field}
-          />}
-        />
-        <Button fullWidth type="submit" variant="contained" color="primary">
-          {t("update")}
-        </Button>
-      </form>}
+      }
     </>
   )
 };

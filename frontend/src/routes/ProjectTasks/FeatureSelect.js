@@ -14,39 +14,27 @@ function FeatureSelect({
 }) {
   const { t } = useTranslation();
   const user = useUserData();
-  const [open, setOpen] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
 
   const handleChange = (event) => {
     setCurrentValue(values.find(val => val.id === event.target.value))
   };
 
-  const generateSelect = () => {
-    if (user.id !== currentProject?.owner.id) {
+  const GenerateSelect = ({ children }) => {
+    if (user.id !== currentProject.owner?.id) {
       return (
         <Grid>
-          <Select
-            title={t('feature')}
-            values={values}
-            onChange={handleChange}
-            currentValue={currentValue?.id || ''}
-            fullWidth={true}
-          />
+          {children}
         </Grid>
       )
     } else {
       return (
         <Grid container justify="space-between">
           <Grid item xs={11}>
-            <Select
-              title={t('feature')}
-              values={values}
-              onChange={handleChange}
-              currentValue={currentValue?.id || ''}
-              fullWidth={true}
-            />
+            {children}
           </Grid>
           <Grid item xs={1} style={{ textAlign: 'right' }}>
-            <IconButton onClick={() => setOpen(true)}>
+            <IconButton onClick={() => setOpenSetting(true)}>
               <Settings />
             </IconButton>
           </Grid>
@@ -57,15 +45,23 @@ function FeatureSelect({
 
   return (
     <>
-      {generateSelect()}
+      <GenerateSelect>
+        <Select
+          title={t('feature')}
+          values={values}
+          onChange={handleChange}
+          currentValue={currentValue?.id || ''}
+          fullWidth={true}
+        />
+      </GenerateSelect>
       {currentValue?.description && (
         <Typography variant="caption" color="textSecondary">
           {t('description')}: {currentValue.description}
         </Typography>
       )}
       <SettingsDialog
-        open={open}
-        setOpen={setOpen}
+        open={openSetting}
+        setOpen={setOpenSetting}
         currentProject={currentProject}
         features={values}
       />
