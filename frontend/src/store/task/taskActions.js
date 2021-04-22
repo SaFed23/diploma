@@ -3,7 +3,8 @@ import {
   getTaskById,
   getTasksByFeatureId,
   taskAction,
-  createTask
+  createTask,
+  updateTask,
 } from './';
 import loadingSlice from '../loading/loadingSlice'
 
@@ -25,6 +26,13 @@ export const fetchTaskById = (taskId) => async (dispatch) => {
 export const createTaskAndFetch = (task) => async (dispatch) => {
   dispatch(startLoading());
   await dispatch(createTask(task));
+  await dispatch(getTasksByFeatureId());
+  dispatch(finishLoading());
+};
+
+export const updateTaskAndFetch = (task) => async (dispatch) => {
+  dispatch(startLoading());
+  await dispatch(updateTask(task));
   await dispatch(getTasksByFeatureId());
   dispatch(finishLoading());
 };

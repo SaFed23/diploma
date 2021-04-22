@@ -1,19 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Typography, FormControl, InputLabel, Select, Input, Chip, MenuItem, useTheme, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { fetchTaskById, useCurrentTask, taskAction } from '../../store';
-import { fetchTaskStatuses, useTaskStatusData, useCurrentProject } from '../../store';
+import {
+  fetchTaskById,
+  useCurrentTask,
+  taskAction,
+  updateTaskAndFetch,
+  fetchTaskStatuses,
+  useTaskStatusData,
+  useCurrentProject
+} from '../../store';
 import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router';
+import TaskData from './TaskData';
 
 function CurrentTask() {
   const dispatch = useDispatch();
-  const theme = useTheme();
   const { t } = useTranslation();
   const currentTask = useCurrentTask();
   const taskStatuses = useTaskStatusData();
   const currentProject = useCurrentProject();
-  const [personName, setPersonName] = React.useState([]);
+
 
   useEffect(() => {
     const taskId = window.location.pathname.split('/')[2];
@@ -23,102 +31,63 @@ function CurrentTask() {
     return () => {
       dispatch(taskAction.clearCurrentTask())
     }
-  }, [dispatch]);
+  }, []);
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
+  const handleChangeStatus = (event) => {
+    const updateTask = {
+      id: currentTask.id,
+      taskStatusId: event.target.value,
+    }
+    dispatch(updateTaskAndFetch(updateTask));
   };
 
-  function getStyles(name, personName, theme) {
-    return {
-      fontWeight:
-        personName.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-  }
+  const handleChangeUsers = (event) => {
+    const updateTask = {
+      id: currentTask.id,
+      userIds: event.target.value,
+    }
+    dispatch(updateTaskAndFetch(updateTask));
+  };
 
-  const handleChange = (event) => {
-    setPersonName(event.target.value);
+  const handleDeleteUser = (userId) => {
+    const newUserIds = currentTask.users.reduce((acc, { id }) => {
+      if (id !== userId) {
+        acc.push(id);
+      }
+      return acc;
+    }, []);
+    const updateTask = {
+      id: currentTask.id,
+      userIds: newUserIds,
+    }
+    dispatch(updateTaskAndFetch(updateTask));
   };
 
   if (!currentProject.id) {
     return <Redirect to='my-projects' />;
   }
 
-  console.log(currentTask);
-
   return (
     <>
       <Grid container justify="space-between">
         <Grid item xs={7}>
+          <TaskData
+            currentTask={currentTask}
+            handleChangeStatus={handleChangeStatus}
+            taskStatuses={taskStatuses}
+            currentProject={currentProject}
+            taskUserIds={currentTask?.users?.map(user => user.id) || []}
+            handleChangeUsers={handleChangeUsers}
+            handleDeleteUser={handleDeleteUser}
+          />
+        </Grid>
+
+        <Grid item xs={5}>
           <Grid container>
             <Grid item xs={8}>
-              <Typography variant="h6">{currentTask.title}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <FormControl style={{ width: "100%" }}>
-                <InputLabel id="demo-mutiple-chip-label">{t('status')}</InputLabel>
-                {currentTask.taskStatus && <Select
-                  value={currentTask.taskStatus?.id}
-                  fullWidth
-                  label={t("status")}
-                >
-                  {taskStatuses.map((status) => (
-                    <MenuItem
-                      key={status.id}
-                      value={status.id}
-                    >
-                      {status.title}
-                    </MenuItem>
-                  ))}
-                </Select>}
-              </FormControl>
+              <Typography variant="subtitle1">{t("comments")}:</Typography>
             </Grid>
           </Grid>
-          <FormControl style={{ width: "100%" }}>
-            <InputLabel>{t("users")}</InputLabel>
-            <Select
-              multiple
-              value={personName}
-              onChange={handleChange}
-              input={<Input />}
-              MenuProps={MenuProps}
-            >
-              {currentProject.users.map((user) => (
-                <MenuItem key={user} value={user.id}
-                // style={getStyles(user.id, theme)}
-                >
-                  {user.username}
-                </MenuItem>
-              ))}
-            </Select>
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-            }}>
-              {currentTask.users?.map((user) => (
-                <Chip
-                  key={user.id}
-                  label={user.username}
-                  style={{
-                    margin: 2,
-                  }}
-                  color="primary"
-                  onDelete={() => console.log(111111)} />
-              ))}
-            </div>
-          </FormControl>
-        </Grid>
-        <Grid item xs={5}>
-
         </Grid>
       </Grid>
     </>

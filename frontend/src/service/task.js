@@ -13,3 +13,7 @@ export const getTaskById = (taskId) => {
 export const createTask = (task) => {
   return axios.post(`${API_ROUTES.TASK}`, task, AUTH);
 };
+
+export const updateTask = (task) => {
+  return axios.put(`${API_ROUTES.TASK}`, task, AUTH)
+};
