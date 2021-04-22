@@ -82,7 +82,7 @@ function TaskCard({
                       style={{ textAlign: "right" }}
                     >
                       <IconButton onClick={() => onAdd(taskStatus)}>
-                        <AddCircle style={{ color: taskStatus.color }} fontSize="medium" />
+                        <AddCircle style={{ color: taskStatus.color }} />
                       </IconButton>
                     </Grid>
                   </Grid>

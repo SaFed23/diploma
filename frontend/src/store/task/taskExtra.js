@@ -37,6 +37,26 @@ export const getTaskById = createAsyncThunk('task/getTaskById',
     return null
   });
 
+export const createTask = createAsyncThunk('task/createTask',
+  async (task, { dispatch }) => {
+    try {
+      const { data, status } = await service.createTask(task);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
 // extra reducer
 export default {
   [getTasksByFeatureId.fulfilled]: (state, action) => {

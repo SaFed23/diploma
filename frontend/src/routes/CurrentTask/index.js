@@ -58,8 +58,31 @@ function CurrentTask() {
   return (
     <>
       <Grid container justify="space-between">
-        <Grid item xs={9}>
-          <Typography variant="h6">{currentTask.title}</Typography>
+        <Grid item xs={7}>
+          <Grid container>
+            <Grid item xs={8}>
+              <Typography variant="h6">{currentTask.title}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl style={{ width: "100%" }}>
+                <InputLabel id="demo-mutiple-chip-label">{t('status')}</InputLabel>
+                {currentTask.taskStatus && <Select
+                  value={currentTask.taskStatus?.id}
+                  fullWidth
+                  label={t("status")}
+                >
+                  {taskStatuses.map((status) => (
+                    <MenuItem
+                      key={status.id}
+                      value={status.id}
+                    >
+                      {status.title}
+                    </MenuItem>
+                  ))}
+                </Select>}
+              </FormControl>
+            </Grid>
+          </Grid>
           <FormControl style={{ width: "100%" }}>
             <InputLabel>{t("users")}</InputLabel>
             <Select
@@ -82,31 +105,20 @@ function CurrentTask() {
               flexWrap: 'wrap',
             }}>
               {currentTask.users?.map((user) => (
-                <Chip key={user.id} label={user.username} style={{
-                  margin: 2,
-                }} onDelete={() => console.log(111111)} />
+                <Chip
+                  key={user.id}
+                  label={user.username}
+                  style={{
+                    margin: 2,
+                  }}
+                  color="primary"
+                  onDelete={() => console.log(111111)} />
               ))}
             </div>
           </FormControl>
         </Grid>
-        <Grid item xs={2}>
-          <FormControl style={{ width: "100%" }}>
-            <InputLabel id="demo-mutiple-chip-label">{t('status')}</InputLabel>
-            {currentTask.taskStatus && <Select
-              value={currentTask.taskStatus?.id}
-              fullWidth
-              label={t("status")}
-            >
-              {taskStatuses.map((status) => (
-                <MenuItem
-                  key={status.id}
-                  value={status.id}
-                >
-                  {status.title}
-                </MenuItem>
-              ))}
-            </Select>}
-          </FormControl>
+        <Grid item xs={5}>
+
         </Grid>
       </Grid>
     </>

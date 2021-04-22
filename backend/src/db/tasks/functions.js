@@ -1,6 +1,7 @@
 const Feature = require('../features');
 const TaskStatus = require('../taskStatuses');
 const User = require('../users');
+const { getInfoForArray } = require('../../../utils/helper');
 
 const methods = {};
 const statics = {};
@@ -41,7 +42,7 @@ statics.getByFeatureId = async function (featureId) {
     const groupTask = [];
     for (const taskStatus of taskStatuses) {
       const obj = { ...taskStatus.toJSON() };
-      obj.tasks = await this.find({ taskStatusId: taskStatus.id, featureId });
+      obj.tasks = await getInfoForArray(await this.find({ taskStatusId: taskStatus.id, featureId }));
       groupTask.push(obj);
     }
     return groupTask;

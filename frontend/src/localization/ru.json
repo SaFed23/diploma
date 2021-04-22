@@ -1,5 +1,6 @@
 {
   "add_task": "Добавить задачу",
+  "assign_yourself": "Закрепить на себя",
   "choose_feature": "Выберете особенность",
   "create": "Создать",
   "create_new_feature_for": "Создать новую особенность для",
@@ -20,6 +21,7 @@
   "profile": "Профиль",
   "projects": "Проекты",
   "required_field": "Обязательное поле",
+  "success": "Успешно",
   "settings": "Настройки",
   "status": "Статус",
   "title": "Наименование",

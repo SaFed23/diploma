@@ -1,5 +1,6 @@
 {
   "add_task": "Add task",
+  "assign_yourself": "Assign on yourself",
   "choose_feature": "Choose feature",
   "create": "Create",
   "create_new_feature_for": "Create new feature for",
@@ -20,6 +21,7 @@
   "profile": "Profile",
   "projects": "Projects",
   "required_field": "Required field",
+  "success": "Success",
   "settings": "Settings",
   "status": "Status",
   "title": "Title",

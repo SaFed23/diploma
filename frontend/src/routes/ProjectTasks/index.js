@@ -7,9 +7,12 @@ import {
   taskAction,
   featureAction,
   projectAction,
-  useProjectState
+  useProjectState,
+  createTaskAndFetch,
+  setFeatureIdAndFetch,
+  useAllTasks,
+  useUserData,
 } from '../../store';
-import { setFeatureIdAndFetch, useAllTasks } from '../../store';
 import FeatureSelect from './FeatureSelect';
 import TaskCard from './TaskCards';
 import AddTaskDialog from './Dialogs/AddTask';
@@ -19,6 +22,7 @@ function ProjectTasks() {
   const dispatch = useDispatch();
   const features = useFeatureData();
   const tasks = useAllTasks();
+  const user = useUserData();
   const projectState = useProjectState();
   const [currentFeature, setCurrentFeature] = useState({});
   const [openAddTask, setOpenAddTask] = useState(null);
@@ -49,7 +53,13 @@ function ProjectTasks() {
   const handleCreateTask = (value) => {
     value.featureId = currentFeature.id;
     value.taskStatusId = openAddTask.id;
+    if (value.assign) {
+      value.userIds = [user.id];
+    }
+    delete value.assign;
     console.log(value);
+    dispatch(createTaskAndFetch(value));
+    setOpenAddTask(null);
   };
 
   return (

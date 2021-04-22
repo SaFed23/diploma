@@ -6,7 +6,9 @@ import {
   Button,
   DialogContent,
   TextField,
-  Grid
+  Grid,
+  Checkbox,
+  FormControlLabel,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -35,10 +37,10 @@ function AddTaskDialog({
     <Dialog open={!!open} onClose={close}>
       <DialogTitle>
         <Grid container justify="space-between">
-          <Grid xs={11}>
+          <Grid item xs={11}>
             {t("add_task")}
           </Grid>
-          <Grid xs={1} style={{ textAlign: "right" }}>
+          <Grid item xs={1} style={{ textAlign: "right" }}>
             <FiberManualRecord fontSize="large" style={{ color: open?.color }} />
           </Grid>
         </Grid>
@@ -65,6 +67,12 @@ function AddTaskDialog({
               error={!!errors.description}
               helperText={errors.description?.message}
               {...muiRegister("description")}
+            />
+            <FormControlLabel
+              control={<Checkbox color="primary" />}
+              label={t("assign_yourself")}
+              labelPlacement="end"
+              {...muiRegister("assign")}
             />
             <Button type="submit" fullWidth variant="contained" color="primary">
               {t("create")}
