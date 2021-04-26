@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   Typography,
@@ -8,8 +8,14 @@ import {
   MenuItem,
   Chip,
   Input,
+  IconButton,
 } from '@material-ui/core';
+import { Delete } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next';
+import useConfirm from '../../hooks/useConfirm';
+import { useDispatch } from 'react-redux';
+import { deleteTaskAndFetch } from '../../store';
+import { Redirect } from 'react-router';
 
 
 function TaskData({
@@ -22,12 +28,35 @@ function TaskData({
   handleDeleteUser,
 }) {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { setOpen, setAction } = useConfirm();
+  const [isDelete, setDelete] = useState(false);
+
+  const handleDeleteTask = () => {
+    setOpen(true);
+    setAction(() => () => {
+      dispatch(deleteTaskAndFetch(currentTask.id));
+      setDelete(true);
+    });
+  };
+
+  if (isDelete) {
+    return <Redirect to={`/my-projects/${currentProject.id}`} />
+  }
 
   return (
     <>
       <Grid container>
         <Grid item xs={8}>
-          <Typography variant="h6">{currentTask.title}</Typography>
+          <Grid container justify="flex-start">
+            <Typography variant="h6">{currentTask.title}</Typography>
+            <IconButton
+              style={{ paddingTop: 6 }}
+              onClick={handleDeleteTask}
+            >
+              <Delete fontSize="small" />
+            </IconButton>
+          </Grid>
         </Grid>
         <Grid item xs={4}>
           <FormControl style={{ width: "100%" }}>

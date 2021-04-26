@@ -9,6 +9,7 @@ import { IconButton } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { routes } from "./routes.config";
 import Notifier from "./Notifier";
+import ConfirmProvider from "./context/ConfirmContext";
 
 function App() {
   const notistackRef = createRef();
@@ -29,24 +30,26 @@ function App() {
         )}
       >
         <Notifier />
-        <BrowserRouter>
-          <Switch>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Route path="/login" component={() => <Login />} />
-              {routes.map((route, index) => {
-                return (
-                  <Route
-                    key={index}
-                    exact={route.exact}
-                    path={route.path}
-                    component={() => <BaseComponent component={route.component} />}
-                  />
-                )
-              })}
-              <Redirect from="*" to="/login" />
-            </Suspense>
-          </Switch>
-        </BrowserRouter>
+        <ConfirmProvider>
+          <BrowserRouter>
+            <Switch>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Route path="/login" component={() => <Login />} />
+                {routes.map((route, index) => {
+                  return (
+                    <Route
+                      key={index}
+                      exact={route.exact}
+                      path={route.path}
+                      component={() => <BaseComponent component={route.component} />}
+                    />
+                  )
+                })}
+                <Redirect from="*" to="/login" />
+              </Suspense>
+            </Switch>
+          </BrowserRouter>
+        </ConfirmProvider>
       </SnackbarProvider>
     </Provider >
   );

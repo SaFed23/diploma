@@ -1,5 +1,6 @@
 {
   "add_task": "Add task",
+  "are_you_sure": "Are you sure?",
   "assign_yourself": "Assign on yourself",
   "choose_feature": "Choose feature",
   "comments": "Comments",
@@ -16,6 +17,7 @@
   "logout": "Logout",
   "my_projects": "My projects",
   "my_reports": "My reports",
+  "no": "No",
   "no_content": "No content",
   "owner": "Owner",
   "password": "Password",
@@ -30,5 +32,6 @@
   "update_feature": "Update feature",
   "username": "Username",
   "users": "Users",
-  "users_count": "Users count"
+  "users_count": "Users count",
+  "yes": "Yes"
 }

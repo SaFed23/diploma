@@ -17,3 +17,7 @@ export const createTask = (task) => {
 export const updateTask = (task) => {
   return axios.put(`${API_ROUTES.TASK}`, task, AUTH)
 };
+
+export const deleteTask = (taskId) => {
+  return axios.delete(`${API_ROUTES.TASK}/${taskId}`, AUTH)
+};

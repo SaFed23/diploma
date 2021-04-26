@@ -5,6 +5,7 @@ export {
   getTaskById,
   createTask,
   updateTask,
+  deleteTask,
 } from './taskExtra';
 
 export const taskAction = taskSlice.actions;

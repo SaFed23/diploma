@@ -16,6 +16,7 @@ import UpdateForm from './UpdateForm';
 import DeleteForm from './DeleteForm';
 import { createFeatureAndFetch, deleteFeatureAndFetch, updateFeatureAndFetch } from '../../../store';
 import { useDispatch } from 'react-redux';
+import useConfirm from '../../../hooks/useConfirm';
 
 
 function SettingsDialog({
@@ -26,6 +27,7 @@ function SettingsDialog({
 }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { setOpen: openConfirm, setAction } = useConfirm();
   const [current, setCurrent] = useState(0);
 
   const handleClose = () => {
@@ -48,8 +50,11 @@ function SettingsDialog({
   };
 
   const handleDeleteFeature = (value) => {
-    dispatch(deleteFeatureAndFetch(value));
-    handleClose();
+    openConfirm(true);
+    setAction(() => () => {
+      dispatch(deleteFeatureAndFetch(value));
+      handleClose();
+    });
   }
 
   const createFeature = () => {

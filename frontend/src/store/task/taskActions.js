@@ -5,6 +5,7 @@ import {
   taskAction,
   createTask,
   updateTask,
+  deleteTask,
 } from './';
 import loadingSlice from '../loading/loadingSlice'
 
@@ -36,3 +37,10 @@ export const updateTaskAndFetch = (task) => async (dispatch) => {
   await dispatch(getTasksByFeatureId());
   dispatch(finishLoading());
 };
+
+export const deleteTaskAndFetch = (taskId) => async (dispatch) => {
+  dispatch(startLoading());
+  await dispatch(deleteTask(taskId));
+  await dispatch(getTasksByFeatureId());
+  dispatch(finishLoading());
+}

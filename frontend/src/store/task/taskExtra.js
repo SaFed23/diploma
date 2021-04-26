@@ -66,7 +66,26 @@ export const updateTask = createAsyncThunk('task/updateTask',
           message: "success",
           variant: "success"
         }));
-        console.log(data);
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
+export const deleteTask = createAsyncThunk('task/deleteTask',
+  async (taskId, { dispatch }) => {
+    try {
+      const { data, status } = await service.deleteTask(taskId);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
         return data;
       }
     } catch (e) {
