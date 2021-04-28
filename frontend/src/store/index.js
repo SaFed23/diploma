@@ -7,3 +7,4 @@ export * from './feature';
 export * from './task';
 export * from './taskStatus';
 export * from './snackbar';
+export * from './comment';

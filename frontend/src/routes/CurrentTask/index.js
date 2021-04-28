@@ -9,18 +9,20 @@ import {
   updateTaskAndFetch,
   fetchTaskStatuses,
   useTaskStatusData,
-  useCurrentProject
+  useCurrentProject,
+  useUserData
 } from '../../store';
 import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router';
 import TaskData from './TaskData';
+import Comments from './Comments';
 
 function CurrentTask() {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
   const currentTask = useCurrentTask();
   const taskStatuses = useTaskStatusData();
   const currentProject = useCurrentProject();
+  const user = useUserData();
 
 
   useEffect(() => {
@@ -69,9 +71,10 @@ function CurrentTask() {
 
   return (
     <>
-      <Grid container justify="space-between">
-        <Grid item xs={7}>
+      <Grid container justify="space-between" style={{ height: '100%' }}>
+        <Grid item xs={7} style={{ borderRight: "1px solid #EDEDED" }}>
           <TaskData
+            user={user}
             currentTask={currentTask}
             handleChangeStatus={handleChangeStatus}
             taskStatuses={taskStatuses}
@@ -83,11 +86,10 @@ function CurrentTask() {
         </Grid>
 
         <Grid item xs={5}>
-          <Grid container>
-            <Grid item xs={8}>
-              <Typography variant="subtitle1">{t("comments")}:</Typography>
-            </Grid>
-          </Grid>
+          <Comments
+            taskId={currentTask.id}
+            user={user}
+          />
         </Grid>
       </Grid>
     </>

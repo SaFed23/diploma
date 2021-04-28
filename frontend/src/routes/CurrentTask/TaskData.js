@@ -19,6 +19,7 @@ import { Redirect } from 'react-router';
 
 
 function TaskData({
+  user,
   currentTask,
   handleChangeStatus,
   taskStatuses,
@@ -45,17 +46,19 @@ function TaskData({
   }
 
   return (
-    <>
+    <div style={{ marginRight: 5 }}>
       <Grid container>
         <Grid item xs={8}>
           <Grid container justify="flex-start">
             <Typography variant="h6">{currentTask.title}</Typography>
-            <IconButton
-              style={{ paddingTop: 6 }}
-              onClick={handleDeleteTask}
-            >
-              <Delete fontSize="small" />
-            </IconButton>
+            {currentProject.owner.id === user.id && (
+              <IconButton
+                style={{ paddingTop: 6 }}
+                onClick={handleDeleteTask}
+              >
+                <Delete fontSize="small" />
+              </IconButton>
+            )}
           </Grid>
         </Grid>
         <Grid item xs={4}>
@@ -116,7 +119,7 @@ function TaskData({
       <Typography variant="body2" style={{ marginTop: "2%", marginLeft: "2%" }}>
         {currentTask.description}
       </Typography>
-    </>
+    </div>
   )
 };
 

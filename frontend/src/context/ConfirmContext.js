@@ -36,7 +36,6 @@ function ConfirmProvider(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    }
     </ConfirmContext.Provider>
   )
 };

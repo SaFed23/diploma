@@ -13,8 +13,14 @@ commentController.getAll = async (ctx) => {
 };
 
 commentController.getById = async (ctx) => {
-    const { commentId } = ctx.params; 
+    const { commentId } = ctx.params;
     ctx.body = await commentReducer.getById(commentId);
+    ctx.status = 200;
+};
+
+commentController.getByTaskId = async (ctx) => {
+    const { taskId } = ctx.params;
+    ctx.body = await commentReducer.getByTaskId(taskId);
     ctx.status = 200;
 };
 
@@ -24,7 +30,7 @@ commentController.updateById = async (ctx) => {
 };
 
 commentController.deleteById = async (ctx) => {
-    const { commentId } = ctx.params; 
+    const { commentId } = ctx.params;
     ctx.body = await commentReducer.deleteById(commentId);
     ctx.status = 204;
 };

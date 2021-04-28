@@ -229,4 +229,45 @@ module.exports.paths = {
             },
         },
     },
+    "/comments/task/{taskId}": {
+        get: {
+            summary: 'Get comment by task id',
+            description: 'Get comment by task id',
+            tags: ['Comment'],
+            parameters: [
+                {
+                    type: "string",
+                    name: "Authorization",
+                    in: "header",
+                    required: true,
+                },
+                {
+                    type: 'string',
+                    name: 'taskId',
+                    in: 'path',
+                    required: true,
+                },
+            ],
+            responses: {
+                200: {
+                    description: 'Successful response. Comments is returned.',
+                    schema: {
+                        type: 'array',
+                        items: {
+                            $ref: '#/definitions/Comment',
+                        },
+                    },
+                },
+                401: {
+                    $ref: '#/responses/UnauthorizedError',
+                },
+                404: {
+                    $ref: '#/responses/NotFoundError',
+                },
+                500: {
+                    $ref: '#/responses/UnknownServerError',
+                },
+            },
+        },
+    },
 }

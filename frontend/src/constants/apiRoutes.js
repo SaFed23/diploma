@@ -5,4 +5,5 @@ export const API_ROUTES = {
   FEATURE: '/features',
   TASK: '/tasks',
   TASK_STATUSES: '/taskStatuses',
+  COMMENT: '/comments',
 }

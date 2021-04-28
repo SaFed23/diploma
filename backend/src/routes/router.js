@@ -1,6 +1,5 @@
 const Router = require('koa-router');
 const { ROUTES, NAMES } = require('../../config');
-const authController = require('../controllers/auth');
 const commentController = require('../controllers/comments');
 const factorController = require('../controllers/factors');
 const featureController = require('../controllers/features');
@@ -20,6 +19,7 @@ const routerV3 = new Router();
 routerV3.post(NAMES.comments, ROUTES.comments, commentController.create);
 routerV3.get(NAMES.comments, ROUTES.comments, commentController.getAll);
 routerV3.get(NAMES.comments, `${ROUTES.comments}/:commentId`, commentController.getById);
+routerV3.get(NAMES.comments, `${ROUTES.comments}/task/:taskId`, commentController.getByTaskId);
 routerV3.put(NAMES.comments, ROUTES.comments, commentController.updateById);
 routerV3.delete(NAMES.comments, `${ROUTES.comments}/:commentId`, commentController.deleteById);
 

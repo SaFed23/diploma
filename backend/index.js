@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const passport = require('koa-passport');;
 const router = require('./src/routes/router.js')
 const { ui } = require("swagger2-koa");
+const socketioJwt = require('socketio-jwt');
+const cors = require('cors');
+const socketIO = require('socket.io');
 
 const apiSpec = require('./apiSpec');
 const { DB_CONNECTION, DB_NAME, PORT, SALT } = require('./config.js');
@@ -11,6 +14,7 @@ const { LOCAL_STRATEGY, JWT_STRATEGY } = require('./utils/auth.js');
 const authRouter = require('./src/routes/authRouter.js');
 
 const app = new Koa();
+
 app.use(bodyParser());
 
 app.use(passport.initialize());
@@ -70,4 +74,34 @@ app.on('error', (err, ctx) => {
   console.log(ctx.body);
 });
 
-app.listen(PORT);
+const server = app.listen(PORT);
+
+const io = socketIO(server, {
+  cors: {
+    origin: '*'
+  }
+});
+
+io.use(socketioJwt.authorize({
+  secret: SALT,
+  handshake: true
+}));
+
+const onConnection = (socket) => {
+  console.log('User connected')
+
+  // const { roomId } = socket.handshake.query
+  // socket.roomId = roomId;
+
+  // socket.join(roomId)
+
+  // registerMessageHandlers(io, socket)
+  // registerUserHandlers(io, socket)
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected')
+    // socket.leave(roomId)
+  })
+}
+
+io.on('connection', onConnection)

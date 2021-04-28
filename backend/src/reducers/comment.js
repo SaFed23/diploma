@@ -1,6 +1,6 @@
 const generateError = require('../utils');
 const Comment = require("../db/comments");
-const { commentErrors } = require('../errors');
+const { commentErrors, taskErrors } = require('../errors');
 const { getInfoForArray } = require('../../utils/helper');
 
 const commentReducer = {};
@@ -22,6 +22,15 @@ commentReducer.getById = async (commentId) => {
         generateError(commentErrors.notExists, 404);
     }
 };
+
+commentReducer.getByTaskId = async (taskId) => {
+    const result = await Comment.getByTaskId(taskId);
+    if (result) {
+        return getInfoForArray(result);
+    } else {
+        generateError(taskErrors.notExists, 404);
+    }
+}
 
 commentReducer.updateById = async (comment) => {
     const result = await Comment

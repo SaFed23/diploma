@@ -24,6 +24,14 @@ methods.getInfo = async function () {
   delete obj.userId;
 
   return obj;
+};
+
+statics.getByTaskId = async function (taskId) {
+  const task = await Task.findById(taskId);
+  if (task) {
+    return this.find({ taskId });
+  }
+  return null;
 }
 
 module.exports = { methods, statics };
