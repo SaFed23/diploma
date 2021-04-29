@@ -12,6 +12,7 @@ const apiSpec = require('./apiSpec');
 const { DB_CONNECTION, DB_NAME, PORT, SALT } = require('./config.js');
 const { LOCAL_STRATEGY, JWT_STRATEGY } = require('./utils/auth.js');
 const authRouter = require('./src/routes/authRouter.js');
+const onConnection = require('./src/sockets/connection.js');
 
 const app = new Koa();
 
@@ -87,21 +88,4 @@ io.use(socketioJwt.authorize({
   handshake: true
 }));
 
-const onConnection = (socket) => {
-  console.log('User connected')
-
-  // const { roomId } = socket.handshake.query
-  // socket.roomId = roomId;
-
-  // socket.join(roomId)
-
-  // registerMessageHandlers(io, socket)
-  // registerUserHandlers(io, socket)
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected')
-    // socket.leave(roomId)
-  })
-}
-
-io.on('connection', onConnection)
+io.on('connection', (socket) => onConnection(socket, io))

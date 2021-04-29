@@ -8,25 +8,37 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import { useComment } from '../../hooks/useComment';
 import { Send } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useComment } from '../../hooks/useComment';
+import useForm from '../../hooks/useForm';
+import { defaultValues, validationSchema } from './Comments.form';
 
 function Comments({
   taskId,
   user
 }) {
   const { t } = useTranslation();
-  const { comments } = useComment(taskId);
+  const { comments, addComment } = useComment(taskId);
+  const { handleSubmit, formState: { errors }, muiRegister, reset } = useForm({
+    defaultValues,
+    resolver: yupResolver(validationSchema),
+  });
 
-  console.log(comments);
+  const handleAddComment = (comment) => {
+    comment.taskId = taskId;
+    comment.userId = user.id;
+    addComment(comment);
+    reset();
+  };
 
   return (
     <div style={{ marginLeft: 5, height: "100%" }}>
       <Typography variant="subtitle1">{t("comments")}:</Typography>
       <div style={{
         marginBottom: 20,
-        height: "calc(70vh - 64px)",
+        height: "calc(100vh - 250px)",
         overflow: 'auto'
       }}>
         {comments.map(comment => {
@@ -36,6 +48,7 @@ function Comments({
             <Grid
               container
               justify={isCurrent ? "flex-end" : "flex-start"}
+              key={comment.id}
             >
               <Card
                 style={{
@@ -56,7 +69,7 @@ function Comments({
           )
         })}
       </div>
-      <form>
+      <form onSubmit={handleSubmit(handleAddComment)}>
         <Grid container>
           <Grid item lg={11}>
             <TextField
@@ -65,6 +78,9 @@ function Comments({
               rows={3}
               fullWidth
               variant="outlined"
+              error={!!errors.username}
+              helperText={errors.username?.message}
+              {...muiRegister('description')}
             />
           </Grid>
           <Grid item lg={1}>

@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import io from 'socket.io-client'
 import { AUTH } from '../service/config'
-import { setTaskIdAndFetch, useCommentData } from '../store'
-// hooks
-// import { useBeforeUnload } from 'hooks'
+import { commentAction, useCommentData } from '../store'
 
 const SERVER_URL = 'http://localhost:8080'
 
@@ -17,31 +15,18 @@ export const useComment = (taskId) => {
 
   useEffect(() => {
     if (taskId) {
-      dispatch(setTaskIdAndFetch(taskId));
-    }
-  }, [taskId]);
+      dispatch(commentAction.setTaskId(taskId));
 
-  useEffect(() => {
-    if (taskId) {
       socketRef.current = io(SERVER_URL, {
         query: { taskId },
         extraHeaders: { ...AUTH.headers }
       })
 
-      // socketRef.current.emit('user:add', { username, userId })
+      socketRef.current.emit('comment:get');
 
-      // socketRef.current.on('users', (users) => {
-      //   setUsers(users)
-      // })
-
-      socketRef.current.emit('comment:get')
-
-      // socketRef.current.on('messages', (messages) => {
-      //   const newMessages = messages.map((msg) =>
-      //     msg.userId === userId ? { ...msg, currentUser: true } : msg
-      //   )
-      //   setMessages(newMessages)
-      // })
+      socketRef.current.on('comments', (comments) => {
+        dispatch(commentAction.setCommentData(comments));
+      });
 
     }
 
@@ -50,12 +35,8 @@ export const useComment = (taskId) => {
     }
   }, [taskId])
 
-  const sendMessage = ({ messageText, senderName }) => {
-    socketRef.current.emit('message:add', {
-      // userId,
-      messageText,
-      senderName
-    })
+  const addComment = (comment) => {
+    socketRef.current.emit('comment:add', comment);
   }
 
   const removeMessage = (id) => {
@@ -66,5 +47,5 @@ export const useComment = (taskId) => {
   //   socketRef.current.emit('user:leave', userId)
   // })
 
-  return { comments, sendMessage, removeMessage }
+  return { comments, addComment, removeMessage }
 }

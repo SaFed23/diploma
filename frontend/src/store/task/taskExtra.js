@@ -115,7 +115,6 @@ export default {
 
   [updateTask.fulfilled]: (state, action) => {
     const data = action.payload;
-    console.log(data);
     if (data) {
       state.current = data;
     }
