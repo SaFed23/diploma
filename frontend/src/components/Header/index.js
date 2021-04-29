@@ -5,7 +5,6 @@ import {
   Typography,
   IconButton,
   MenuItem,
-  Menu,
   Select,
   FormControl,
   Drawer,
@@ -18,12 +17,12 @@ import {
   CssBaseline,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import { Menu as MenuIcon, AccountCircle, ChevronLeft, ChevronRight } from '@material-ui/icons';
+import { Menu as MenuIcon, ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { userAction, useUserData, useUserLanguage } from '../../store';
 import { useStyles } from './style';
-import { listConfig } from './configOfList';
+import { listConfig, userConfig } from './config';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
@@ -33,9 +32,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const language = useUserLanguage();
   const user = useUserData();
-  const [anchorEl, setAnchorEl] = useState(null);
   const [openDrawer, setOpen] = useState(false);
-  const open = Boolean(anchorEl);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -49,14 +46,6 @@ export default function Header() {
     dispatch(userAction.setUserLanguage(event.target.value));
     localStorage.setItem('lng', event.target.value)
     i18n.changeLanguage(event.target.value)
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   return (
@@ -93,33 +82,9 @@ export default function Header() {
             </Select>
           </FormControl>
           <div>
-            <IconButton
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <Typography style={{ marginRight: 3 }}>{user.username}</Typography>
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>{t('profile')}</MenuItem>
-              <MenuItem onClick={handleClose}>{t('settings')}</MenuItem>
-              <Divider />
-              <MenuItem onClick={handleClose}>{t('logout')}</MenuItem>
-            </Menu>
+            <Typography style={{ marginRight: 3, marginLeft: 30 }}>
+              {`${t('hi')}, ${user.username}`}
+            </Typography>
           </div>
         </Toolbar>
       </AppBar>
@@ -157,6 +122,36 @@ export default function Header() {
               </ListItem>
             </Link>
           ))}
+          <Divider />
+          {userConfig.map(elem => {
+            if (elem.path) {
+              return (
+                <Link
+                  key={elem.label}
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={elem.path}>
+                  <ListItem
+                    button
+                    selected={window.location.pathname === elem.path}
+                  >
+                    <ListItemIcon>{elem.icon}</ListItemIcon>
+                    <ListItemText primary={t(elem.label)} />
+                  </ListItem>
+                </Link>
+              );
+            }
+            return (
+              <ListItem
+                key={elem.label}
+                button
+                selected={window.location.pathname === elem.path}
+                onClick={elem.func}
+              >
+                <ListItemIcon>{elem.icon}</ListItemIcon>
+                <ListItemText primary={t(elem.label)} />
+              </ListItem>
+            )
+          })}
         </List>
       </Drawer>
     </div >

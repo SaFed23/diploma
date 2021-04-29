@@ -32,6 +32,6 @@ statics.getByTaskId = async function (taskId) {
     return this.find({ taskId });
   }
   return null;
-}
+};
 
 module.exports = { methods, statics };

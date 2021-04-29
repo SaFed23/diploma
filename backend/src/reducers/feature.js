@@ -2,6 +2,8 @@ const generateError = require('../utils');
 const Feature = require("../db/features");
 const { featureErrors, projectErrors } = require('../errors');
 const { getInfoForArray } = require('../../utils/helper');
+const Task = require('../db/tasks');
+const Comment = require('../db/comments');
 
 const featureReducer = {};
 
@@ -45,6 +47,11 @@ featureReducer.updateById = async (feature) => {
 };
 
 featureReducer.deleteById = async (featureId) => {
+    const tasks = await Task.find({ featureId });
+    for (const task of tasks) {
+        await Comment.deleteMany({ taskId: task.id });
+    }
+    await Task.deleteMany({ featureId });
     return await Feature.findByIdAndRemove(featureId);
 };
 

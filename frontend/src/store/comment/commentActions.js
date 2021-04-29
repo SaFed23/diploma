@@ -13,10 +13,3 @@ export const setTaskIdAndFetch = (taskId) => async (dispatch) => {
   await dispatch(getCommentsByTaskId());
   dispatch(finishLoading());
 };
-
-// export const createFeatureAndFetch = (feature) => async (dispatch) => {
-//   dispatch(startLoading());
-//   await dispatch(createFeature(feature));
-//   await dispatch(getFeaturesByProjectId());
-//   dispatch(finishLoading());
-// }

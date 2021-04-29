@@ -1,5 +1,6 @@
 const generateError = require('../utils');
 const Task = require("../db/tasks");
+const Comment = require('../db/comments');
 const { taskErrors, featureErrors } = require('../errors');
 const { getInfoForArray } = require('../../utils/helper');
 
@@ -45,6 +46,7 @@ taskReducer.updateById = async (task) => {
 };
 
 taskReducer.deleteById = async (taskId) => {
+    await Comment.deleteMany({ taskId });
     return await Task.findByIdAndRemove(taskId);
 };
 

@@ -30,6 +30,6 @@ statics.getByProjectId = async function (projectId) {
   }
 
   return null;
-}
+};
 
 module.exports = { methods, statics };

@@ -31,21 +31,14 @@ export const useComment = (taskId) => {
     }
 
     return () => {
+      dispatch(commentAction.clearCommentState());
       socketRef.current?.disconnect()
     }
-  }, [taskId])
+  }, [taskId]);
 
   const addComment = (comment) => {
     socketRef.current.emit('comment:add', comment);
-  }
+  };
 
-  const removeMessage = (id) => {
-    socketRef.current.emit('message:remove', id)
-  }
-
-  // useBeforeUnload(() => {
-  //   socketRef.current.emit('user:leave', userId)
-  // })
-
-  return { comments, addComment, removeMessage }
+  return { comments, addComment };
 }

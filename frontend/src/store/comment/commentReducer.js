@@ -13,7 +13,7 @@ export default {
     state.taskId = action.payload;
   },
 
-  clearCommentData: (state) => {
+  clearCommentState: (state) => {
     state.data = initialState.data;
     state.taskId = initialState.taskId;
   },

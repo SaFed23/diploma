@@ -30,7 +30,12 @@ function AddTaskDialog({
 
   const close = () => {
     handleClose();
-    reset(defaultValues);
+    reset();
+  };
+
+  const onSubmit = (value) => {
+    submit(value);
+    reset();
   };
 
   return (
@@ -47,7 +52,7 @@ function AddTaskDialog({
       </DialogTitle>
       <DialogContent>
         <>
-          <form onSubmit={handleSubmit(submit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               fullWidth
               label={t("title")}

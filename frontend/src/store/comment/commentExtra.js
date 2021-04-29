@@ -21,22 +21,6 @@ export const getCommentsByTaskId = createAsyncThunk('comment/getCommentsByTaskId
     return null
   });
 
-// export const createFeature = createAsyncThunk('feature/createFeature',
-//   async (feature, { dispatch }) => {
-//     try {
-//       const { data, status } = await service.createFeature(feature);
-//       if (status === 200) {
-//         return data;
-//       }
-//     } catch (e) {
-//       dispatch(snackbarAction.addNotification({
-//         message: "error",
-//         variant: "error"
-//       }));
-//     }
-//     return null
-//   });
-
 // extra reducer
 export default {
   [getCommentsByTaskId.fulfilled]: (state, action) => {

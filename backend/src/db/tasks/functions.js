@@ -49,7 +49,7 @@ statics.getByFeatureId = async function (featureId) {
   }
 
   return null;
-}
+};
 
 
 module.exports = { methods, statics };
