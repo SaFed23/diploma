@@ -3,34 +3,33 @@ import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import io from 'socket.io-client'
 import { AUTH } from '../service/config'
-import { commentAction, useCommentData } from '../store'
+import { inviteAction, useInviteData } from '../store'
 
 const SERVER_URL = 'http://localhost:8080'
 
-export const useComment = (taskId) => {
+export const useInvite = (taskId) => {
 
-  const comments = useCommentData();
+  const invites = useInviteData();
   const dispatch = useDispatch();
   const socketRef = useRef(null);
 
   useEffect(() => {
     if (taskId) {
-      dispatch(commentAction.setTaskId(taskId));
-
       socketRef.current = io(SERVER_URL, {
+        query: { taskId },
         extraHeaders: { ...AUTH.headers }
-      });
+      })
 
-      socketRef.current.emit('comment:get', taskId);
+      socketRef.current.emit('comment:get');
 
-      socketRef.current.on('comments', (comments) => {
-        dispatch(commentAction.setCommentData(comments));
+      socketRef.current.on('comments', (invites) => {
+        dispatch(inviteAction.setCommentData(invites));
       });
 
     }
 
     return () => {
-      dispatch(commentAction.clearCommentState());
+      dispatch(inviteAction.clearInviteState());
       socketRef.current?.disconnect()
     }
   }, [taskId]);
@@ -39,5 +38,5 @@ export const useComment = (taskId) => {
     socketRef.current.emit('comment:add', comment);
   };
 
-  return { comments, addComment };
+  return { comments: invites, addComment };
 }

@@ -23,6 +23,11 @@ inviteReducer.getById = async (inviteId) => {
     }
 };
 
+inviteReducer.getByUserId = async (userId) => {
+    const invites = await Invite.find({ userId });
+    return getInfoForArray(invites);
+};
+
 inviteReducer.updateById = async (invite) => {
     const result = await Invite
         .findByIdAndUpdate(invite.id, invite, {

@@ -6,3 +6,4 @@ export { default as task } from './task';
 export { default as taskStatus } from './taskStatus';
 export { default as snackbar } from './snackbar';
 export { default as comment } from './comment';
+export { default as invite } from './invite';

@@ -2,7 +2,7 @@ const commentReducer = require("../reducers/comment");
 
 const getCommentsByTaskId = async (taskId, io) => {
   const comments = await commentReducer.getByTaskId(taskId);
-  io.in(taskId).emit('comments', comments);
+  io.emit('comments', comments);
 };
 
 const createComment = async (comment, io) => {

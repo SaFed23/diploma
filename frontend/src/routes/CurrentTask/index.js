@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import {
   fetchTaskById,
@@ -12,7 +12,6 @@ import {
   useCurrentProject,
   useUserData
 } from '../../store';
-import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router';
 import TaskData from './TaskData';
 import Comments from './Comments';

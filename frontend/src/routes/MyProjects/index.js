@@ -29,7 +29,10 @@ const MyProjects = () => {
         </Grid>
       </Grid>
       <Divider style={{ borderBottom: '2px solid #aaa' }} />
-      <ProjectsList data={projects} />
+      <ProjectsList
+        data={projects}
+        user={user}
+      />
     </>
   )
 };

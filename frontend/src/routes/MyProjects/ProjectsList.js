@@ -7,7 +7,8 @@ import {
   Divider,
   IconButton,
   Grid,
-  Typography
+  Typography,
+  Button
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,8 @@ const classes = {
 }
 
 function ProjectsList({
-  data
+  data,
+  user,
 }) {
   const [open, setOpen] = useState('');
   const { t } = useTranslation();
@@ -72,6 +74,13 @@ function ProjectsList({
                     {t('description')}: {val.description}
                   </Typography>
                 </Grid>
+                {user.id === val.owner.id && (
+                  <Grid container justify="flex-end" style={{ marginBottom: 5 }}>
+                    <Button variant="contained" color="primary" size="small">
+                      {t('settings')}
+                    </Button>
+                  </Grid>
+                )}
               </Grid>
             </Collapse>
             <Divider />
