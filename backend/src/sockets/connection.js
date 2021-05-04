@@ -7,7 +7,7 @@ const onConnection = (socket, io) => {
   socket.on('comment:add', (comment) => createComment(comment, io));
   socket.on('comment:get', (taskId) => getCommentsByTaskId(taskId, io));
 
-  socket.on('invites:get', (userId) => getInvitesByUserId(userId))
+  socket.on('invite:get', (userId) => getInvitesByUserId(userId, io));
 
   socket.on('disconnect', () => {
     console.log('User disconnected')

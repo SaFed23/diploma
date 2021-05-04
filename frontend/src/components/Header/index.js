@@ -15,15 +15,23 @@ import {
   ListItemText,
   useTheme,
   CssBaseline,
+  Badge,
+  Popover,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import { Menu as MenuIcon, ChevronLeft, ChevronRight } from '@material-ui/icons';
+import {
+  Menu as MenuIcon,
+  ChevronLeft,
+  ChevronRight,
+  MailOutline
+} from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { userAction, useUserData, useUserLanguage } from '../../store';
 import { useStyles } from './style';
 import { listConfig, userConfig } from './config';
 import { Link } from 'react-router-dom';
+import { useInvite } from '../../hooks/useInvite';
 
 export default function Header() {
   const classes = useStyles();
@@ -32,7 +40,17 @@ export default function Header() {
   const dispatch = useDispatch();
   const language = useUserLanguage();
   const user = useUserData();
+  const { invites } = useInvite(user.id);
   const [openDrawer, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,6 +104,33 @@ export default function Header() {
               {`${t('hi')}, ${user.username}`}
             </Typography>
           </div>
+          <IconButton color="inherit" onClick={handleClick}>
+            <Badge variant="dot" color="secondary" badgeContent={invites.length}>
+              <MailOutline />
+            </Badge>
+          </IconButton>
+          <Popover
+            open={!!anchorEl && invites.length}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left"
+            }}
+          >
+            <List component="nav">
+              {invites.map(invite => {
+                return (
+                  <>
+                    <ListItem>
+                      <ListItemText primary={invite.title} />
+                    </ListItem>
+                    <Divider />
+                  </>
+                )
+              })}
+            </List>
+          </Popover>
         </Toolbar>
       </AppBar>
       <Drawer

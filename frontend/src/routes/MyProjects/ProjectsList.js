@@ -58,7 +58,7 @@ function ProjectsList({
               </IconButton>
             </ListItem>
             <Collapse in={open === val.id} timeout="auto" unmountOnExit>
-              <Grid container style={{ paddingLeft: 20, paddingTop: 10 }}>
+              <Grid container style={{ paddingLeft: 20, paddingTop: 10, marginBottom: 5 }}>
                 <Grid item xs={2}>
                   <Typography style={classes.addInfo}>
                     {t('owner')}: {val.owner.username}
@@ -75,7 +75,7 @@ function ProjectsList({
                   </Typography>
                 </Grid>
                 {user.id === val.owner.id && (
-                  <Grid container justify="flex-end" style={{ marginBottom: 5 }}>
+                  <Grid container justify="flex-end">
                     <Button variant="contained" color="primary" size="small">
                       {t('settings')}
                     </Button>

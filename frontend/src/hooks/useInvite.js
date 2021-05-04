@@ -7,23 +7,22 @@ import { inviteAction, useInviteData } from '../store'
 
 const SERVER_URL = 'http://localhost:8080'
 
-export const useInvite = (taskId) => {
+export const useInvite = (userId) => {
 
   const invites = useInviteData();
   const dispatch = useDispatch();
   const socketRef = useRef(null);
 
   useEffect(() => {
-    if (taskId) {
+    if (userId) {
       socketRef.current = io(SERVER_URL, {
-        query: { taskId },
         extraHeaders: { ...AUTH.headers }
       })
 
-      socketRef.current.emit('comment:get');
+      socketRef.current.emit('invite:get', userId);
 
-      socketRef.current.on('comments', (invites) => {
-        dispatch(inviteAction.setCommentData(invites));
+      socketRef.current.on('invites', (invites) => {
+        dispatch(inviteAction.setInviteData(invites));
       });
 
     }
@@ -32,11 +31,11 @@ export const useInvite = (taskId) => {
       dispatch(inviteAction.clearInviteState());
       socketRef.current?.disconnect()
     }
-  }, [taskId]);
+  }, [userId]);
 
-  const addComment = (comment) => {
-    socketRef.current.emit('comment:add', comment);
-  };
+  // const addComment = (comment) => {
+  //   socketRef.current.emit('comment:add', comment);
+  // };
 
-  return { comments: invites, addComment };
+  return { invites };
 }

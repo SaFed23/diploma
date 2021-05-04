@@ -1,6 +1,7 @@
 const inviteReducer = require("../reducers/invite");
 
 const getInvitesByUserId = async (userId, io) => {
+  console.log(userId);
   const invites = await inviteReducer.getByUserId(userId);
   io.emit('invites', invites);
 };
