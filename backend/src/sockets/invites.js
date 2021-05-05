@@ -1,18 +1,29 @@
+const projectReducer = require("../reducers/project");
 const inviteReducer = require("../reducers/invite");
 
 const getInvitesByUserId = async (userId, io) => {
-  console.log(userId);
   const invites = await inviteReducer.getByUserId(userId);
-  io.emit('invites', invites);
+  io.emit('invites', { data: invites, userId });
 };
 
-// const createComment = async (comment, io) => {
-//   await commentReducer.create(comment);
+const rejectInvite = async (invite, io) => {
+  await inviteReducer.deleteById(invite.id)
 
-//   getCommentsByTaskId(comment.taskId, io);
-// }
+  getInvitesByUserId(invite.user.id, io);
+};
+
+const acceptInvite = async (invite, io) => {
+  await inviteReducer.deleteById(invite.id)
+
+  await projectReducer.addUser(invite.user, invite.project);
+
+  io.emit('projects', { userId: invite.user.id });
+
+  getInvitesByUserId(invite.user.id, io);
+};
 
 module.exports = {
   getInvitesByUserId,
-  // createComment,
+  rejectInvite,
+  acceptInvite,
 }

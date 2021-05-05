@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import io from 'socket.io-client'
 import { AUTH } from '../service/config'
-import { inviteAction, useInviteData } from '../store'
+import { fetchUserProjects, inviteAction, useInviteData } from '../store'
 
 const SERVER_URL = 'http://localhost:8080'
 
@@ -21,8 +21,16 @@ export const useInvite = (userId) => {
 
       socketRef.current.emit('invite:get', userId);
 
-      socketRef.current.on('invites', (invites) => {
-        dispatch(inviteAction.setInviteData(invites));
+      socketRef.current.on('invites', ({ data, userId: uId }) => {
+        if (uId === userId) {
+          dispatch(inviteAction.setInviteData(data));
+        }
+      });
+
+      socketRef.current.on('projects', ({ userId: uId }) => {
+        if (uId === userId) {
+          dispatch(fetchUserProjects(userId));
+        }
       });
 
     }
@@ -33,9 +41,13 @@ export const useInvite = (userId) => {
     }
   }, [userId]);
 
-  // const addComment = (comment) => {
-  //   socketRef.current.emit('comment:add', comment);
-  // };
+  const rejectInvite = (invite) => {
+    socketRef.current.emit('invite:reject', invite);
+  };
 
-  return { invites };
+  const acceptInvite = (invite) => {
+    socketRef.current.emit('invite:accept', invite)
+  };
+
+  return { invites, rejectInvite, acceptInvite };
 }

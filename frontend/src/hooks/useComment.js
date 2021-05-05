@@ -18,13 +18,15 @@ export const useComment = (taskId) => {
       dispatch(commentAction.setTaskId(taskId));
 
       socketRef.current = io(SERVER_URL, {
-        extraHeaders: { ...AUTH.headers }
+        extraHeaders: { ...AUTH.headers },
       });
 
       socketRef.current.emit('comment:get', taskId);
 
-      socketRef.current.on('comments', (comments) => {
-        dispatch(commentAction.setCommentData(comments));
+      socketRef.current.on('comments', ({ data, taskId: tId }) => {
+        if (taskId === tId) {
+          dispatch(commentAction.setCommentData(data));
+        }
       });
 
     }

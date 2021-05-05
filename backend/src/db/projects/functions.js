@@ -28,6 +28,11 @@ methods.getInfo = async function () {
   return obj;
 };
 
+methods.addUser = async function (user) {
+  this.userIds.push(user.id);
+  return this.save()
+};
+
 statics.findUserProjects = async function (userId) {
   const user = await User.findById(userId);
   if (user) {
@@ -36,6 +41,6 @@ statics.findUserProjects = async function (userId) {
   }
 
   return null;
-}
+};
 
 module.exports = { methods, statics };

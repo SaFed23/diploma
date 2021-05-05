@@ -30,6 +30,15 @@ projectsReducer.getUserProjects = async (userId) => {
     } else {
         generateError(userErrors.notExists, 404);
     }
+};
+
+projectsReducer.addUser = async (user, project) => {
+    const currentProject = await Project.findById(project.id);
+    if (currentProject) {
+        return await currentProject.addUser(user);
+    } else {
+        generateError(projectErrors.notExists, 404);
+    }
 }
 
 projectsReducer.updateById = async (project) => {

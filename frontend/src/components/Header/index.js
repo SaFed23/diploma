@@ -17,6 +17,8 @@ import {
   CssBaseline,
   Badge,
   Popover,
+  Grid,
+  Button
 } from '@material-ui/core';
 import clsx from 'clsx';
 import {
@@ -40,7 +42,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const language = useUserLanguage();
   const user = useUserData();
-  const { invites } = useInvite(user.id);
+  const { invites, rejectInvite, acceptInvite } = useInvite(user.id);
   const [openDrawer, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -110,7 +112,7 @@ export default function Header() {
             </Badge>
           </IconButton>
           <Popover
-            open={!!anchorEl && invites.length}
+            open={!!anchorEl && !!invites.length}
             anchorEl={anchorEl}
             onClose={handleClose}
             anchorOrigin={{
@@ -118,15 +120,54 @@ export default function Header() {
               horizontal: "left"
             }}
           >
-            <List component="nav">
+            <List component="nav" style={{ width: 400, maxHeight: 500, overflow: "auto" }}>
               {invites.map(invite => {
                 return (
-                  <>
+                  <div key={invite.id}>
                     <ListItem>
-                      <ListItemText primary={invite.title} />
+                      <Grid container>
+                        <Grid item xs={8}>
+                          <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                            {invite.title}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Typography variant="caption">
+                            {new Date(invite.date).toLocaleString()}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12} style={{ marginTop: 10, marginBottom: 10 }}>
+                          <Typography variant="body2">
+                            {invite.description}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12} style={{ marginTop: 10, marginBottom: 10 }}>
+                          <Typography variant="caption">
+                            {t("to_project")}: {invite.project.title}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Grid container justify="flex-end">
+                            <Button
+                              size="small"
+                              color="primary"
+                              onClick={() => acceptInvite(invite)}
+                            >
+                              {t('accept')}
+                            </Button>
+                            <Button
+                              size="small"
+                              color="secondary"
+                              onClick={() => rejectInvite(invite)}
+                            >
+                              {t('reject')}
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </Grid>
                     </ListItem>
                     <Divider />
-                  </>
+                  </div>
                 )
               })}
             </List>
