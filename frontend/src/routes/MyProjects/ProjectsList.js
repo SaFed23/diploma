@@ -33,6 +33,18 @@ function ProjectsList({
     } else {
       setOpen(id);
     }
+  };
+
+  const generateColor = (val) => {
+    const currentDate = new Date();
+    const startDate = new Date(val.startDate);
+    const endDate = new Date(val.endDate);
+    if (startDate > currentDate) {
+      return "yellow";
+    } else if (endDate < currentDate) {
+      return "red";
+    }
+    return "green";
   }
 
   return (
@@ -83,7 +95,7 @@ function ProjectsList({
                 )}
               </Grid>
             </Collapse>
-            <Divider />
+            <Divider style={{ background: generateColor(val) }} />
           </div>
         )
       })}
