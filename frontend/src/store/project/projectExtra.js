@@ -5,10 +5,31 @@ import { snackbarAction } from '../snackbar';
 
 // extra actions
 export const getUserProjects = createAsyncThunk('project/getUserProjects',
-  async (userId, { dispatch }) => {
+  async (_, { dispatch, getState }) => {
+    const { user } = getState().user;
     try {
-      const { data, status } = await service.getUserProjects(userId);
+      const { data, status } = await service.getUserProjects(user.id);
       if (status === 200) {
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
+export const createProject = createAsyncThunk('project/createProject',
+  async (project, { dispatch }) => {
+    try {
+      const { data, status } = await service.createProject(project);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
         return data;
       }
     } catch (e) {

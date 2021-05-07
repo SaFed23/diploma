@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { Divider, Grid, IconButton, Typography } from '@material-ui/core';
 import { AddBox } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useProjectData, fetchUserProjects, useUserData } from '../../store';
+import { useProjectData, fetchUserProjects, useUserData, createProjectAndFetch } from '../../store';
 import ProjectsList from './ProjectsList';
 import AddProjectDialog from './Dialogs/AddProject';
 
@@ -15,8 +16,16 @@ const MyProjects = () => {
   const [openAdding, setAdding] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchUserProjects(user.id))
-  }, [dispatch, user.id]);
+    dispatch(fetchUserProjects())
+  }, []);
+
+  const handleCreateProject = (data) => {
+    const newProject = { ...data };
+    newProject.ownerId = user.id;
+    newProject.userIds = [user.id];
+    dispatch(createProjectAndFetch(newProject));
+    setAdding(false);
+  };
 
   return (
     <>
@@ -38,7 +47,7 @@ const MyProjects = () => {
       <AddProjectDialog
         open={openAdding}
         handleClose={() => setAdding(false)}
-        submit={(data) => console.log(data)}
+        submit={handleCreateProject}
       />
     </>
   )

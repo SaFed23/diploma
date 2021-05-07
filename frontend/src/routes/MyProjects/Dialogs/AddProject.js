@@ -7,12 +7,9 @@ import {
   DialogContent,
   TextField,
   Grid,
-  Checkbox,
-  FormControlLabel,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FiberManualRecord } from '@material-ui/icons';
 import useForm from '../../../hooks/useForm';
 import { validationSchema, defaultValues } from './AddProject.form'
 
