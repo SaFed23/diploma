@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, Grid, IconButton, Typography } from '@material-ui/core';
 import { AddBox } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useProjectData, fetchUserProjects, useUserData } from '../../store';
 import ProjectsList from './ProjectsList';
+import AddProjectDialog from './Dialogs/AddProject';
 
 const MyProjects = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useUserData();
   const projects = useProjectData();
+  const [openAdding, setAdding] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUserProjects(user.id))
@@ -23,7 +25,7 @@ const MyProjects = () => {
           <Typography variant='h5'>{t('projects')}</Typography>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton onClick={() => setAdding(true)}>
             <AddBox color="primary" />
           </IconButton>
         </Grid>
@@ -32,6 +34,11 @@ const MyProjects = () => {
       <ProjectsList
         data={projects}
         user={user}
+      />
+      <AddProjectDialog
+        open={openAdding}
+        handleClose={() => setAdding(false)}
+        submit={(data) => console.log(data)}
       />
     </>
   )

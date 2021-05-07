@@ -58,7 +58,7 @@ function Comments({
                   color: isCurrent && '#fff',
                 }}
               >
-                <CardContent>
+                <CardContent style={{ whiteSpace: 'pre-wrap' }}>
                   {comment.description}
                 </CardContent>
                 <CardActions style={{ fontSize: 8, marginTop: -20 }}>
