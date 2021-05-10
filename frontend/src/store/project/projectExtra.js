@@ -41,6 +41,46 @@ export const createProject = createAsyncThunk('project/createProject',
     return null
   });
 
+export const updateProject = createAsyncThunk('project/updateProject',
+  async (project, { dispatch }) => {
+    try {
+      const { data, status } = await service.updateProject(project);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
+export const deleteProject = createAsyncThunk('project/deleteProject',
+  async (projectId, { dispatch }) => {
+    try {
+      const { status } = await service.deleteProject(projectId);
+      if (status === 204) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return status;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
 // extra reducer
 export default {
   [getUserProjects.fulfilled]: (state, action) => {

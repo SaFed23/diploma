@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useProjectData, fetchUserProjects, useUserData, createProjectAndFetch } from '../../store';
 import ProjectsList from './ProjectsList';
 import AddProjectDialog from './Dialogs/AddProject';
+import { getDate } from '../../utils/helper';
 
 const MyProjects = () => {
   const { t } = useTranslation();
@@ -23,6 +24,8 @@ const MyProjects = () => {
     const newProject = { ...data };
     newProject.ownerId = user.id;
     newProject.userIds = [user.id];
+    newProject.startDate = getDate(data.startDate);
+    newProject.endDate = getDate(data.endDate);
     dispatch(createProjectAndFetch(newProject));
     setAdding(false);
   };

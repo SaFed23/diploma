@@ -45,10 +45,9 @@ projectsReducer.updateById = async (project) => {
     const result = await Project
         .findByIdAndUpdate(project.id, project, {
             new: true
-        })
-        .getInfo();
+        });
     if (result) {
-        return result;
+        return result.getInfo();
     } else {
         generateError(projectErrors.notExists, 404);
     }

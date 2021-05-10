@@ -1,6 +1,6 @@
 import projectSlice from './projectSlice';
 
-export { getUserProjects, createProject } from './projectExtra';
+export { getUserProjects, createProject, updateProject, deleteProject } from './projectExtra';
 
 export const projectAction = projectSlice.actions;
 

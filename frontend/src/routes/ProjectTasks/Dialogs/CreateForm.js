@@ -9,7 +9,6 @@ function CreateForm({
   defaultValues,
   submit,
 }) {
-
   const { t } = useTranslation();
   const schema = yup.object({
     title: yup.string().required(t("required_field")),

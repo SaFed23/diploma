@@ -13,6 +13,7 @@ import {
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Settings from './Dialogs/Settings';
 
 const classes = {
   addInfo: {
@@ -25,6 +26,7 @@ function ProjectsList({
   user,
 }) {
   const [open, setOpen] = useState('');
+  const [currentProject, setProject] = useState(null);
   const { t } = useTranslation();
 
   const handleOpen = (id) => {
@@ -48,7 +50,7 @@ function ProjectsList({
   }
 
   return (
-    <List>
+    <List style={{ overflow: 'auto', height: 'calc(100vh - 140px)' }}>
       {data.map(val => {
         const startDate = new Date(val.startDate).toLocaleDateString();
         const endDate = new Date(val.endDate).toLocaleDateString();
@@ -82,13 +84,18 @@ function ProjectsList({
                   </Typography>
                 </Grid>
                 <Grid item xs={7}>
-                  <Typography style={classes.addInfo}>
+                  <Typography style={{ ...classes.addInfo, whiteSpace: 'pre-wrap' }}>
                     {t('description')}: {val.description}
                   </Typography>
                 </Grid>
                 {user.id === val.owner.id && (
                   <Grid container justify="flex-end">
-                    <Button variant="contained" color="primary" size="small">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={() => setProject(val)}
+                    >
                       {t('settings')}
                     </Button>
                   </Grid>
@@ -99,7 +106,13 @@ function ProjectsList({
           </div>
         )
       })}
-    </List>
+      <Settings
+        projects={data}
+        currentProject={currentProject}
+        setProject={setProject}
+      />
+
+    </List >
   )
 };
 

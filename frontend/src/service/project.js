@@ -9,3 +9,11 @@ export const getUserProjects = (userId) => {
 export const createProject = (project) => {
   return axios.post(`${API_ROUTES.PROJECT}`, project, AUTH);
 };
+
+export const updateProject = (project) => {
+  return axios.put(`${API_ROUTES.PROJECT}`, project, AUTH);
+};
+
+export const deleteProject = (projectId) => {
+  return axios.delete(`${API_ROUTES.PROJECT}/${projectId}`, AUTH);
+};
