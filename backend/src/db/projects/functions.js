@@ -29,8 +29,10 @@ methods.getInfo = async function () {
 };
 
 methods.addUser = async function (user) {
-  this.userIds.push(user.id);
-  return this.save()
+  if (!this.userIds.includes(user.id)) {
+    this.userIds.push(user.id);
+  }
+  return this.save();
 };
 
 statics.findUserProjects = async function (userId) {

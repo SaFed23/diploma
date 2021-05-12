@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -8,19 +9,17 @@ import {
   Button,
   Tabs,
   Tab,
-  Typography,
 } from '@material-ui/core';
 import { Edit, Delete, People } from "@material-ui/icons";
 import { useTranslation } from 'react-i18next';
 import UpdateForm from './UpdateForm';
-// import CreateForm from './CreateForm';
-// import UpdateForm from './UpdateForm';
-// import DeleteForm from './DeleteForm';
-import { createFeatureAndFetch, deleteProjectAndFetch, updateProjectAndFetch } from '../../../store';
+import { deleteProjectAndFetch, updateProjectAndFetch } from '../../../store';
 import { useDispatch } from 'react-redux';
-import useConfirm from '../../../hooks/useConfirm';
 import { getDate } from '../../../utils/helper';
 import DeleteProjectDialog from './DeleteProject';
+import ProjectUsers from './Users';
+import { getUsers } from '../../../service/user';
+import { useProjectUsers } from '../../../hooks/useProjectUsers';
 
 
 function SettingsDialog({
@@ -29,8 +28,14 @@ function SettingsDialog({
 }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { setOpen: openConfirm, setAction } = useConfirm();
   const [current, setCurrent] = useState(0);
+  const [allUsers, setUsers] = useState([]);
+  const { createInvite } = useProjectUsers(currentProject?.id, setProject);
+
+  useEffect(async () => {
+    const { data } = await getUsers();
+    setUsers(data);
+  }, []);
 
   const handleClose = () => {
     setProject(null);
@@ -39,11 +44,6 @@ function SettingsDialog({
 
   const handleChange = (event, newValue) => {
     setCurrent(newValue);
-  };
-
-  const handleCreateNewFeature = (value) => {
-    dispatch(createFeatureAndFetch(value));
-    handleClose();
   };
 
   const handleUpdateProject = async (value) => {
@@ -55,36 +55,31 @@ function SettingsDialog({
     setProject(payload);
   };
 
+  const handleDeleteUser = async (userId) => {
+    const obj = {
+      id: currentProject.id,
+      userIds: currentProject.users.reduce(
+        (acc, val) => {
+          if (val.id !== userId) {
+            acc.push(val.id);
+          }
+          return acc;
+        }, []),
+    };
+    const { payload } = await dispatch(updateProjectAndFetch(obj));
+    setProject(payload);
+  };
+
   const handleDeleteProject = async () => {
     setProject(null);
     await dispatch(deleteProjectAndFetch(currentProject.id));
   };
 
-  // const createFeature = () => {
-  //   const defaultValues = {
-  //     title: "",
-  //     description: "",
-  //     projectId: currentProject.id
-  //   };
-
-  //   return (
-  //     <>
-  //       <DialogContentText>
-  //         {t("create_new_feature_for")} {currentProject.title}
-  //       </DialogContentText>
-  //       <CreateForm
-  //         defaultValues={defaultValues}
-  //         submit={handleCreateNewFeature}
-  //       />
-  //     </>
-  //   )
-  // };
-
   const updateProject = () => {
     return (
       <>
         <DialogContentText>
-          {t("choose_feature")}
+          {t("update_project")}
         </DialogContentText>
         <UpdateForm
           submit={handleUpdateProject}
@@ -94,10 +89,23 @@ function SettingsDialog({
     )
   };
 
+  const users = () => {
+    return (
+      <>
+        <ProjectUsers
+          project={currentProject}
+          users={allUsers}
+          handleDeleteUser={handleDeleteUser}
+          createInvite={createInvite}
+        />
+      </>
+    )
+  };
+
   const deleteProject = () => {
     return (
       <>
-        <Typography variant="body2">{t("delete_project_text")}</Typography>
+        <DialogContentText>{t("delete_project_text")}</DialogContentText>
         <DeleteProjectDialog
           submit={handleDeleteProject}
           project={currentProject}
@@ -124,7 +132,7 @@ function SettingsDialog({
         </DialogTitle>
         <DialogContent>
           {current === 0 && updateProject()}
-          {/* {current === 1 && updateFeature()} */}
+          {current === 1 && users()}
           {current === 2 && deleteProject()}
         </DialogContent>
         <DialogActions>

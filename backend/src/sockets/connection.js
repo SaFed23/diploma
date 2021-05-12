@@ -1,5 +1,10 @@
 const { getCommentsByTaskId, createComment } = require("./comments");
-const { getInvitesByUserId, rejectInvite, acceptInvite } = require("./invites");
+const {
+  getInvitesByUserId,
+  rejectInvite,
+  acceptInvite,
+  createInvite,
+} = require("./invites");
 
 const onConnection = (socket, io) => {
   socket.on('comment:add', (comment) => createComment(comment, io));
@@ -8,6 +13,7 @@ const onConnection = (socket, io) => {
   socket.on('invite:get', (userId) => getInvitesByUserId(userId, io));
   socket.on('invite:reject', (invite) => rejectInvite(invite, io));
   socket.on('invite:accept', (invite) => acceptInvite(invite, io));
+  socket.on('invite:create', (invite) => createInvite(invite, io));
 
   socket.on('disconnect', () => { });
 }

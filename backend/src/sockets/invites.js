@@ -22,8 +22,23 @@ const acceptInvite = async (invite, io) => {
   getInvitesByUserId(invite.user.id, io);
 };
 
+const createInvite = async (invite, io) => {
+  const newInvite = await inviteReducer.create(invite);
+
+  io.emit('invite:created', {
+    data: {
+      id: invite.projectId,
+      res: !!newInvite
+    }
+  });
+
+  getInvitesByUserId(newInvite.user.id, io);
+};
+
+
 module.exports = {
   getInvitesByUserId,
   rejectInvite,
   acceptInvite,
+  createInvite,
 }
