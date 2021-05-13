@@ -17,7 +17,7 @@ function TaskCard({
 }) {
 
   return (
-    <Grid container spacing={3} style={{ marginTop: 20 }}>
+    <Grid container spacing={3} style={{ marginTop: 20, height: "80%", overflow: "auto" }}>
       {tasks.map((taskStatus, index) => {
         return (
           <Grid item xs={3} key={taskStatus.id}>

@@ -87,7 +87,7 @@ routerV3.post(NAMES.taskStatuses, ROUTES.taskStatuses, taskStatusController.crea
 routerV3.get(NAMES.taskStatuses, ROUTES.taskStatuses, taskStatusController.getAll);
 routerV3.get(NAMES.taskStatuses, `${ROUTES.taskStatuses}/:taskStatusId`, taskStatusController.getById);
 routerV3.put(NAMES.taskStatuses, ROUTES.taskStatuses, taskStatusController.updateById);
-routerV3.delete(NAMES.taskStatuses, `${ROUTES.taskStatuses}/:taskStatusId`, taskStatusController.deleteById);
+routerV3.delete(NAMES.taskStatuses, `${ROUTES.taskStatuses}/:taskStatusId/:newStatus`, taskStatusController.deleteById);
 
 // users
 routerV3.post(NAMES.users, ROUTES.users, userController.create);

@@ -25,15 +25,17 @@ import {
   Menu as MenuIcon,
   ChevronLeft,
   ChevronRight,
-  MailOutline
+  MailOutline,
+  ExitToApp
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { userAction, useUserData, useUserLanguage } from '../../store';
 import { useStyles } from './style';
-import { listConfig, userConfig } from './config';
+import { adminConfig, listConfig, userConfig } from './config';
 import { Link } from 'react-router-dom';
 import { useInvite } from '../../hooks/useInvite';
+import { ROLES } from '../../utils/constants';
 
 export default function Header() {
   const classes = useStyles();
@@ -66,6 +68,10 @@ export default function Header() {
     dispatch(userAction.setUserLanguage(event.target.value));
     localStorage.setItem('lng', event.target.value)
     i18n.changeLanguage(event.target.value)
+  };
+
+  const handleLogout = () => {
+    dispatch(userAction.clearUserData());
   };
 
   return (
@@ -209,36 +215,44 @@ export default function Header() {
             </Link>
           ))}
           <Divider />
-          {userConfig.map(elem => {
-            if (elem.path) {
-              return (
-                <Link
-                  key={elem.label}
-                  style={{ textDecoration: "none", color: "black" }}
-                  to={elem.path}>
-                  <ListItem
-                    button
-                    selected={window.location.pathname === elem.path}
-                  >
-                    <ListItemIcon>{elem.icon}</ListItemIcon>
-                    <ListItemText primary={t(elem.label)} />
-                  </ListItem>
-                </Link>
-              );
-            }
-            return (
+          {user?.role.title === ROLES.ADMIN && adminConfig.map(elem => (
+            <Link
+              key={elem.label}
+              style={{ textDecoration: "none", color: "black" }}
+              to={elem.path}>
               <ListItem
-                key={elem.label}
                 button
                 selected={window.location.pathname === elem.path}
-                onClick={elem.func}
               >
                 <ListItemIcon>{elem.icon}</ListItemIcon>
                 <ListItemText primary={t(elem.label)} />
               </ListItem>
-            )
-          })}
+            </Link>
+          ))}
+          <Divider />
+          {userConfig.map(elem => (
+            <Link
+              key={elem.label}
+              style={{ textDecoration: "none", color: "black" }}
+              to={elem.path}>
+              <ListItem
+                button
+                selected={window.location.pathname === elem.path}
+              >
+                <ListItemIcon>{elem.icon}</ListItemIcon>
+                <ListItemText primary={t(elem.label)} />
+              </ListItem>
+            </Link>
+          ))}
         </List>
+        <Divider />
+        <ListItem
+          button
+          onClick={handleLogout}
+        >
+          <ListItemIcon><ExitToApp /></ListItemIcon>
+          <ListItemText primary={t("logout")} />
+        </ListItem>
       </Drawer>
     </div >
   );

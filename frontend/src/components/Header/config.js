@@ -1,4 +1,10 @@
-import { Computer, Description, ExitToApp, Person, Settings } from "@material-ui/icons";
+import {
+  AssignmentTurnedIn,
+  Computer,
+  Description,
+  Person,
+  Settings,
+} from "@material-ui/icons";
 
 export const listConfig = [
   {
@@ -19,14 +25,17 @@ export const userConfig = [
     icon: <Person />,
     label: 'profile',
   },
+];
+
+export const adminConfig = [
   {
-    path: '/settings',
-    icon: <Settings />,
-    label: 'settings',
+    path: '/check-reports',
+    icon: <AssignmentTurnedIn />,
+    label: 'check_reports',
   },
   {
-    icon: <ExitToApp />,
-    label: 'logout',
-    func: () => console.log(111111),
+    path: '/app-settings',
+    icon: <Settings />,
+    label: 'app_settings',
   },
 ]

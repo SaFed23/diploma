@@ -1,6 +1,8 @@
+import AppSettings from "./routes/AppSettings";
 import CurrentTask from "./routes/CurrentTask";
 import MyProjects from "./routes/MyProjects";
 import ProjectTasks from "./routes/ProjectTasks";
+import { ROLES } from "./utils/constants";
 
 export const routes = [
   {
@@ -14,7 +16,7 @@ export const routes = [
     exact: false
   },
   {
-    path: '/my-reports/',
+    path: '/my-reports',
     component: () => "reports",
     exact: false
   },
@@ -22,5 +24,11 @@ export const routes = [
     path: '/task/:taskId',
     component: <CurrentTask />,
     exact: false
+  },
+  {
+    path: '/app-settings',
+    component: <AppSettings />,
+    exact: false,
+    role: ROLES.ADMIN,
   },
 ]

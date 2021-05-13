@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Backdrop, CircularProgress, makeStyles } from '@material-ui/core'
-import { useLoadingState, useUserToken } from '../store';
+import { useLoadingState, useUserState } from '../store';
 import Header from './Header';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BaseComponent({ component }) {
+function BaseComponent({ component, role }) {
   const classes = useStyles();
-  const token = useUserToken();
+  const { token, user } = useUserState();
   const loading = useLoadingState();
 
-  if (!token) {
-    return <Redirect to='/login' />
+  if (!token || (!!role && user.role.title !== role)) {
+    return <Redirect to='/login' />;
   }
 
   return (

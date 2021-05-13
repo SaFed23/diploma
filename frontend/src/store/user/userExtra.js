@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { SET_AUTH } from '../../service/config';
 import { userLogin } from '../../service/user';
 import { snackbarAction } from '../snackbar';
 
@@ -13,6 +14,7 @@ export const getUserToken = createAsyncThunk('user/getToken',
         variant: "success"
       }));
       localStorage.setItem('token', `bearer ${data.token}`);
+      SET_AUTH(localStorage.getItem('token'));
       return data;
     }
     return null

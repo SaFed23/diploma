@@ -13,7 +13,7 @@ taskStatusController.getAll = async (ctx) => {
 };
 
 taskStatusController.getById = async (ctx) => {
-    const { taskStatusId } = ctx.params; 
+    const { taskStatusId } = ctx.params;
     ctx.body = await taskStatusReducer.getById(taskStatusId);
     ctx.status = 200;
 };
@@ -24,8 +24,9 @@ taskStatusController.updateById = async (ctx) => {
 };
 
 taskStatusController.deleteById = async (ctx) => {
-    const { taskStatusId } = ctx.params; 
-    ctx.body = await taskStatusReducer.deleteById(taskStatusId);
+    const { taskStatusId, newStatus } = ctx.params;
+    console.log(taskStatusId, newStatus);
+    ctx.body = await taskStatusReducer.deleteById(taskStatusId, newStatus);
     ctx.status = 204;
 };
 

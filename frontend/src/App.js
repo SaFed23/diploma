@@ -41,7 +41,7 @@ function App() {
                       key={index}
                       exact={route.exact}
                       path={route.path}
-                      component={() => <BaseComponent component={route.component} />}
+                      component={() => <BaseComponent component={route.component} role={route.role} />}
                     />
                   )
                 })}

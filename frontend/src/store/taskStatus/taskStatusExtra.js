@@ -20,6 +20,46 @@ export const getTaskStatuses = createAsyncThunk('taskStatus/getTaskStatuses',
     return null
   });
 
+export const createTaskStatus = createAsyncThunk('taskStatus/createTaskStatuses',
+  async (taskStatus, { dispatch }) => {
+    try {
+      const { data, status } = await service.createTaskStatus(taskStatus);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
+export const updateTaskStatus = createAsyncThunk('taskStatus/updateTaskStatus',
+  async (taskStatus, { dispatch }) => {
+    try {
+      const { data, status } = await service.updateTaskStatus(taskStatus);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  });
+
 // extra reducer
 export default {
   [getTaskStatuses.fulfilled]: (state, action) => {

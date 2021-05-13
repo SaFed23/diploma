@@ -13,6 +13,7 @@ function ConfirmProvider(props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState(undefined);
+  const [body, setBody] = useState('');
 
   const submit = () => {
     action();
@@ -21,12 +22,13 @@ function ConfirmProvider(props) {
   }
 
   return (
-    <ConfirmContext.Provider value={{ setOpen, setAction }} {...props}>
+    <ConfirmContext.Provider value={{ setOpen, setAction, setBody }} {...props}>
       {props.children}
       <Dialog open={open}>
         <DialogTitle>
           {t("are_you_sure")}
         </DialogTitle>
+        {body}
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="primary">
             {t("no")}

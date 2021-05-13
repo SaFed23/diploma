@@ -3,3 +3,7 @@ export const AUTH = {
     Authorization: localStorage.getItem('token'),
   }
 }
+
+export const SET_AUTH = (token) => {
+  AUTH.headers.Authorization = token;
+}
