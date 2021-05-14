@@ -1,3 +1,5 @@
+const Task = require("../tasks");
+
 const methods = {};
 const statics = {};
 

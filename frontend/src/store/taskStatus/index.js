@@ -1,6 +1,6 @@
 import taskStatusSlice from './taskStatusSlice';
 
-export { getTaskStatuses, createTaskStatus, updateTaskStatus } from './taskStatusExtra';
+export { getTaskStatuses, createTaskStatus, updateTaskStatus, deleteTaskStatus } from './taskStatusExtra';
 
 export const taskStatusAction = taskStatusSlice.actions;
 

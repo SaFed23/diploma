@@ -1,13 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as service from '../../service/taskStatuses';
+import * as service from '../../service/location';
 import { snackbarAction } from '../snackbar';
 
 // extra actions
-export const getTaskStatuses = createAsyncThunk('taskStatus/getTaskStatuses',
+export const getLocations = createAsyncThunk('taskStatus/getLocations',
   async (_, { dispatch }) => {
     try {
-      const { data, status } = await service.getTaskStatuses();
+      const { data, status } = await service.getLocations();
       if (status === 200) {
         return data;
       }
@@ -20,10 +20,10 @@ export const getTaskStatuses = createAsyncThunk('taskStatus/getTaskStatuses',
     return null
   });
 
-export const createTaskStatus = createAsyncThunk('taskStatus/createTaskStatuses',
-  async (taskStatus, { dispatch }) => {
+export const createLocation = createAsyncThunk('taskStatus/createLocation',
+  async (location, { dispatch }) => {
     try {
-      const { data, status } = await service.createTaskStatus(taskStatus);
+      const { data, status } = await service.createLocation(location);
       if (status === 201) {
         dispatch(snackbarAction.addNotification({
           message: "success",
@@ -40,10 +40,10 @@ export const createTaskStatus = createAsyncThunk('taskStatus/createTaskStatuses'
     return null
   });
 
-export const updateTaskStatus = createAsyncThunk('taskStatus/updateTaskStatus',
-  async (taskStatus, { dispatch }) => {
+export const updateLocation = createAsyncThunk('taskStatus/updateLocation',
+  async (location, { dispatch }) => {
     try {
-      const { data, status } = await service.updateTaskStatus(taskStatus);
+      const { data, status } = await service.updateLocation(location);
       if (status === 201) {
         dispatch(snackbarAction.addNotification({
           message: "success",
@@ -59,31 +59,10 @@ export const updateTaskStatus = createAsyncThunk('taskStatus/updateTaskStatus',
     }
     return null
   });
-
-export const deleteTaskStatus = createAsyncThunk('taskStatus/deleteTaskStatus',
-  async (taskStatus, { dispatch }) => {
-    try {
-      const { status } = await service.deleteTaskStatus(taskStatus);
-      if (status === 204) {
-        dispatch(snackbarAction.addNotification({
-          message: "success",
-          variant: "success"
-        }));
-        return status;
-      }
-    } catch (e) {
-      dispatch(snackbarAction.addNotification({
-        message: "error",
-        variant: "error"
-      }));
-    }
-    return null
-  });
-
 
 // extra reducer
 export default {
-  [getTaskStatuses.fulfilled]: (state, action) => {
+  [getLocations.fulfilled]: (state, action) => {
     const data = action.payload;
     if (data) {
       state.data = data;

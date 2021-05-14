@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, List, Typography, ListItem, IconButton } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { createTaskStatusAndFetch, fetchTaskStatuses, updateTaskStatusAndFetch, useTaskStatusData } from '../../store';
+import { createTaskStatusAndFetch, deleteTaskStatusAndFetch, fetchTaskStatuses, updateLocationAndFetch, useTaskStatusData } from '../../store';
 import { AddCircle, Delete, Edit } from '@material-ui/icons';
 import CreateTaskStatus from './Dialog/CreateTaskStatus';
 import UpdateTaskStatus from './Dialog/UpdateTaskStatus';
@@ -26,7 +26,7 @@ function TaskStatuses() {
   };
 
   const handleUpdateStatus = (value) => {
-    dispatch(updateTaskStatusAndFetch(value));
+    dispatch(updateLocationAndFetch(value));
   };
 
   const handleDeleteStatus = (statusId) => {
@@ -35,7 +35,7 @@ function TaskStatuses() {
       relocateId: statusId,
     };
 
-    console.log(obj);
+    dispatch(deleteTaskStatusAndFetch(obj));
   };
 
   return (
@@ -55,7 +55,9 @@ function TaskStatuses() {
           <ListItem key={taskStatus.id}>
             <Grid container justify="space-between">
               <Grid item xs={11} style={{ background: taskStatus.color, borderRadius: 5 }}>
-                <Typography variant="button" style={{ fontWeight: "bold", margin: 15 }}>{taskStatus.title}</Typography>
+                <Typography variant="button" style={{ fontWeight: "bold", margin: 15 }}>
+                  {taskStatus.title}
+                </Typography>
               </Grid>
               <Grid item xs={1}>
                 <IconButton onClick={() => setUpdate(taskStatus)}>

@@ -9,3 +9,4 @@ export * from './taskStatus';
 export * from './snackbar';
 export * from './comment';
 export * from './invite';
+export * from './location';

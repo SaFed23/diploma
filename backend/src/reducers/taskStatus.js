@@ -1,6 +1,8 @@
 const generateError = require('../utils');
 const TaskStatus = require("../db/taskStatuses");
 const { taskStatusErrors } = require('../errors');
+const { getInfoForArray } = require('../../utils/helper');
+const Task = require('../db/tasks');
 
 const taskStatusReducer = {};
 
@@ -33,8 +35,16 @@ taskStatusReducer.updateById = async (taskStatus) => {
     }
 };
 
-taskStatusReducer.deleteById = async (taskStatusId) => {
-    return await TaskStatus.findByIdAndRemove(taskStatusId);
+taskStatusReducer.deleteById = async (taskStatusId, newStatus) => {
+    if (newStatus !== '0') {
+        const tasks = await Task.find({ taskStatusId: taskStatusId });
+        for (const task of tasks) {
+            task.changeStatus(newStatus);
+        }
+        return await TaskStatus.findByIdAndRemove(taskStatusId);
+    } else {
+        return await TaskStatus.findByIdAndRemove(taskStatusId);
+    }
 };
 
 module.exports = taskStatusReducer;

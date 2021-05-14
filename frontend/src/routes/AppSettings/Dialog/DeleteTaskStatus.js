@@ -19,13 +19,14 @@ function DeleteTaskStatus({
   const { t } = useTranslation();
   const [value, setValue] = useState('');
 
-  const deleteStatus = () => {
-    handleDelete(value);
-  };
-
   const close = () => {
     setValue('');
     setOpen('');
+  };
+
+  const deleteStatus = () => {
+    handleDelete(value);
+    close();
   };
 
   return (

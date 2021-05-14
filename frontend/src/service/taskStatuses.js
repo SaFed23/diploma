@@ -13,3 +13,7 @@ export const createTaskStatus = (status) => {
 export const updateTaskStatus = (status) => {
   return axios.put(`${API_ROUTES.TASK_STATUSES}`, status, AUTH);
 };
+
+export const deleteTaskStatus = (status) => {
+  return axios.delete(`${API_ROUTES.TASK_STATUSES}/${status.id}/${status.relocateId || 0}`, AUTH);
+};

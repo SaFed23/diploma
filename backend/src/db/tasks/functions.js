@@ -32,7 +32,12 @@ methods.getInfo = async function () {
   delete obj.userIds;
 
   return obj;
-}
+};
+
+methods.changeStatus = async function (statusId) {
+  this.taskStatusId = statusId;
+  return this.save();
+};
 
 statics.getByFeatureId = async function (featureId) {
   const feature = await Feature.findById(featureId);

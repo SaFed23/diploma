@@ -25,7 +25,6 @@ taskStatusController.updateById = async (ctx) => {
 
 taskStatusController.deleteById = async (ctx) => {
     const { taskStatusId, newStatus } = ctx.params;
-    console.log(taskStatusId, newStatus);
     ctx.body = await taskStatusReducer.deleteById(taskStatusId, newStatus);
     ctx.status = 204;
 };
