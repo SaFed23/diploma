@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, List, Typography, ListItem, IconButton } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { fetchLocations, createLocationAndFetch, updateLocationAndFetch, useLocationData } from '../../store';
+import { fetchFactors, createFactorAndFetch, updateFactorAndFetch, useFactorData } from '../../store';
 import { AddCircle, Edit } from '@material-ui/icons';
 import CreateDialog from './Dialog/Create';
 import UpdateDialog from './Dialog/Update';
@@ -11,27 +11,27 @@ import UpdateDialog from './Dialog/Update';
 function Locations() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const locations = useLocationData();
+  const factors = useFactorData();
   const [create, setCreate] = useState(false);
   const [update, setUpdate] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchLocations());
+    dispatch(fetchFactors());
   }, []);
 
-  const handleCreateLocation = (value) => {
-    dispatch(createLocationAndFetch(value));
+  const handleCreateFactor = (value) => {
+    dispatch(createFactorAndFetch(value));
   };
 
-  const handleUpdateLocation = (value) => {
-    dispatch(updateLocationAndFetch(value));
+  const handleUpdateFactor = (value) => {
+    dispatch(updateFactorAndFetch(value));
   };
 
   return (
     <div style={{ marginTop: 15 }}>
       <Grid container>
         <Grid item xs={11}>
-          <Typography variant="h6">{t("locations")}</Typography>
+          <Typography variant="h6">{t("factors")}</Typography>
         </Grid>
         <Grid item xs={1}>
           <IconButton style={{ marginLeft: 30 }} onClick={() => setCreate(true)}>
@@ -40,16 +40,16 @@ function Locations() {
         </Grid>
       </Grid>
       <List style={{ borderRight: '1px solid #DBDBDB', borderLeft: '1px solid #DBDBDB' }}>
-        {locations.map(location => (
-          <ListItem key={location.id}>
+        {factors.map(factor => (
+          <ListItem key={factor.id}>
             <Grid container justify="space-between">
               <Grid item xs={11}>
                 <Typography variant="button" style={{ fontWeight: "bold", margin: 15 }}>
-                  {location.title}
+                  {factor.title}
                 </Typography>
               </Grid>
               <Grid item xs={1}>
-                <IconButton onClick={() => setUpdate(location)}>
+                <IconButton onClick={() => setUpdate(factor)}>
                   <Edit fontSize="small" />
                 </IconButton>
               </Grid>
@@ -60,14 +60,14 @@ function Locations() {
       <CreateDialog
         open={create}
         handleClose={() => setCreate(false)}
-        submit={handleCreateLocation}
-        title="create_location"
+        submit={handleCreateFactor}
+        title="create_factor"
       />
       <UpdateDialog
-        title="update_location"
+        title="update_factor"
         value={update}
         handleClose={() => setUpdate(null)}
-        submit={handleUpdateLocation}
+        submit={handleUpdateFactor}
       />
     </div >
   )

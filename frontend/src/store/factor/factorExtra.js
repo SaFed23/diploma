@@ -1,13 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as service from '../../service/location';
+import * as service from '../../service/factor';
 import { snackbarAction } from '../snackbar';
 
 // extra actions
-export const getLocations = createAsyncThunk('location/getLocations',
+export const getFactors = createAsyncThunk('factor/getFactors',
   async (_, { dispatch }) => {
     try {
-      const { data, status } = await service.getLocations();
+      const { data, status } = await service.getFactors();
       if (status === 200) {
         return data;
       }
@@ -20,10 +20,10 @@ export const getLocations = createAsyncThunk('location/getLocations',
     return null
   });
 
-export const createLocation = createAsyncThunk('location/createLocation',
-  async (location, { dispatch }) => {
+export const createFactor = createAsyncThunk('factor/createFactor',
+  async (factor, { dispatch }) => {
     try {
-      const { data, status } = await service.createLocation(location);
+      const { data, status } = await service.createFactor(factor);
       if (status === 201) {
         dispatch(snackbarAction.addNotification({
           message: "success",
@@ -40,10 +40,10 @@ export const createLocation = createAsyncThunk('location/createLocation',
     return null
   });
 
-export const updateLocation = createAsyncThunk('location/updateLocation',
-  async (location, { dispatch }) => {
+export const updateFactor = createAsyncThunk('factor/updateFactor',
+  async (factor, { dispatch }) => {
     try {
-      const { data, status } = await service.updateLocation(location);
+      const { data, status } = await service.updateFactor(factor);
       if (status === 201) {
         dispatch(snackbarAction.addNotification({
           message: "success",
@@ -62,7 +62,7 @@ export const updateLocation = createAsyncThunk('location/updateLocation',
 
 // extra reducer
 export default {
-  [getLocations.fulfilled]: (state, action) => {
+  [getFactors.fulfilled]: (state, action) => {
     const data = action.payload;
     if (data) {
       state.data = data;

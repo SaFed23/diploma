@@ -61,7 +61,7 @@ const Login = () => {
           variant="contained"
           color="primary"
         >
-          Login
+          {t("login")}
         </Button>
       </form>
 

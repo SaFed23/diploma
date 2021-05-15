@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import reducers, { initialState } from './snackbarReducer';
 
-const featureSlice = createSlice({
+const snackbarSlice = createSlice({
   name: 'snackbar',
   initialState,
   reducers,
 });
 
-export default featureSlice;
+export default snackbarSlice;

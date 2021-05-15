@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import reducers, { initialState } from './loadingReducer';
 
-const userSlice = createSlice({
+const loadingSlice = createSlice({
   name: 'loading',
   initialState,
   reducers,
 });
 
-export default userSlice;
+export default loadingSlice;

@@ -8,3 +8,4 @@ export { default as snackbar } from './snackbar';
 export { default as comment } from './comment';
 export { default as invite } from './invite';
 export { default as location } from './location';
+export { default as factor } from './factor';
