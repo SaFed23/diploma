@@ -93,6 +93,7 @@ routerV3.delete(NAMES.taskStatuses, `${ROUTES.taskStatuses}/:taskStatusId/:newSt
 routerV3.post(NAMES.users, ROUTES.users, userController.create);
 routerV3.get(NAMES.users, ROUTES.users, userController.getAll);
 routerV3.get(NAMES.users, `${ROUTES.users}/:userId`, userController.getById);
+routerV3.put(NAMES.users, `${ROUTES.users}/changePassword`, userController.changePassword);
 routerV3.put(NAMES.users, ROUTES.users, userController.updateById);
 routerV3.delete(NAMES.users, `${ROUTES.users}/:userId`, userController.deleteById);
 

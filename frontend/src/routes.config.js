@@ -1,7 +1,9 @@
 import AppSettings from "./routes/AppSettings";
 import CurrentTask from "./routes/CurrentTask";
 import MyProjects from "./routes/MyProjects";
+import Profile from "./routes/Profile";
 import ProjectTasks from "./routes/ProjectTasks";
+import Users from "./routes/Users";
 import { ROLES } from "./utils/constants";
 
 export const routes = [
@@ -30,5 +32,16 @@ export const routes = [
     component: <AppSettings />,
     exact: false,
     role: ROLES.ADMIN,
+  },
+  {
+    path: '/users',
+    component: <Users />,
+    exact: false,
+    role: ROLES.ADMIN,
+  },
+  {
+    path: '/profile',
+    component: <Profile />,
+    exact: false,
   },
 ]

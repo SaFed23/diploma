@@ -1,5 +1,5 @@
 import * as yup from 'yup';
 
 export const validationSchema = yup.object({
-  title: yup.string().required('Обязательное поле'),
+  title: yup.string().required('required_field'),
 });

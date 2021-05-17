@@ -2,6 +2,7 @@ import {
   AssignmentTurnedIn,
   Computer,
   Description,
+  People,
   Person,
   Settings,
 } from "@material-ui/icons";
@@ -32,6 +33,11 @@ export const adminConfig = [
     path: '/check-reports',
     icon: <AssignmentTurnedIn />,
     label: 'check_reports',
+  },
+  {
+    path: '/users',
+    icon: <People />,
+    label: 'users',
   },
   {
     path: '/app-settings',

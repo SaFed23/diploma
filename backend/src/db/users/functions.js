@@ -39,6 +39,15 @@ methods.getInfo = async function () {
   delete obj.locationId;
 
   return obj;
-}
+};
+
+statics.changePassword = async function ({ id, oldPassword, password }) {
+  const user = await this.findById(id);
+  if (user.checkPassword(oldPassword)) {
+    user.passwordHash = crypto.pbkdf2Sync(password, user.salt, 1, 128, 'sha1');
+    return user.save();
+  }
+  return null;
+};
 
 module.exports = { methods, statics };

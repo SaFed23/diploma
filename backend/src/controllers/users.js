@@ -13,9 +13,14 @@ userController.getAll = async (ctx) => {
 };
 
 userController.getById = async (ctx) => {
-    const { userId } = ctx.params; 
+    const { userId } = ctx.params;
     ctx.body = await userReducer.getById(userId);
     ctx.status = 200;
+};
+
+userController.changePassword = async (ctx) => {
+    ctx.body = await userReducer.changePassword(ctx.request.body);
+    ctx.status = 201;
 };
 
 userController.updateById = async (ctx) => {
@@ -24,7 +29,7 @@ userController.updateById = async (ctx) => {
 };
 
 userController.deleteById = async (ctx) => {
-    const { userId } = ctx.params; 
+    const { userId } = ctx.params;
     ctx.body = await userReducer.deleteById(userId);
     ctx.status = 204;
 };

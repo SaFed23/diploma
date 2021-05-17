@@ -5,5 +5,5 @@ export const defaultValues = {
 }
 
 export const validationSchema = yup.object({
-  title: yup.string().required('Обязательное поле'),
+  title: yup.string().required('required_field'),
 });

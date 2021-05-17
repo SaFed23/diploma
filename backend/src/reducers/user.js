@@ -6,7 +6,7 @@ const { getInfoForArray } = require('../../utils/helper');
 const userReducer = {};
 
 userReducer.create = async (user) => {
-    const newUser = await User.create(user)
+    const newUser = await User.create(user);
     return newUser.getInfo();
 };
 
@@ -19,7 +19,16 @@ userReducer.getById = async (userId) => {
     if (user) {
         return user.getInfo();
     } else {
-        generateError(userErrors.notExists, 404)
+        generateError(userErrors.notExists, 404);
+    }
+};
+
+userReducer.changePassword = async (user) => {
+    const newUser = await User.changePassword(user);
+    if (newUser) {
+        return newUser.getInfo();
+    } else {
+        generateError(userErrors.notExists, 404);
     }
 };
 

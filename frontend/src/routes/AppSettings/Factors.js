@@ -39,7 +39,12 @@ function Locations() {
           </IconButton>
         </Grid>
       </Grid>
-      <List style={{ borderRight: '1px solid #DBDBDB', borderLeft: '1px solid #DBDBDB' }}>
+      <List style={{
+        borderRight: '1px solid #DBDBDB',
+        borderLeft: '1px solid #DBDBDB',
+        maxHeight: 300,
+        overflow: 'auto'
+      }}>
         {factors.map(factor => (
           <ListItem key={factor.id}>
             <Grid container justify="space-between">

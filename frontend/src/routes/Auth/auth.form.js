@@ -8,12 +8,12 @@ export const defaultValues = {
 export const validationSchema = yup.object({
   username: yup
     .string()
-    .required('Обязательное поле')
-    .min(4, 'Логин не может быть меньше 4 символов')
-    .max(36, 'Логин не может быть больше 36 символов'),
+    .required('required_field')
+    .min(4, 'login_cannot_be_less_then_4')
+    .max(36, 'login_cannot_be_more_then_36'),
   password: yup
     .string()
-    .required('Обязательное поле')
-    .min(4, 'Пароль не может быть меньше 8 символов')
-    .max(36, 'Пароль не может быть больше 36 символов'),
+    .required('required_field')
+    .min(4, 'password_cannot_be_less_then_8')
+    .max(36, 'password_cannot_be_more_then_36'),
 });

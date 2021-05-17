@@ -24,7 +24,6 @@ export default {
   clearUserData: (state) => {
     state.user = initialState.user;
     state.token = initialState.token;
-    state.loading = initialState.loading;
     localStorage.removeItem('token');
   },
 };

@@ -37,7 +37,7 @@ function UpdateDialog({
 
   const onSubmit = (value) => {
     submit(value);
-    handleClose();
+    close();
   };
 
   return (
@@ -55,7 +55,7 @@ function UpdateDialog({
               margin="normal"
               autoFocus
               error={!!errors.title}
-              helperText={errors.title?.message}
+              helperText={t(errors.title?.message)}
               {...muiRegister("title")}
             />
             <Button type="submit" fullWidth variant="contained" color="primary">

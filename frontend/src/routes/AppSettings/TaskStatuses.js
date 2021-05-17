@@ -50,7 +50,12 @@ function TaskStatuses() {
           </IconButton>
         </Grid>
       </Grid>
-      <List style={{ borderRight: '1px solid #DBDBDB', borderLeft: '1px solid #DBDBDB' }}>
+      <List style={{
+        borderRight: '1px solid #DBDBDB',
+        borderLeft: '1px solid #DBDBDB',
+        maxHeight: 300,
+        overflow: 'auto'
+      }}>
         {taskStatuses.map(taskStatus => (
           <ListItem key={taskStatus.id}>
             <Grid container justify="space-between">

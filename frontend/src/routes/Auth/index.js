@@ -42,7 +42,7 @@ const Login = () => {
           margin="normal"
           autoFocus
           error={!!errors.username}
-          helperText={errors.username?.message}
+          helperText={t(errors.username?.message)}
           {...muiRegister('username')}
         />
         <TextField
@@ -52,7 +52,7 @@ const Login = () => {
           label={t("password")}
           type="password"
           error={!!errors.password}
-          helperText={errors.password?.message}
+          helperText={t(errors.password?.message)}
           {...muiRegister('password')}
         />
         <Button

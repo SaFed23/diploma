@@ -8,4 +8,12 @@ export const userLogin = (user) => {
 
 export const getUsers = () => {
   return axios.get(`${API_ROUTES.USER}`, AUTH);
+};
+
+export const updateUser = (user) => {
+  return axios.put(`${API_ROUTES.USER}`, user, AUTH);
+};
+
+export const changePassword = (user) => {
+  return axios.put(`${API_ROUTES.USER}/changePassword`, user, AUTH);
 }

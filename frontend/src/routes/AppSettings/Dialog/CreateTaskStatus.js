@@ -53,7 +53,7 @@ function CreateTaskStatus({
               margin="normal"
               autoFocus
               error={!!errors.title}
-              helperText={errors.title?.message}
+              helperText={t(errors.title?.message)}
               {...muiRegister("title")}
             />
             {t("color")}:
