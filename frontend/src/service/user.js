@@ -16,4 +16,12 @@ export const updateUser = (user) => {
 
 export const changePassword = (user) => {
   return axios.put(`${API_ROUTES.USER}/changePassword`, user, AUTH);
-}
+};
+
+export const createUser = (user) => {
+  return axios.post(`${API_ROUTES.USER}`, user, AUTH);
+};
+
+export const deleteUser = (userId) => {
+  return axios.delete(`${API_ROUTES.USER}/${userId}`, AUTH);
+};

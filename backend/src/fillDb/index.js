@@ -38,7 +38,6 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
 
     const role1 = await Role.create({ title: "admin" });
     const role2 = await Role.create({ title: "user" });
-    const role3 = await Role.create({ title: "manager" });
 
     const taskStatuses1 = await TaskStatus.create({ title: "To do", color: "red" });
     const taskStatuses2 = await TaskStatus.create({ title: "In progress", color: "green" });
@@ -70,7 +69,7 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
       username: "manager",
       passwordHash: crypto.pbkdf2Sync('manager', salt, 1, 128, 'sha1'),
       email: "manager@tut.by",
-      roleId: role3._id,
+      roleId: role2._id,
       locationId: location3._id,
       salt,
     });

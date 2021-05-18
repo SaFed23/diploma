@@ -11,3 +11,7 @@ export const selectUserLanguage = createSelector(
   selectUserState,
   (state) => state.language,
 );
+export const selectAllUsers = createSelector(
+  selectUserState,
+  (state) => state.allUsers,
+);

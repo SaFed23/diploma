@@ -24,8 +24,12 @@ methods.getInfo = async function () {
   obj.users = [];
   for (const id of obj.userIds) {
     const user = await User.findById(id);
-    obj.users.push(await user.getInfo());
+    if (user) {
+      obj.users.push(await user.getInfo());
+    }
   }
+  this.userIds = obj.users.map(user => user.id);
+  await this.save();
   delete obj._id;
   delete obj.featureId;
   delete obj.taskStatusId;

@@ -6,7 +6,7 @@ const { getInfoForArray } = require('../../utils/helper');
 const userReducer = {};
 
 userReducer.create = async (user) => {
-    const newUser = await User.create(user);
+    const newUser = await User.createUser(user);
     return newUser.getInfo();
 };
 

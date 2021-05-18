@@ -2,6 +2,7 @@
 export const initialState = {
   user: {},
   language: localStorage.getItem('lng') || "en",
+  allUsers: [],
   token: "",
 };
 
@@ -21,9 +22,14 @@ export default {
     state.language = action.payload;
   },
 
+  setAllUsers: (state, action) => {
+    state.allUsers = action.payload;
+  },
+
   clearUserData: (state) => {
     state.user = initialState.user;
     state.token = initialState.token;
+    state.allUsers = initialState.allUsers;
     localStorage.removeItem('token');
   },
 };

@@ -1,6 +1,7 @@
 import AppSettings from "./routes/AppSettings";
 import CurrentTask from "./routes/CurrentTask";
 import MyProjects from "./routes/MyProjects";
+import MyReports from "./routes/MyReports";
 import Profile from "./routes/Profile";
 import ProjectTasks from "./routes/ProjectTasks";
 import Users from "./routes/Users";
@@ -19,7 +20,7 @@ export const routes = [
   },
   {
     path: '/my-reports',
-    component: () => "reports",
+    component: <MyReports />,
     exact: false
   },
   {

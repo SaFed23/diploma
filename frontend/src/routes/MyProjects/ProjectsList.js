@@ -75,7 +75,7 @@ function ProjectsList({
               <Grid container style={{ paddingLeft: 20, paddingTop: 10, marginBottom: 5 }}>
                 <Grid item xs={2}>
                   <Typography style={classes.addInfo}>
-                    {t('owner')}: {val.owner.username}
+                    {t('owner')}: {val.owner?.username}
                   </Typography>
                 </Grid>
                 <Grid item xs={3}>
@@ -88,7 +88,7 @@ function ProjectsList({
                     {t('description')}: {val.description}
                   </Typography>
                 </Grid>
-                {user.id === val.owner.id && (
+                {user.id === val.owner?.id && (
                   <Grid container justify="flex-end">
                     <Button
                       variant="contained"

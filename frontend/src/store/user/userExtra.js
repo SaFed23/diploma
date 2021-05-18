@@ -64,6 +64,59 @@ export const changePassword = createAsyncThunk('user/changePassword',
   }
 );
 
+export const fetchUsers = createAsyncThunk('user/fetchUsers',
+  async (_, { dispatch }) => {
+    try {
+      const { data } = await service.getUsers();
+      return data;
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+      return null
+    }
+  }
+);
+
+export const createUser = createAsyncThunk('user/createUser',
+  async (user, { dispatch }) => {
+    try {
+      const { data } = await service.createUser(user);
+      dispatch(snackbarAction.addNotification({
+        message: "success",
+        variant: "success"
+      }));
+      return data;
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+      return null
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk('user/deleteUser',
+  async (userId, { dispatch }) => {
+    try {
+      const { status } = await service.deleteUser(userId);
+      dispatch(snackbarAction.addNotification({
+        message: "success",
+        variant: "success"
+      }));
+      return status;
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null;
+  }
+);
+
 // extra reducer
 export default {
   [getUserToken.fulfilled]: (state, action) => {
@@ -77,6 +130,12 @@ export default {
     const data = action.payload;
     if (data) {
       state.user = data;
+    }
+  },
+  [fetchUsers.fulfilled]: (state, action) => {
+    const data = action.payload;
+    if (data) {
+      state.allUsers = data;
     }
   },
 };

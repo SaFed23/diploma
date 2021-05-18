@@ -15,12 +15,16 @@ methods.getInfo = async function () {
   const obj = this.toObject();
   obj.id = obj._id;
   const owner = await User.findById(obj.ownerId);
-  obj.owner = await owner.getInfo();
+  obj.owner = owner ? await owner.getInfo() : null;
   obj.users = [];
   for (const id of obj.userIds) {
     const user = await User.findById(id);
-    obj.users.push(await user.getInfo());
+    if (user) {
+      obj.users.push(await user.getInfo());
+    }
   }
+  this.userIds = obj.users.map(user => user.id);
+  await this.save();
   delete obj._id;
   delete obj.ownerId;
   delete obj.userIds;

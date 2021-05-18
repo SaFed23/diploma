@@ -8,4 +8,5 @@ export const API_ROUTES = {
   COMMENT: '/comments',
   LOCATION: '/locations',
   FACTOR: '/factors',
+  ROLES: '/roles',
 }

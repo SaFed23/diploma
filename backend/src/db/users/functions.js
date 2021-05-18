@@ -50,4 +50,13 @@ statics.changePassword = async function ({ id, oldPassword, password }) {
   return null;
 };
 
+statics.createUser = async function (user) {
+  const newUser = { ...user };
+  const salt = crypto.randomBytes(128).toString('base64');
+  newUser.passwordHash = crypto.pbkdf2Sync(user.password, salt, 1, 128, 'sha1');
+  newUser.salt = salt;
+  delete newUser.password;
+  return await this.create(newUser);
+}
+
 module.exports = { methods, statics };

@@ -1,6 +1,6 @@
 import userSlice from '../user/userSlice';
 
-export { getUserToken, updateUser, changePassword } from '../user/userExtra';
+export { getUserToken, updateUser, changePassword, fetchUsers, createUser, deleteUser } from '../user/userExtra';
 
 export const userAction = userSlice.actions;
 
