@@ -9,4 +9,5 @@ export const API_ROUTES = {
   LOCATION: '/locations',
   FACTOR: '/factors',
   ROLES: '/roles',
+  REPORT: '/reports',
 }

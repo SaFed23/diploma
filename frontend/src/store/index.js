@@ -11,3 +11,4 @@ export * from './comment';
 export * from './invite';
 export * from './location';
 export * from './factor';
+export * from './report';
