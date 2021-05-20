@@ -4,6 +4,7 @@ const Feature = require('../features');
 const User = require('../users');
 const Factor = require('../factors');
 const Location = require('../locations');
+const { getDate } = require('../../../utils/helper');
 
 const methods = {};
 const statics = {};
@@ -40,6 +41,18 @@ methods.getInfo = async function () {
   delete obj.locationId;
 
   return obj;
-}
+};
+
+statics.getByFilter = async function (filter) {
+  const filterObj = {};
+  if (filter.month) {
+    const date = new Date(filter.month);
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    filterObj.date = { $gte: getDate(firstDay), $lte: getDate(lastDay) }
+  }
+
+  return await this.find(filterObj);
+};
 
 module.exports = { methods, statics };

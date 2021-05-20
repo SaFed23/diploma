@@ -22,7 +22,7 @@ function DeleteProjectDialog({
 
   const onSubmit = ({ title }) => {
     if (title !== project.title) {
-      setCheck(t("titles_are_not_equal"))
+      setCheck("titles_are_not_equal")
     } else {
       submit();
       reset();
@@ -38,7 +38,7 @@ function DeleteProjectDialog({
         margin="normal"
         autoFocus
         error={!!errors.title || !!checkErr}
-        helperText={errors.title?.message || checkErr}
+        helperText={t(errors.title?.message) || t(checkErr)}
         {...muiRegister("title")}
       />
       <Button type="submit" fullWidth variant="contained" color="secondary">

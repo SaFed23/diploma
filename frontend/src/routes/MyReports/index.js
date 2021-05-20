@@ -1,12 +1,37 @@
-import React from 'react';
-import { Typography } from '@material-ui/core';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import DateFilter from './DateFilter';
 import './Calendar.css';
 import Calendar from 'react-calendar';
+import { useDispatch } from 'react-redux';
+import { setMonthAndFetch, useReportData } from '../../store';
+import { getDate } from '../../utils/helper';
+import Report from './Report';
 
 function MyReports() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const reports = useReportData();
+  const [day, setDay] = useState(null);
+
+  console.log(reports.map(report => new Date(report.date)));
+
+  useEffect(() => {
+    handleChangeMonth(new Date());
+  }, []);
+
+  const handleChangeMonth = (date) => {
+    dispatch(setMonthAndFetch(getDate(date)));
+  };
+
+  const handleChooseDay = (newDay) => {
+    if (day?.toJSON() === newDay.toJSON()) {
+      setDay(null);
+    } else {
+      setDay(newDay);
+    }
+  }
 
 
   return (
@@ -14,12 +39,23 @@ function MyReports() {
       <Typography variant="h5">
         {t("my_reports")}
       </Typography>
-      <Calendar
-        locale={localStorage.getItem('lng')}
-        minDetail="month"
-        value={[new Date("2021-05-01"), new Date("2021-05-02")]}
-        onActiveStartDateChange={(e) => console.log(e)}
-      />
+      <Grid container>
+        <Grid item xs={5}>
+          <Calendar
+            locale={localStorage.getItem('lng')}
+            minDetail="month"
+            value={reports[0] ? reports?.map(report => new Date(report.date)) : new Date()}
+            onActiveStartDateChange={(e) => handleChangeMonth(new Date(e.activeStartDate))}
+            onClickDay={(e) => handleChooseDay(new Date(e))}
+          />
+        </Grid>
+        <Grid item xs={1} />
+        <Grid item xs={6}>
+          <Report
+            date={day}
+          />
+        </Grid>
+      </Grid>
     </>
   )
 };

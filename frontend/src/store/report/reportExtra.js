@@ -8,7 +8,7 @@ export const getReportByMonth = createAsyncThunk('report/getReportByMonth',
   async (_, { dispatch, getState }) => {
     const { currentMonth } = getState().report;
     try {
-      const { data, status } = await service.getReportsByMonth(currentMonth);
+      const { data, status } = await service.getReportsByFilter({ month: currentMonth });
       if (status === 200) {
         return data;
       }

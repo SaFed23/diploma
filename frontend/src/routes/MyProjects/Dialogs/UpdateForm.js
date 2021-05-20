@@ -32,7 +32,7 @@ function UpdateForm({
           margin="normal"
           autoFocus
           error={!!errors.title}
-          helperText={errors.title?.message}
+          helperText={t(errors.title?.message)}
           {...muiRegister("title")}
         />
         <TextField
@@ -42,7 +42,7 @@ function UpdateForm({
           variant="outlined"
           margin="normal"
           error={!!errors.description}
-          helperText={errors.description?.message}
+          helperText={t(errors.description?.message)}
           {...muiRegister("description")}
         />
         <TextField
@@ -52,7 +52,7 @@ function UpdateForm({
           variant="outlined"
           margin="normal"
           error={!!errors.startDate}
-          helperText={errors.startDate?.message}
+          helperText={t(errors.startDate?.message)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -64,8 +64,8 @@ function UpdateForm({
           label={t("end_date")}
           variant="outlined"
           margin="normal"
-          error={!!errors.startDate}
-          helperText={errors.startDate?.message}
+          error={!!errors.endDate}
+          helperText={t(errors.endDate?.message)}
           InputLabelProps={{
             shrink: true,
           }}

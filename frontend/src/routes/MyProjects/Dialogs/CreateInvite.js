@@ -51,7 +51,7 @@ function CreateInvite({
               margin="normal"
               autoFocus
               error={!!errors.title}
-              helperText={errors.title?.message}
+              helperText={t(errors.title?.message)}
               {...muiRegister("title")}
             />
             <TextField
@@ -61,7 +61,7 @@ function CreateInvite({
               variant="outlined"
               margin="normal"
               error={!!errors.description}
-              helperText={errors.description?.message}
+              helperText={t(errors.description?.message)}
               {...muiRegister("description")}
             />
             <Button type="submit" fullWidth variant="contained" color="primary">

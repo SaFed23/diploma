@@ -23,6 +23,11 @@ reportReducer.getById = async (reportId) => {
     }
 };
 
+reportReducer.getByFilter = async (filter) => {
+    const report = await Report.getByFilter(filter);
+    return getInfoForArray(report);
+};
+
 reportReducer.updateById = async (report) => {
     const result = await Report
         .findByIdAndUpdate(report.id, report, {

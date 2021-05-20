@@ -60,7 +60,7 @@ function AddTaskDialog({
               margin="normal"
               autoFocus
               error={!!errors.title}
-              helperText={errors.title?.message}
+              helperText={t(errors.title?.message)}
               {...muiRegister("title")}
             />
             <TextField
@@ -70,7 +70,7 @@ function AddTaskDialog({
               variant="outlined"
               margin="normal"
               error={!!errors.description}
-              helperText={errors.description?.message}
+              helperText={t(errors.description?.message)}
               {...muiRegister("description")}
             />
             <FormControlLabel

@@ -63,6 +63,7 @@ routerV3.delete(NAMES.projects, `${ROUTES.projects}/:projectId`, projectControll
 // reports
 routerV3.post(NAMES.reports, ROUTES.reports, reportController.create);
 routerV3.get(NAMES.reports, ROUTES.reports, reportController.getAll);
+routerV3.get(NAMES.reports, `${ROUTES.reports}/filter`, reportController.getByFilter);
 routerV3.get(NAMES.reports, `${ROUTES.reports}/:reportId`, reportController.getById);
 routerV3.put(NAMES.reports, ROUTES.reports, reportController.updateById);
 routerV3.delete(NAMES.reports, `${ROUTES.reports}/:reportId`, reportController.deleteById);

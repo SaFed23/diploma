@@ -13,10 +13,15 @@ reportController.getAll = async (ctx) => {
 };
 
 reportController.getById = async (ctx) => {
-    const { reportId } = ctx.params; 
+    const { reportId } = ctx.params;
     ctx.body = await reportReducer.getById(reportId);
     ctx.status = 200;
 };
+
+reportController.getByFilter = async (ctx) => {
+    ctx.body = await reportReducer.getByFilter(ctx.request.query);
+    ctx.status = 200;
+}
 
 reportController.updateById = async (ctx) => {
     ctx.body = await reportReducer.updateById(ctx.request.body);
@@ -24,7 +29,7 @@ reportController.updateById = async (ctx) => {
 };
 
 reportController.deleteById = async (ctx) => {
-    const { reportId } = ctx.params; 
+    const { reportId } = ctx.params;
     ctx.body = await reportReducer.deleteById(reportId);
     ctx.status = 204;
 };

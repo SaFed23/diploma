@@ -8,8 +8,8 @@ export const defaultValues = {
 }
 
 export const validationSchema = yup.object({
-  title: yup.string().required('Обязательное поле'),
+  title: yup.string().required('required_field'),
   description: yup.string(),
-  startDate: yup.date().required('Обязательное поле'),
-  endDate: yup.date().required('Обязательное поле'),
+  startDate: yup.date().required('required_field'),
+  endDate: yup.date().required('required_field'),
 });

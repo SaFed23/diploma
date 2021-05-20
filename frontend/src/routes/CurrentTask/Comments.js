@@ -79,7 +79,7 @@ function Comments({
               fullWidth
               variant="outlined"
               error={!!errors.username}
-              helperText={errors.username?.message}
+              helperText={t(errors.username?.message)}
               {...muiRegister('description')}
             />
           </Grid>
