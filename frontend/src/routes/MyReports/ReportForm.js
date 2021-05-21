@@ -1,82 +1,77 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { validationSchema } from './ReportForm.form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import useForm from '../../hooks/useForm';
 import { Grid, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import SelectComponent from '../../components/common/Select';
+
+const isWeekend = (day) => {
+  const dayOfWeek = new Date(day).getDay();
+  return (dayOfWeek === 6) || (dayOfWeek === 0);
+};
 
 function ReportForm({
   date,
   report,
   user,
+  projects,
+  features,
+  tasks,
+  factors,
+  locations,
 }) {
   const { t } = useTranslation();
-  const [defaultValues, setValues] = useState({});
+  const [currentReport, setReport] = useState({})
 
-  const isWeekend = (day) => {
-    const dayOfWeek = new Date(day).getDay();
-    return (dayOfWeek === 6) || (dayOfWeek === 0);
-  };
-
-  const { handleSubmit, formState: { errors }, muiRegister, reset } = useForm({
-    defaultValues: {
-      projectId: report?.projectId || '',
-      featureId: report?.featureId || '',
-      taskId: report?.taskId || '',
-      hours: isWeekend(date) ? 0 : 8,
-      factorId: report?.factorId || '',
-      locationId: report?.locationId || user.location.id || '',
-    },
-    resolver: yupResolver(validationSchema),
-  });
+  console.log(currentReport);
 
   useEffect(() => {
     const obj = {
-      projectId: report?.projectId || '',
-      featureId: report?.featureId || '',
-      taskId: report?.taskId || '',
+      projectId: report?.project?.id || '',
+      featureId: report?.feature?.id || '',
+      taskId: report?.task?.id || '',
       hours: isWeekend(date) ? 0 : 8,
-      factorId: report?.factorId || '',
-      locationId: report?.locationId || user.location.id || '',
+      factorId: report?.factor?.id || '',
+      locationId: report?.location?.id || user?.location?.id || '',
     };
 
-    console.log(report, obj);
-
-    reset(obj);
+    setReport(obj);
 
   }, [date, report, user]);
+
+  const handleChange = (field, value) => {
+    const obj = { ...currentReport };
+    obj[field] = value;
+    setReport(obj);
+  };
 
   return (
     <form style={{ marginTop: 20 }}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TextField
-            label={t("project")}
+          <SelectComponent
+            currentValue={report?.project?.id || ''}
             fullWidth
-            variant="outlined"
-            error={!!errors.projectId}
-            helperText={t(errors.projectId?.message)}
-            {...muiRegister('projectId')}
+            title={t("project")}
+            values={projects}
+            onChange={({ target }) => handleChange('projectId', target.value)}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label={t("feature")}
+          <SelectComponent
+            currentValue={report?.feature?.id || ''}
             fullWidth
-            variant="outlined"
-            error={!!errors.featureId}
-            helperText={t(errors.featureId?.message)}
-            {...muiRegister('featureId')}
+            title={t("feature")}
+            values={features}
+            onChange={({ target }) => handleChange('featureId', target.value)}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label={t("task")}
+          <SelectComponent
+            currentValue={report?.task?.id || ''}
             fullWidth
-            variant="outlined"
-            error={!!errors.taskId}
-            helperText={t(errors.taskId?.message)}
-            {...muiRegister('taskId')}
+            title={t("task")}
+            values={tasks}
+            onChange={({ target }) => handleChange('taskId', target.value)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -84,29 +79,26 @@ function ReportForm({
             label={t("hours")}
             fullWidth
             variant="outlined"
-            error={!!errors.hours}
-            helperText={t(errors.hours?.message)}
-            {...muiRegister('hours')}
+            value={report.hours}
+            onChange={(target) => handleChange('hours', target.value)}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label={t("factor")}
+          <SelectComponent
+            currentValue={report?.factor?.id || ''}
             fullWidth
-            variant="outlined"
-            error={!!errors.factorId}
-            helperText={t(errors.factorId?.message)}
-            {...muiRegister('factorId')}
+            title={t("factor")}
+            values={factors}
+            onChange={({ target }) => handleChange('factorId', target.value)}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label={t("location")}
+          <SelectComponent
+            currentValue={report?.location?.id || ''}
             fullWidth
-            variant="outlined"
-            error={!!errors.locationId}
-            helperText={t(errors.locationId?.message)}
-            {...muiRegister('locationId')}
+            title={t("location")}
+            values={locations}
+            onChange={({ target }) => handleChange('locationId', target.value)}
           />
         </Grid>
       </Grid>
