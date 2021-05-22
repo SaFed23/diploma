@@ -5,9 +5,12 @@ import { AddCircle } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import {
+  createReportAndFetch,
+  deleteReportAndFetch,
   fetchFactors,
   fetchLocations,
   fetchUserProjects,
+  updateReportAndFetch,
   useFactorData,
   useLocationData,
   useProjectData,
@@ -38,9 +41,23 @@ function Report({
   }, [reports]);
 
   const handleAddReport = () => {
-    const newReports = [...currentReports, {}];
+    if (currentReports[currentReports.length - 1].id) {
+      const newReports = [...currentReports, {}];
 
-    setReports(newReports);
+      setReports(newReports);
+    }
+  };
+
+  const handleSave = (value) => {
+    dispatch(createReportAndFetch(value));
+  };
+
+  const handleUpdate = (value) => {
+    dispatch(updateReportAndFetch(value));
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteReportAndFetch(id));
   };
 
   return (
@@ -59,14 +76,18 @@ function Report({
               </IconButton>
             </Grid>
           </Grid>
-          {currentReports.map(report => (
+          {currentReports.map((report, index) => (
             <ReportForm
+              key={index}
               date={date}
               report={report}
               user={user}
               projects={projects}
               locations={locations}
               factors={factors}
+              createRep={handleSave}
+              updateRep={handleUpdate}
+              deleteRep={handleDelete}
             />
           ))}
         </>

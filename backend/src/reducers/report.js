@@ -32,10 +32,9 @@ reportReducer.updateById = async (report) => {
     const result = await Report
         .findByIdAndUpdate(report.id, report, {
             new: true
-        })
-        .getInfo();
+        });
     if (result) {
-        return result;
+        return result.getInfo();
     } else {
         generateError(reportErrors.notExists, 404);
     }

@@ -22,6 +22,70 @@ export const getReportByMonth = createAsyncThunk('report/getReportByMonth',
   }
 );
 
+export const createReport = createAsyncThunk('report/createReport',
+  async (report, { dispatch }) => {
+    try {
+      const { data, status } = await service.createReport(report);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  }
+);
+
+export const updateReport = createAsyncThunk('report/updateReport',
+  async (report, { dispatch }) => {
+    try {
+      const { data, status } = await service.updateReport(report);
+      if (status === 201) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  }
+);
+
+export const deleteReport = createAsyncThunk('report/deleteReport',
+  async (reportId, { dispatch }) => {
+    try {
+      const { data, status } = await service.deleteReport(reportId);
+      if (status === 204) {
+        dispatch(snackbarAction.addNotification({
+          message: "success",
+          variant: "success"
+        }));
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  }
+);
+
+
 // extra reducer
 export default {
   [getReportByMonth.fulfilled]: (state, action) => {

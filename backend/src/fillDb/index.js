@@ -206,7 +206,6 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
 
     const report1 = await Report.create({
       date: new Date("2020-12-11"),
-      status: "PRIVATE",
       hours: 8,
       projectId: project1._id,
       taskId: task3._id,
@@ -217,7 +216,6 @@ mongoose.connect(`${DB_CONNECTION}/${DB_NAME}`)
     });
     const report2 = await Report.create({
       date: new Date("2021-01-01"),
-      status: "REGISTERED",
       hours: 0,
       userId: user3._id,
       taskId: task8._id,

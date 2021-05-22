@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, List, Typography, ListItem, IconButton } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { createTaskStatusAndFetch, deleteTaskStatusAndFetch, fetchTaskStatuses, updateLocationAndFetch, useTaskStatusData } from '../../store';
+import { createTaskStatusAndFetch, deleteTaskStatusAndFetch, fetchTaskStatuses, updateTaskStatusAndFetch, useTaskStatusData } from '../../store';
 import { AddCircle, Delete, Edit } from '@material-ui/icons';
 import CreateTaskStatus from './Dialog/CreateTaskStatus';
 import UpdateTaskStatus from './Dialog/UpdateTaskStatus';
@@ -26,7 +26,7 @@ function TaskStatuses() {
   };
 
   const handleUpdateStatus = (value) => {
-    dispatch(updateLocationAndFetch(value));
+    dispatch(updateTaskStatusAndFetch(value));
   };
 
   const handleDeleteStatus = (statusId) => {

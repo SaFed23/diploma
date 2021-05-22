@@ -2,6 +2,9 @@ import reportSlice from './reportSlice';
 
 export {
   getReportByMonth,
+  createReport,
+  updateReport,
+  deleteReport,
 } from './reportExtra';
 
 export const reportAction = reportSlice.actions;
