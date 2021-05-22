@@ -24,8 +24,14 @@ const reportSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    taskId: String,
-    featureId: String,
+    taskId: {
+        type: String,
+        required: true,
+    },
+    featureId: {
+        type: String,
+        required: true,
+    },
     userId: {
         type: String,
         required: true,

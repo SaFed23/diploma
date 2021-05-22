@@ -21,6 +21,7 @@ export default {
   clearTaskData: (state) => {
     state.all = initialState.all;
     state.current = initialState.current;
+    state.featureId = initialState.featureId;
   },
 
   clearAllTasks: (state) => {

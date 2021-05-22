@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { Button, Divider, Grid, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SelectComponent from '../../components/common/Select';
+import { featureAction, setFeatureIdAndFetch, setProjectIdAndFetch, taskAction, useAllTasks, useFeatureData } from '../../store';
+import { useDispatch } from 'react-redux';
 
 const isWeekend = (day) => {
   const dayOfWeek = new Date(day).getDay();
@@ -14,18 +16,37 @@ function ReportForm({
   report,
   user,
   projects,
-  features,
-  tasks,
   factors,
   locations,
 }) {
   const { t } = useTranslation();
-  const [currentReport, setReport] = useState({})
+  const dispatch = useDispatch();
+  const [currentReport, setReport] = useState({});
+  const features = useFeatureData();
+  const tasks = useAllTasks();
 
-  console.log(currentReport);
+  useEffect(() => () => {
+    dispatch(taskAction.clearTaskData());
+    dispatch(featureAction.clearFeatureData());
+  }, []);
+
+  useEffect(() => {
+    const { projectId } = currentReport;
+    if (projectId) {
+      dispatch(setProjectIdAndFetch(projectId));
+    }
+  }, [currentReport.projectId]);
+
+  useEffect(() => {
+    const { featureId } = currentReport;
+    if (featureId) {
+      dispatch(setFeatureIdAndFetch(featureId));
+    }
+  }, [currentReport.featureId]);
 
   useEffect(() => {
     const obj = {
+      id: report?.id || '',
       projectId: report?.project?.id || '',
       featureId: report?.feature?.id || '',
       taskId: report?.task?.id || '',
@@ -49,7 +70,7 @@ function ReportForm({
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <SelectComponent
-            currentValue={report?.project?.id || ''}
+            currentValue={currentReport.projectId || ''}
             fullWidth
             title={t("project")}
             values={projects}
@@ -58,7 +79,7 @@ function ReportForm({
         </Grid>
         <Grid item xs={6}>
           <SelectComponent
-            currentValue={report?.feature?.id || ''}
+            currentValue={currentReport.featureId || ''}
             fullWidth
             title={t("feature")}
             values={features}
@@ -67,10 +88,13 @@ function ReportForm({
         </Grid>
         <Grid item xs={6}>
           <SelectComponent
-            currentValue={report?.task?.id || ''}
+            currentValue={currentReport.taskId || ''}
             fullWidth
             title={t("task")}
-            values={tasks}
+            values={tasks.reduce((acc, val) => {
+              acc.push(...val.tasks);
+              return acc;
+            }, [])}
             onChange={({ target }) => handleChange('taskId', target.value)}
           />
         </Grid>
@@ -79,13 +103,13 @@ function ReportForm({
             label={t("hours")}
             fullWidth
             variant="outlined"
-            value={report.hours}
+            value={currentReport.hours || 0}
             onChange={(target) => handleChange('hours', target.value)}
           />
         </Grid>
         <Grid item xs={6}>
           <SelectComponent
-            currentValue={report?.factor?.id || ''}
+            currentValue={currentReport.factorId || ''}
             fullWidth
             title={t("factor")}
             values={factors}
@@ -94,7 +118,7 @@ function ReportForm({
         </Grid>
         <Grid item xs={6}>
           <SelectComponent
-            currentValue={report?.location?.id || ''}
+            currentValue={currentReport.locationId || ''}
             fullWidth
             title={t("location")}
             values={locations}
@@ -102,6 +126,33 @@ function ReportForm({
           />
         </Grid>
       </Grid>
+      <Grid container justify="space-between">
+        <Grid item xs={3}>
+          <Button
+            fullWidth
+            color="primary"
+            type="submit"
+            variant="contained"
+            style={{ marginTop: 20 }}
+          >
+            {report?.id ? t("update") : t("save")}
+          </Button>
+        </Grid>
+        <Grid item xs={3}>
+          {report?.id && (
+            <Button
+              fullWidth
+              color="secondary"
+              type="submit"
+              variant="contained"
+              style={{ marginTop: 20 }}
+            >
+              {t("delete")}
+            </Button>
+          )}
+        </Grid>
+      </Grid>
+      <Divider style={{ marginTop: 20 }} />
     </form>
   )
 };
