@@ -30,7 +30,7 @@ export const userConfig = [
 
 export const adminConfig = [
   {
-    path: '/check-reports',
+    path: '/check-work',
     icon: <AssignmentTurnedIn />,
     label: 'check_reports',
   },

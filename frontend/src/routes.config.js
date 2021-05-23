@@ -1,4 +1,5 @@
 import AppSettings from "./routes/AppSettings";
+import CheckWork from "./routes/CheckWork";
 import CurrentTask from "./routes/CurrentTask";
 import MyProjects from "./routes/MyProjects";
 import MyReports from "./routes/MyReports";
@@ -37,6 +38,12 @@ export const routes = [
   {
     path: '/users',
     component: <Users />,
+    exact: false,
+    role: ROLES.ADMIN,
+  },
+  {
+    path: '/check-work',
+    component: <CheckWork />,
     exact: false,
     role: ROLES.ADMIN,
   },

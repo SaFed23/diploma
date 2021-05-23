@@ -62,7 +62,7 @@ function ReportForm({
       projectId: report?.project?.id || '',
       featureId: report?.feature?.id || '',
       taskId: report?.task?.id || '',
-      hours: report.hours ? report.hours : isWeekend(date) ? 0 : 8,
+      hours: report.id ? report.hours : isWeekend(date) ? 0 : 8,
       factorId: report?.factor?.id || '',
       locationId: report?.location?.id || user?.location?.id || '',
       userId: user.id,

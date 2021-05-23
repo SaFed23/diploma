@@ -28,6 +28,28 @@ reportReducer.getByFilter = async (filter) => {
     return getInfoForArray(report);
 };
 
+reportReducer.getByAdminFilter = async (filter) => {
+    console.log(await Report.aggregate([
+        { $match: { date: { $gte: new Date('2021-01-01'), $lte: new Date('2021-10-01') } } },
+        {
+            $group: {
+                _id: {
+                    date: '$date',
+                    user: '$userId',
+                },
+                hours: {
+                    '$sum': '$hours'
+                },
+            },
+        },
+        {
+            $sort: {
+                '_id.date': 1,
+            },
+        },
+    ]));
+};
+
 reportReducer.updateById = async (report) => {
     const result = await Report
         .findByIdAndUpdate(report.id, report, {
