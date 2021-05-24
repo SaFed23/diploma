@@ -23,31 +23,13 @@ reportReducer.getById = async (reportId) => {
     }
 };
 
-reportReducer.getByFilter = async (filter) => {
+reportReducer.getUserReports = async (filter) => {
     const report = await Report.getByFilter(filter);
     return getInfoForArray(report);
 };
 
-reportReducer.getByAdminFilter = async (filter) => {
-    console.log(await Report.aggregate([
-        { $match: { date: { $gte: new Date('2021-01-01'), $lte: new Date('2021-10-01') } } },
-        {
-            $group: {
-                _id: {
-                    date: '$date',
-                    user: '$userId',
-                },
-                hours: {
-                    '$sum': '$hours'
-                },
-            },
-        },
-        {
-            $sort: {
-                '_id.date': 1,
-            },
-        },
-    ]));
+reportReducer.getByAdminFilter = (filter) => {
+    return Report.getByAdminFilter(filter)
 };
 
 reportReducer.updateById = async (report) => {

@@ -3,7 +3,7 @@ import { API_ROUTES } from "../constants/apiRoutes";
 import { AUTH } from "./config";
 
 export const getReportsByFilter = (filter) => {
-  return axios.get(`${API_ROUTES.REPORT}/filter`, { ...AUTH, params: { ...filter } });
+  return axios.get(`${API_ROUTES.REPORT}/user/filter`, { ...AUTH, params: { ...filter } });
 };
 
 export const createReport = (report) => {
@@ -16,4 +16,8 @@ export const updateReport = (report) => {
 
 export const deleteReport = (reportId) => {
   return axios.delete(`${API_ROUTES.REPORT}/${reportId}`, AUTH);
+};
+
+export const getAdminReport = (filter) => {
+  return axios.post(`${API_ROUTES.REPORT}/admin/filter`, filter, AUTH);
 };

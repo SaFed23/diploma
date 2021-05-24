@@ -10,6 +10,7 @@ function SelectComponent({
   margin = "none",
   error = '',
   multiple = false,
+  nullValue = true,
 }) {
   return (
     <>
@@ -24,7 +25,9 @@ function SelectComponent({
           error={!!error}
           multiple={multiple}
         >
-          <MenuItem value={''} disabled>-</MenuItem>
+          {nullValue && (
+            <MenuItem value={''} disabled>-</MenuItem>
+          )}
           {values.map(val => (
             <MenuItem
               key={val.id}

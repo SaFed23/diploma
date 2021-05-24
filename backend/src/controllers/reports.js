@@ -18,8 +18,13 @@ reportController.getById = async (ctx) => {
     ctx.status = 200;
 };
 
-reportController.getByFilter = async (ctx) => {
-    ctx.body = await reportReducer.getByFilter(ctx.request.query);
+reportController.getUserReports = async (ctx) => {
+    ctx.body = await reportReducer.getUserReports(ctx.request.query);
+    ctx.status = 200;
+};
+
+reportController.getByAdminFilter = async (ctx) => {
+    ctx.body = await reportReducer.getByAdminFilter(ctx.request.body);
     ctx.status = 200;
 }
 

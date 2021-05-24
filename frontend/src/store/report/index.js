@@ -5,6 +5,7 @@ export {
   createReport,
   updateReport,
   deleteReport,
+  getAdminReport,
 } from './reportExtra';
 
 export const reportAction = reportSlice.actions;

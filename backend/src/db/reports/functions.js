@@ -45,14 +45,63 @@ methods.getInfo = async function () {
 
 statics.getByFilter = async function (filter) {
   const filterObj = {};
+
   if (filter.month) {
     const date = new Date(filter.month);
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     filterObj.date = { $gte: getDate(firstDay), $lte: getDate(lastDay) }
   }
+  if (filter.userId) {
+    filterObj.userId = filter.userId;
+  }
 
   return await this.find(filterObj);
+};
+
+statics.getByAdminFilter = async function (filter) {
+  const obj = {
+    date: { $gte: new Date(filter.start), $lte: new Date(filter.end) },
+  };
+
+  if (filter.users?.length) {
+    obj.userId = { $in: filter.users };
+  }
+
+  const result = await this.aggregate([
+    {
+      $match: obj,
+    },
+    {
+      $group: {
+        _id: { date: '$date', user: '$userId', },
+        hours: { '$sum': '$hours', },
+      },
+    },
+    {
+      $sort: { '_id.date': 1, },
+    },
+  ]);
+
+  const dates = result.reduce((acc, { _id }) => {
+    const date = getDate(_id.date);
+    if (!acc.includes(date)) {
+      acc.push(date);
+    }
+    return acc;
+  }, []);
+
+  const users = result.reduce((acc, { _id, hours }) => {
+    const { user, date } = _id;
+    if (!acc[user]) {
+      acc[user] = {};
+    }
+    acc[user][getDate(date)] = hours;
+
+    return acc;
+  }, {});
+
+  return { dates, users };
 };
 
 module.exports = { methods, statics };

@@ -5,6 +5,7 @@ import {
   reportAction,
   updateReport,
   deleteReport,
+  getAdminReport,
 } from '.';
 import loadingSlice from '../loading/loadingSlice'
 
@@ -35,5 +36,11 @@ export const deleteReportAndFetch = (reportId) => async (dispatch) => {
   dispatch(startLoading());
   await dispatch(deleteReport(reportId));
   await dispatch(getReportByMonth());
+  dispatch(finishLoading());
+};
+
+export const fetchAdminReport = (filter) => async (dispatch) => {
+  dispatch(startLoading());
+  await dispatch(getAdminReport(filter));
   dispatch(finishLoading());
 };

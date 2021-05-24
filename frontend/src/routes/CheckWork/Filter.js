@@ -1,47 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   TextField,
   Grid,
-  IconButton,
   Button,
-  MenuItem,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { yupResolver } from '@hookform/resolvers/yup';
-import useForm from '../../hooks/useForm';
-import { validationSchema, defaultValues } from './Filter.form';
 import { Search } from '@material-ui/icons';
 import SelectComponent from '../../components/common/Select';
-import { getUsers } from '../../service/user';
+import { fetchAdminReport } from '../../store/report';
+import { useDispatch } from 'react-redux';
 
 
 function Filter({
-  handleClose,
-  submit,
+  filter,
+  setFilter,
+  users,
 }) {
   const { t } = useTranslation();
-  const { handleSubmit, formState: { errors }, muiRegister } = useForm({
-    defaultValues,
-    resolver: yupResolver(validationSchema),
-  });
-  const [users, setUsers] = useState([]);
-  const [filter, setFilter] = useState({
-    users: [],
-  });
+  const dispatch = useDispatch();
 
   useEffect(async () => {
-    const { data: users } = await getUsers();
-    setUsers(users.map(user => ({
-      id: user.id,
-      title: user.username,
-    })));
+    dispatch(fetchAdminReport(filter));
   }, []);
 
-  const onSubmit = (value) => {
-    console.log(value);
-    // submit(value);
-    // close();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (new Date(filter.start) <= new Date(filter.end)) {
+      dispatch(fetchAdminReport(filter));
+    }
   };
 
   const handleChange = (field, { value }) => {
@@ -50,11 +37,16 @@ function Filter({
         ...filter,
         users: [...value],
       })
+    } else {
+      setFilter({
+        ...filter,
+        [field]: value,
+      })
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ width: 450 }}>
+    <form onSubmit={onSubmit} style={{ width: 450 }}>
       <Grid container style={{ width: 430, marginLeft: 10, marginRight: 10 }}>
         <Grid item xs={12}>
           <TextField
@@ -64,9 +56,11 @@ function Filter({
             variant="outlined"
             margin="normal"
             autoFocus
-            error={!!errors.startDate}
-            helperText={t(errors.startDate?.message)}
-            {...muiRegister("startDate")}
+            value={filter.start}
+            InputLabelProps={{
+              shrink: true
+            }}
+            onChange={({ target }) => handleChange('start', target)}
             size="small"
           />
         </Grid>
@@ -77,9 +71,11 @@ function Filter({
             label={t("end_date")}
             variant="outlined"
             margin="normal"
-            error={!!errors.endDate}
-            helperText={t(errors.endDate?.message)}
-            {...muiRegister("endDate")}
+            value={filter.end}
+            InputLabelProps={{
+              shrink: true
+            }}
+            onChange={({ target }) => handleChange('end', target)}
             size="small"
           />
         </Grid>
@@ -89,6 +85,7 @@ function Filter({
           values={users}
           currentValue={filter.users}
           onChange={({ target }) => handleChange('users', target)}
+          nullValue={false}
         />
         <Grid item xs={12}>
           <Button

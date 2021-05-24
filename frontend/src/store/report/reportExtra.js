@@ -7,8 +7,9 @@ import { snackbarAction } from '../snackbar';
 export const getReportByMonth = createAsyncThunk('report/getReportByMonth',
   async (_, { dispatch, getState }) => {
     const { currentMonth } = getState().report;
+    const { user } = getState().user;
     try {
-      const { data, status } = await service.getReportsByFilter({ month: currentMonth });
+      const { data, status } = await service.getReportsByFilter({ month: currentMonth, userId: user.id });
       if (status === 200) {
         return data;
       }
@@ -85,6 +86,23 @@ export const deleteReport = createAsyncThunk('report/deleteReport',
   }
 );
 
+export const getAdminReport = createAsyncThunk('report/getAdminReport',
+  async (filter, { dispatch, getState }) => {
+    try {
+      const { data, status } = await service.getAdminReport(filter);
+      if (status === 200) {
+        return data;
+      }
+    } catch (e) {
+      dispatch(snackbarAction.addNotification({
+        message: "error",
+        variant: "error"
+      }));
+    }
+    return null
+  }
+);
+
 
 // extra reducer
 export default {
@@ -92,6 +110,12 @@ export default {
     const data = action.payload;
     if (data) {
       state.data = data;
+    }
+  },
+  [getAdminReport.fulfilled]: (state, action) => {
+    const data = action.payload;
+    if (data) {
+      state.adminReport = data;
     }
   },
 };

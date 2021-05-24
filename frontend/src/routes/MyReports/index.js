@@ -32,6 +32,9 @@ function MyReports() {
     }
   };
 
+  console.log(reports[0] ? reports?.map(report => new Date(report.date)) : new Date());
+  console.log([new Date('2021-05-06')])
+
   return (
     <>
       <Typography variant="h5">
@@ -42,7 +45,11 @@ function MyReports() {
           <Calendar
             locale={localStorage.getItem('lng')}
             minDetail="month"
-            value={reports[0] ? reports?.map(report => new Date(report.date)) : new Date()}
+            tileClassName={({ date }) =>
+              reports.find(r => date.toLocaleDateString() === new Date(r.date).toLocaleDateString())
+                ? 'react-calendar__tile--hasActive'
+                : ''
+            }
             onActiveStartDateChange={(e) => handleChangeMonth(new Date(e.activeStartDate))}
             onClickDay={(e) => handleChooseDay(new Date(e))}
           />
