@@ -7,6 +7,8 @@ import {
   IconButton,
   Divider,
   List,
+  Badge,
+  makeStyles
 } from '@material-ui/core';
 import {
   ChevronRight,
@@ -15,8 +17,16 @@ import {
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { updateTaskAndFetch } from '../../store';
+import { updateTaskAndFetch, useUserData } from '../../store';
 import { useDispatch } from 'react-redux';
+
+const useStyles = makeStyles((theme) => ({
+  badge: {
+    fontSize: 10,
+    height: 15,
+    width: 15
+  }
+}));
 
 function TasksList({
   list,
@@ -25,6 +35,8 @@ function TasksList({
 }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const user = useUserData();
+  const classes = useStyles();
 
   const moveTo = (task, taskStatusId) => {
     const updateTask = {
@@ -50,13 +62,22 @@ function TasksList({
       return (
         <div key={task.id}>
           <Grid key={task.id} container>
-            <Grid item xs={8}>
+            <Grid
+              item
+              xs={8}
+              style={{
+                borderRadius: 5,
+                background: task?.users.find(u => u.id === user.id) && "#76baff",
+              }}
+            >
               <Link
                 to={`/task/${task.id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <ListItem button>
-                  <ListItemText primary={task.title} />
+                  <Badge classes={{ badge: classes.badge }} badgeContent={task?.users.length} color="primary">
+                    <ListItemText primary={task.title} />
+                  </Badge>
                 </ListItem>
               </Link>
             </Grid>
