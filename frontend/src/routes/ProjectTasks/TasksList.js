@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     fontSize: 10,
     height: 15,
-    width: 15
+    width: 15,
+    transform: 'scale(1) translate(150%, -20%)',
   }
 }));
 
