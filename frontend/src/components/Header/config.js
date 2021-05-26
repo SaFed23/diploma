@@ -32,7 +32,7 @@ export const adminConfig = [
   {
     path: '/check-work',
     icon: <AssignmentTurnedIn />,
-    label: 'check_reports',
+    label: 'check_working_time',
   },
   {
     path: '/users',

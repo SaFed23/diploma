@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 
-const drawerWidth = 280;
+const drawerWidth = 300;
 
 export const useStyles = makeStyles((theme) => ({
   menuButton: {
