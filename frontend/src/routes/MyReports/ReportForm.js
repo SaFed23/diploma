@@ -87,16 +87,16 @@ function ReportForm({
       delete obj.id;
     }
 
-    console.log(obj);
-
     const errObj = Object.entries(obj).reduce((acc, [key, value]) => {
       if (key === 'hours' && value < 0) {
         acc.hours = 'time_not_valid';
-      } else if (key !== 'hours' && key !== 'comments' && !value) {
+      } else if (key !== 'hours' && key !== 'comment' && !value) {
         acc[key] = 'required_field';
       }
       return acc;
     }, {});
+
+    console.log(errObj);
 
     if (Object.keys(errObj).length) {
       setError(errObj);
@@ -177,7 +177,7 @@ function ReportForm({
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <TextField
+        {/* <TextField
           label={t("comment")}
           fullWidth
           multiline
@@ -186,7 +186,7 @@ function ReportForm({
           variant="outlined"
           value={currentReport.comment}
           onChange={({ target }) => handleChange('comment', target.value)}
-        />
+        /> */}
       </Grid>
       <Grid container justify="space-between">
         <Grid item xs={3}>

@@ -82,6 +82,7 @@ function Filter({
         <SelectComponent
           fullWidth
           multiple
+          title={t("users")}
           values={users}
           currentValue={filter.users}
           onChange={({ target }) => handleChange('users', target)}
